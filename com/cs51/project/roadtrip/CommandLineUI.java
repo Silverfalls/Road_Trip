@@ -1,3 +1,5 @@
+package com.cs51.project.roadtrip;
+
 import java.util.Scanner;
 
 /**

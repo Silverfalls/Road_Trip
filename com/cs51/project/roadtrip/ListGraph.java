@@ -1,4 +1,4 @@
-/**
+package com.cs51.project.roadtrip; /**
  * Created by Alexander on 16.04.2015.
  */
 

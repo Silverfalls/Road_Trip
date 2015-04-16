@@ -62,13 +62,19 @@ public class CommandLineUI implements UI {
     }
 
     public CommandLineUI() {
+
+    }
+
+    @Override
+    public void initialize() {
+
+    }
+
+    @Override
+    public void execute() {
         System.out.println("Welcome to Road Trip\n" +
                 "If you need help with the possible commands enter options\n" +
                 "If you want to exit the programm please enter exit ");
         getUserInput();
-    }
-
-    public static void main (String[] args){
-        CommandLineUI ui = new CommandLineUI();
     }
 }

@@ -14,6 +14,7 @@ public class ListGraph implements Graph {
 
     @Override
     public void initGraph() {
+        //TODO buildin some randomness to this
 
         nodes.add(0,new Node(0, 0, 0, "A",true));
         for (int i = 1; i < 4; i++) {

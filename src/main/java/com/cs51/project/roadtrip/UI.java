@@ -11,4 +11,6 @@ public interface UI {
     public void exitProgram();
     public void displayComparisonResults();
     public void updateComparisonResults();
+    public void execute();
+    public void initialize();
 }

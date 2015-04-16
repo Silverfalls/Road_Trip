@@ -1,16 +1,51 @@
 package com.cs51.project.roadtrip.uis;
 
+import com.cs51.project.roadtrip.common.Result;
 import com.cs51.project.roadtrip.common.RoadTripConstants;
 import com.cs51.project.roadtrip.graphs.ListGraph;
 import com.cs51.project.roadtrip.graphs.Node;
+import com.cs51.project.roadtrip.interfaces.Algorithm;
+import com.cs51.project.roadtrip.interfaces.Graph;
 import com.cs51.project.roadtrip.interfaces.UI;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
  * Created by Alexander on 16.04.2015.
  */
 public class CommandLineUI implements UI {
+
+    private static final String WAITING_INDICATOR = "...";
+    private static final String WELCOME_MESSAGE = "Welcome to Road Trip";
+
+    //TODO somewhere in this flow we need to squeeze in the option to print hte distance matrix
+    //UI flow
+    //welcomes user
+    //provides options and waits for input
+    //options:
+        //help - has some descriptions of how to do things
+        //run basic comparision
+            //ask for number of nodes in graph
+                //say user enters 5, then we create a graph of 5 nodes
+            //ask what algorithms to run on (any one, any combo, or all)
+                //we can vet out how this is displayed, but then we can create new algorithm objects from UI based on selection
+            //prompts user to press enter to run or something
+                //create new BasicComparisonService object and pass it the graph we just created and the list of algorithms
+            //comparison runs
+            //results are displayed... go back to top
+        //run race comparison (similar to basic, will implement this if time)
+            //ask for number of nodes in graph
+                //say user enters 5, then we create a graph of 5 nodes
+            //ask what algorithms to run on (any one, any combo, or all)
+                //we can vet out how this is displayed, but then we can create new algorithm objecs from UI based on selection
+            //prompts user to press enter to run or something
+                //create new RaceComparisonService object and pass it the graph we just created and the list of algorithms
+            //comparison runs
+            //results are displayed... go back to top
+        //exit
+
+
 
     @Override
     public void displayOptions() {
@@ -28,17 +63,16 @@ public class CommandLineUI implements UI {
         while (true){
             String command = scanner.next();
 
-            if (command.equalsIgnoreCase("exit")){
-                exitProgram();
-            }
-            else if (command.equalsIgnoreCase("compare")){
-                runComparison();
-            }
-            else if (command.equalsIgnoreCase("options")){
-                displayOptions();
-            }
-            else if (command.equalsIgnoreCase("results")){
-                displayComparisonResults();
+            //TODO consider putting these options in an Enum
+            switch (command) {
+                case "exit":
+                    exitProgram();
+                case "compare":
+                    runComparison();
+                case "options":
+                    displayOptions();
+                case "results":
+//                    displayComparisonResults();
             }
         }
     }
@@ -46,7 +80,7 @@ public class CommandLineUI implements UI {
     @Override
     public void runComparison() {
         ListGraph listGraph = new ListGraph();
-        listGraph.initGraph();
+        listGraph.initGraph(5);
         Node n1 = listGraph.getNodeById(0);
 
     }
@@ -57,7 +91,7 @@ public class CommandLineUI implements UI {
     }
 
     @Override
-    public void displayComparisonResults() {
+    public void displayComparisonResults(List<Result> results) {
 
     }
 
@@ -72,6 +106,11 @@ public class CommandLineUI implements UI {
 
     @Override
     public void initialize() {
+
+    }
+
+    @Override
+    public void showDistanceMatrix(Graph graph) {
 
     }
 

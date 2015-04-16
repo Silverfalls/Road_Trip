@@ -1,13 +1,17 @@
 package com.cs51.project.roadtrip.interfaces;
 
+import com.cs51.project.roadtrip.common.Result;
+import com.cs51.project.roadtrip.enums.CompType;
+
+import java.util.List;
+
 /**
  * Created by Alexander on 14.04.2015.
  */
 public interface ComparisonService {
     //TODO: implement the real ComparisonService Interface
-    public void init();
-    public void createGraph();
-    public void getGraphOptimalSolution();
-    public void startAlgorithm();
-    public void runComparison();
+
+    public List<Result> executeComparison(Graph graph, List<Algorithm> algs) throws Exception;
+
+
 }

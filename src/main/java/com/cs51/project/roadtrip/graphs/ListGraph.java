@@ -6,6 +6,7 @@ import com.cs51.project.roadtrip.interfaces.Graph;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +16,13 @@ public class ListGraph implements Graph {
     private List<Node> nodes = new ArrayList<>();
 
     @Override
-    public void initGraph() {
+    public TreeMap<String, double[]> getDistanceMatrix() {
+        return null;
+    }
+
+    @Override
+    public void initGraph(int numNodes) {
+        //TODO don't forget to make this based on numNodes
         //TODO buildin some randomness to this
 
         nodes.add(0,new Node(0, 0, 0, "A",true));

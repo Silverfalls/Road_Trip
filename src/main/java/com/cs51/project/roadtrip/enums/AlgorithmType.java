@@ -3,7 +3,7 @@ package com.cs51.project.roadtrip.enums;
 import com.cs51.project.roadtrip.algorithms.BranchAndBoundAlgorithm;
 import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.algorithms.NearestNeighborAlgorithm;
-import com.cs51.project.roadtrip.interfaces.Algorithm;
+import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 
 /**
  * Created by robertschupp on 4/16/15.
@@ -15,16 +15,16 @@ public enum AlgorithmType {
 
     private String name;
     private String desc;
-    private Algorithm alg;
+    private IAlgorithm alg;
 
-    AlgorithmType(String name, String desc, Algorithm alg) {
+    AlgorithmType(String name, String desc, IAlgorithm alg) {
         this.name = name;
         this.desc = desc;
         this.alg = alg;
     }
 
     //TODO
-    public Algorithm getAlgorithmByType(AlgorithmType type) {
+    public IAlgorithm getAlgorithmByType(AlgorithmType type) {
 
         return null;
     }

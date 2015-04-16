@@ -5,8 +5,8 @@ import com.cs51.project.roadtrip.common.Result;
 /**
  * Created by Alexander on 14.04.2015.
  */
-public interface Algorithm {
+public interface IAlgorithm {
     //TODO: implement the real Algorithm Interface
-    public Result execute(Graph graph);
+    public Result execute(IGraph graph);
     public void reset();
 }

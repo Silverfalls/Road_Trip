@@ -7,7 +7,7 @@ import java.util.TreeMap;
 /**
  * Created by Alexander on 14.04.2015.
  */
-public interface Graph {
+public interface IGraph {
     //TODO: implement the real Graph Interface
     void initGraph(int numNodes);
     Node getRandomNeighbor(Node n1);

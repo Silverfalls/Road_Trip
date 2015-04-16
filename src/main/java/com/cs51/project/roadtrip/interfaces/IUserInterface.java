@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Alexander on 14.04.2015.
  */
-public interface UI {
+public interface IUserInterface {
     //TODO: implement the real UI Interface
     public void displayOptions();
     public void getUserInput();
@@ -19,5 +19,5 @@ public interface UI {
     public void updateComparisonResults();
     public void execute();
     public void initialize();
-    public void showDistanceMatrix(Graph graph);
+    public void showDistanceMatrix(IGraph graph);
 }

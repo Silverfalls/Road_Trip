@@ -1,15 +1,15 @@
 package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.common.Result;
-import com.cs51.project.roadtrip.interfaces.Algorithm;
-import com.cs51.project.roadtrip.interfaces.Graph;
+import com.cs51.project.roadtrip.interfaces.IAlgorithm;
+import com.cs51.project.roadtrip.interfaces.IGraph;
 
 /**
  * Created by robertschupp on 4/16/15.
  */
-public class BruteForceAlgorithm implements Algorithm {
+public class BruteForceAlgorithm implements IAlgorithm {
     @Override
-    public Result execute(Graph graph) {
+    public Result execute(IGraph graph) {
         return null;
     }
 

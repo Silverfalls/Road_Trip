@@ -2,7 +2,7 @@ package com.cs51.project.roadtrip.graphs; /**
  * Created by Alexander on 16.04.2015.
  */
 
-import com.cs51.project.roadtrip.interfaces.Graph;
+import com.cs51.project.roadtrip.interfaces.IGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 /**
  * A very simple and dumb implementation using a standard List
  */
-public class ListGraph implements Graph {
+public class ListGraph implements IGraph {
     private List<Node> nodes = new ArrayList<>();
 
     @Override

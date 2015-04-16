@@ -1,6 +1,6 @@
 package com.cs51.project.roadtrip;
 
-import com.cs51.project.roadtrip.interfaces.UI;
+import com.cs51.project.roadtrip.interfaces.IUserInterface;
 import com.cs51.project.roadtrip.uis.CommandLineUI;
 
 /**
@@ -9,9 +9,9 @@ import com.cs51.project.roadtrip.uis.CommandLineUI;
 public class Main {
 
     public static void main (String [] args) {
-        UI commandUI = new CommandLineUI();
+        IUserInterface commandUI = new CommandLineUI();
         commandUI.initialize();
         commandUI.execute();
     }
-    
+
 }

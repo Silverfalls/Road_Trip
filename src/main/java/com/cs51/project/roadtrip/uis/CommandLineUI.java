@@ -4,8 +4,8 @@ import com.cs51.project.roadtrip.common.Result;
 import com.cs51.project.roadtrip.common.RoadTripConstants;
 import com.cs51.project.roadtrip.graphs.ListGraph;
 import com.cs51.project.roadtrip.graphs.Node;
-import com.cs51.project.roadtrip.interfaces.Graph;
-import com.cs51.project.roadtrip.interfaces.UI;
+import com.cs51.project.roadtrip.interfaces.IGraph;
+import com.cs51.project.roadtrip.interfaces.IUserInterface;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ import java.util.Scanner;
 /**
  * Created by Alexander on 16.04.2015.
  */
-public class CommandLineUI implements UI {
+public class CommandLineUI implements IUserInterface {
 
     private static final String WAITING_INDICATOR = "...";
 
@@ -113,7 +113,7 @@ public class CommandLineUI implements UI {
     }
 
     @Override
-    public void showDistanceMatrix(Graph graph) {
+    public void showDistanceMatrix(IGraph graph) {
 
     }
 

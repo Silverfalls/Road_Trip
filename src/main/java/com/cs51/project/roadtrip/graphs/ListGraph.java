@@ -17,6 +17,7 @@ public class ListGraph implements IGraph {
 
     @Override
     public TreeMap<String, double[]> getDistanceMatrix() {
+
         return null;
     }
 
@@ -40,6 +41,16 @@ public class ListGraph implements IGraph {
         return nodeStream.filter(n -> n != n1)
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override
+    public Node getClosestNeighbor(Node n1) {
+        return null;
+    }
+
+    @Override
+    public Node getFurthestNeighbor(Node n1) {
+        return null;
     }
 
     @Override

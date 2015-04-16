@@ -45,7 +45,6 @@ public class CommandLineUI implements IUserInterface {
 
 
 
-    @Override
     public void displayOptions() {
         //TODO: this needs some work
 //        System.out.println("Possible commandline inputs:\n" +
@@ -60,7 +59,7 @@ public class CommandLineUI implements IUserInterface {
         System.out.println("'Q' : Quit");
     }
 
-    @Override
+
     public void getUserInput() {
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -80,7 +79,6 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
-    @Override
     public void runComparison() {
         ListGraph listGraph = new ListGraph();
         listGraph.initGraph(5);
@@ -88,34 +86,29 @@ public class CommandLineUI implements IUserInterface {
 
     }
 
-    @Override
     public void exitProgram() {
         System.exit(0);
     }
 
-    @Override
     public void displayComparisonResults(List<Result> results) {
 
     }
 
-    @Override
-    public void updateComparisonResults() {
+//    @Override
+//    public void updateComparisonResults() {
+//
+//    }
 
-    }
 
-    public CommandLineUI() {
+//    @Override
+//    public void initialize() {
+//
+//    }
 
-    }
-
-    @Override
-    public void initialize() {
-
-    }
-
-    @Override
-    public void showDistanceMatrix(IGraph graph) {
-
-    }
+//    @Override
+//    public void showDistanceMatrix(IGraph graph) {
+//
+//    }
 
     @Override
     public void execute() {

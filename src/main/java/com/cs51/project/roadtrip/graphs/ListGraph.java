@@ -1,6 +1,8 @@
-package com.cs51.project.roadtrip; /**
+package com.cs51.project.roadtrip.graphs; /**
  * Created by Alexander on 16.04.2015.
  */
+
+import com.cs51.project.roadtrip.interfaces.Graph;
 
 import java.util.ArrayList;
 import java.util.List;

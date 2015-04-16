@@ -1,4 +1,4 @@
-package com.cs51.project.roadtrip;
+package com.cs51.project.roadtrip.interfaces;
 
 /**
  * Created by Alexander on 14.04.2015.

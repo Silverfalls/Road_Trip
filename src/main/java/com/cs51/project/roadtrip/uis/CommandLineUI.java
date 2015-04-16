@@ -1,4 +1,9 @@
-package com.cs51.project.roadtrip;
+package com.cs51.project.roadtrip.uis;
+
+import com.cs51.project.roadtrip.common.RoadTripConstants;
+import com.cs51.project.roadtrip.graphs.ListGraph;
+import com.cs51.project.roadtrip.graphs.Node;
+import com.cs51.project.roadtrip.interfaces.UI;
 
 import java.util.Scanner;
 
@@ -72,7 +77,7 @@ public class CommandLineUI implements UI {
 
     @Override
     public void execute() {
-        System.out.println("Welcome to Road Trip\n" +
+        System.out.println("Welcome to " + RoadTripConstants.PROGRAM_NAME + "\n" +
                 "If you need help with the possible commands enter options\n" +
                 "If you want to exit the programm please enter exit ");
         getUserInput();

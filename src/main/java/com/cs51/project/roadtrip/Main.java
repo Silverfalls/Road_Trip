@@ -1,5 +1,8 @@
 package com.cs51.project.roadtrip;
 
+import com.cs51.project.roadtrip.interfaces.UI;
+import com.cs51.project.roadtrip.uis.CommandLineUI;
+
 /**
  * Created by robertschupp on 4/16/15.
  */

@@ -3,10 +3,10 @@
  */
 public interface Graph {
     //TODO: implement the real Graph Interface
-    public void initGraph();
-    public void getRandomNeighbor();
-    public void getDistance(Node n1, Node n2);
-    public void getNodeById(long id);
-    public void getNodeByName(String name);
+    void initGraph();
+    Node getRandomNeighbor(Node n1);
+    double getDistance(Node n1, Node n2);
+    Node getNodeById(long id);
+    Node getNodeByName(String name);
 
 }

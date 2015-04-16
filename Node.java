@@ -9,6 +9,16 @@ public class Node {
     private boolean isStartingNode;
     private boolean visited;
 
+    //Added this to initialize a Node
+    public Node(long id, int xCoord, int yCoord, String name, boolean isStartingNode) {
+        this.id = id;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.name = name;
+        this.isStartingNode = isStartingNode;
+        visited = false;
+    }
+
     public long getId() {
         return id;
     }

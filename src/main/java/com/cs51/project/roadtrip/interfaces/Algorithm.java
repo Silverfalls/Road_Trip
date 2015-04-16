@@ -5,5 +5,5 @@ package com.cs51.project.roadtrip.interfaces;
  */
 public interface Algorithm {
     //TODO: implement the real Algorithm Interface
-    public void excecute();
+    public void execute();
 }

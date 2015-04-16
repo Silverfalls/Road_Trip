@@ -1,6 +1,5 @@
 package com.cs51.project.roadtrip.services;
 
-import com.cs51.project.roadtrip.common.AlgorithmResult;
 import com.cs51.project.roadtrip.common.Result;
 import com.cs51.project.roadtrip.enums.CompType;
 import com.cs51.project.roadtrip.interfaces.Algorithm;

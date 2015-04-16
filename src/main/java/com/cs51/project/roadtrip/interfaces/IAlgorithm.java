@@ -1,6 +1,6 @@
 package com.cs51.project.roadtrip.interfaces;
 
-import com.cs51.project.roadtrip.common.Result;
+import com.cs51.project.roadtrip.common.dto.Result;
 
 /**
  * Created by Alexander on 14.04.2015.

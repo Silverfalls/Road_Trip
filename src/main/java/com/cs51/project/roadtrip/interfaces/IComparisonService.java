@@ -1,6 +1,6 @@
 package com.cs51.project.roadtrip.interfaces;
 
-import com.cs51.project.roadtrip.common.Result;
+import com.cs51.project.roadtrip.common.dto.Result;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.cs51.project.roadtrip.common;
+package com.cs51.project.roadtrip.common.constants;
 
 /**
  * Created by robertschupp on 4/16/15.

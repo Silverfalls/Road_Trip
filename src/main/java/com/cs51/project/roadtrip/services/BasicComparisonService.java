@@ -1,6 +1,6 @@
 package com.cs51.project.roadtrip.services;
 
-import com.cs51.project.roadtrip.common.Result;
+import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IComparisonService;
 import com.cs51.project.roadtrip.interfaces.IGraph;

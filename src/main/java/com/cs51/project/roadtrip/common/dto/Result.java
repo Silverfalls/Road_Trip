@@ -1,4 +1,4 @@
-package com.cs51.project.roadtrip.common;
+package com.cs51.project.roadtrip.common.dto;
 
 import java.util.Optional;
 

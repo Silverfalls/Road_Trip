@@ -1,4 +1,4 @@
-package com.cs51.project.roadtrip.algorithms;
+package com.cs51.project.roadtrip.algorithms.base;
 
 /**
  * Created by robertschupp on 4/16/15.

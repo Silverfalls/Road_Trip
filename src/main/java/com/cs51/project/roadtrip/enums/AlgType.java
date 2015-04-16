@@ -8,7 +8,7 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 /**
  * Created by robertschupp on 4/16/15.
  */
-public enum AlgorithmType {
+public enum AlgType {
     BRUTE_FORCE("Brute Force", "description", new BruteForceAlgorithm()),
     NEAREST_NEIGHBOR("Nearest Neighbor", "description", new NearestNeighborAlgorithm()),
     BRANCH_AND_BOUND("Branch and Bound", "description", new BranchAndBoundAlgorithm());
@@ -17,14 +17,14 @@ public enum AlgorithmType {
     private String desc;
     private IAlgorithm alg;
 
-    AlgorithmType(String name, String desc, IAlgorithm alg) {
+    AlgType(String name, String desc, IAlgorithm alg) {
         this.name = name;
         this.desc = desc;
         this.alg = alg;
     }
 
     //TODO
-    public IAlgorithm getAlgorithmByType(AlgorithmType type) {
+    public IAlgorithm getAlgorithmByType(AlgType type) {
 
         return null;
     }

@@ -1,7 +1,7 @@
 package com.cs51.project.roadtrip.uis;
 
-import com.cs51.project.roadtrip.common.Result;
-import com.cs51.project.roadtrip.common.RoadTripConstants;
+import com.cs51.project.roadtrip.common.dto.Result;
+import com.cs51.project.roadtrip.common.constants.RoadTripConstants;
 import com.cs51.project.roadtrip.graphs.ListGraph;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IGraph;

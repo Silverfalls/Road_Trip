@@ -2,16 +2,16 @@ package com.cs51.project.roadtrip;
 
 import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.graphs.ListGraph;
-import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import com.cs51.project.roadtrip.interfaces.IUserInterface;
 import com.cs51.project.roadtrip.uis.CommandLineUI;
-
-import java.util.Random;
+import org.apache.log4j.Logger;
 
 
 public class Main {
+
+    private static Logger logger = Logger.getLogger(Main.class);
 
     public static void main (String [] args) {
 
@@ -26,6 +26,9 @@ public class Main {
 //        System.out.println("N0 closest unvisited neighbor = " + graph.getClosestUnvisitedNeighbor(graph.getNodeByName("N0")).getName());
 
         //this was just a test to see that the permutation stuff i had was working... still needs work
+
+        logger.error("this is a test error");
+
         IGraph graph = new ListGraph(3);
         IAlgorithm bfAlg = new BruteForceAlgorithm();
         bfAlg.execute(graph);

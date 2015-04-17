@@ -14,7 +14,10 @@ import java.util.stream.Stream;
 public class ListGraph implements IGraph {
 
     //TODO something to keep in mind... we might be able to reuse most of the code for get closest neighbor and getfurthest neighbor and
-    //TODO use some lambda... they're pretty much the same except one uses > and the other <
+    //TODO use some lambdas... they're pretty much the same except one uses > and the other < and an isVisitedCheck... we should talk about these...
+    //TODO i think there's a lot of room for improvement
+    //TODO please ignore the repeated code for now... we can fix that
+    //TODO i read that there is a reduce function in Java 8 now.. maybe we can use that for closest and furthest
 
 
     private static final String NODE_NAME_PREFIX = "N";
@@ -35,10 +38,9 @@ public class ListGraph implements IGraph {
         nodes = new ArrayList<>(numNodes);
         random = new Random();
 
-        List<Coordinate> coordsUsed = new ArrayList<>();
+        List<Coordinate> coordsUsed = new ArrayList<>(numNodes);
 
         for (int i = 0; i < numNodes; i++) {
-            //TODO we have some repeating code here... can we shorten this with a lambda?
 
             Coordinate coord;
 
@@ -49,6 +51,7 @@ public class ListGraph implements IGraph {
 
             coordsUsed.add(coord);
 
+            //TODO we have some repeating code here... can we shorten this with a lambda?
             if (i == 0) {
                 nodes.add(new Node(i, coord.getX(), coord.getY(), (NODE_NAME_PREFIX + i), true));
             } else {
@@ -65,20 +68,20 @@ public class ListGraph implements IGraph {
 
         TreeMap<Node, TreeMap<Node, Double>> matrix = new TreeMap<Node, TreeMap<Node, Double>>();
 
-        for (Node thisN : nodes) {
-            TreeMap<Node, Double> thisMap = new TreeMap<Node, Double>();
+        for (Node thisNode : nodes) {
+            TreeMap<Node, Double> thisMap = new TreeMap<>();
 
-            for (Node thatN : nodes) {
-                if (thisN == thatN) {
+            for (Node thatNode : nodes) {
+                if (thisNode == thatNode) {
                     continue;
                 }
-                if (matrix.get(thatN) != null && matrix.get(thatN).get(thisN) != null) {
-                    thisMap.put(thatN, matrix.get(thatN).get(thisN));
+                if (matrix.get(thatNode) != null && matrix.get(thatNode).get(thisNode) != null) {
+                    thisMap.put(thatNode, matrix.get(thatNode).get(thisNode));
                     continue;
                 }
-                thisMap.put(thatN, calcDistance(thisN, thatN));
+                thisMap.put(thatNode, calcDistance(thisNode, thatNode));
             }
-            matrix.put(thisN, thisMap);
+            matrix.put(thisNode, thisMap);
         }
 
         return matrix;
@@ -142,19 +145,55 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getClosestUnvisitedNeighbor(Node n1) {
-       Node n2 = null;
-       do {
-           n2 = getClosestNeighbor(n1);
-       } while (n2.isVisited());
-       return n2;
+        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
+        if (n1 == null || distanceMatrix.get(n1) == null) {
+            return null;
+        }
+
+        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
+        Node n2 = null;
+        double minDist = 0;
+
+        for (Node thatN : thisMap.keySet()) {
+            double thisDist = thisMap.get(thatN);
+            if (n2 == null && !thatN.isVisited()) {
+                n2 = thatN;
+                minDist = thisDist;
+                continue;
+            }
+            if (thisDist < minDist && !thatN.isVisited()) {
+                n2 = thatN;
+                minDist = thisDist;
+            }
+        }
+
+        return n2;
     }
 
     @Override
     public Node getFurthestUnvisitedNeighbor(Node n1) {
+        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
+        if (n1 == null || distanceMatrix.get(n1) == null) {
+            return null;
+        }
+
+        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
         Node n2 = null;
-        do {
-            n2 = getFurthestNeighbor(n1);
-        } while (n2.isVisited());
+        double maxDist = 0;
+
+        for (Node thatN : thisMap.keySet()) {
+            double thisDist = thisMap.get(thatN);
+            if (n2 == null && !thatN.isVisited()) {
+                n2 = thatN;
+                maxDist = thisDist;
+                continue;
+            }
+            if (thisDist > maxDist && !thatN.isVisited()) {
+                n2 = thatN;
+                maxDist = thisDist;
+            }
+        }
+
         return n2;
     }
 

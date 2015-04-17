@@ -4,6 +4,7 @@ import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
+import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,6 +12,11 @@ import java.util.List;
 
 
 public class BruteForceAlgorithm implements IAlgorithm {
+
+    /**
+     * Logger Instance
+     */
+    private static Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
 
     Result result = null;
 

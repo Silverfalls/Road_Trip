@@ -4,6 +4,7 @@ import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IComparisonService;
 import com.cs51.project.roadtrip.interfaces.IGraph;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -11,6 +12,11 @@ import java.util.List;
  * Created by robertschupp on 4/16/15.
  */
 public class BasicComparisonService implements IComparisonService {
+
+    /**
+     * Logger Instance
+     */
+    private static Logger logger = Logger.getLogger(BasicComparisonService.class);
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs) {
         return null;

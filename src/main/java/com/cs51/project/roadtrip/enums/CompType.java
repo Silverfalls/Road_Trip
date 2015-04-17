@@ -1,5 +1,7 @@
 package com.cs51.project.roadtrip.enums;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,11 @@ import java.util.List;
 public enum CompType {
 
     BASIC("Basic Comparison", "TODO description of basic comparison");
+
+    /**
+     * Logger Instance
+     */
+    private static Logger logger = Logger.getLogger(CompType.class);
 
     //we will implement this if we have time
 //    RACE("Race Comparison", "TODO description");

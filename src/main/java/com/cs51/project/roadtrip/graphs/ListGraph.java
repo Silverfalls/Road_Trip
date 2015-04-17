@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.graphs;
 
 
 import com.cs51.project.roadtrip.interfaces.IGraph;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,6 +13,11 @@ import java.util.stream.Stream;
  * A very simple and dumb implementation using a standard List
  */
 public class ListGraph implements IGraph {
+
+    /**
+     * Logger Instance
+     */
+    private static Logger logger = Logger.getLogger(ListGraph.class);
 
     //TODO something to keep in mind... we might be able to reuse most of the code for get closest neighbor and getfurthest neighbor and
     //TODO use some lambdas... they're pretty much the same except one uses > and the other < and an isVisitedCheck... we should talk about these...

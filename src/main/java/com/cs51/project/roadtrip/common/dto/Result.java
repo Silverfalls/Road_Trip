@@ -2,9 +2,7 @@ package com.cs51.project.roadtrip.common.dto;
 
 import java.util.Optional;
 
-/**
- * Created by Alexander on 14.04.2015.
- */
+
 public class Result {
     private Optional<Boolean> isOptimal;
     private long runningTime;

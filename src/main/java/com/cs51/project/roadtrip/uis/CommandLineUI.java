@@ -10,9 +10,7 @@ import com.cs51.project.roadtrip.interfaces.IUserInterface;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Created by Alexander on 16.04.2015.
- */
+
 public class CommandLineUI implements IUserInterface {
 
     private static final String WAITING_INDICATOR = "...";
@@ -80,9 +78,9 @@ public class CommandLineUI implements IUserInterface {
     }
 
     public void runComparison() {
-        ListGraph listGraph = new ListGraph();
-        listGraph.initGraph(5);
-        Node n1 = listGraph.getNodeById(0);
+//        ListGraph listGraph = new ListGraph(5);
+//        listGraph.initGraph(5);
+//        Node n1 = listGraph.getNodeById(0);
 
     }
 

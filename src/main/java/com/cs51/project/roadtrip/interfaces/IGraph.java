@@ -5,16 +5,15 @@ import com.cs51.project.roadtrip.graphs.Node;
 import java.util.TreeMap;
 
 //TODO fill in javadocs
-/**
- * Created by Alexander on 14.04.2015.
- */
+
 public interface IGraph {
 
+    //TODO got rid of this to help get rid of some null checks ... just put this in the constructor
     /**
      *
      * @param numNodes
      */
-    public void initGraph(int numNodes);
+//    public void initGraph(int numNodes);
 
     /**
      *
@@ -42,6 +41,13 @@ public interface IGraph {
      * @param n1
      * @return
      */
+    public Node getRandomUnvisitedNeighbor(Node n1);
+
+    /**
+     *
+     * @param n1
+     * @return
+     */
     public Node getClosestNeighbor(Node n1);
 
     /**
@@ -49,7 +55,21 @@ public interface IGraph {
      * @param n1
      * @return
      */
+    public Node getClosestUnvisitedNeighbor(Node n1);
+
+    /**
+     *
+     * @param n1
+     * @return
+     */
     public Node getFurthestNeighbor(Node n1);
+
+    /**
+     *
+     * @param n1
+     * @return
+     */
+    public Node getFurthestUnvisitedNeighbor(Node n1);
 
     /**
      *
@@ -63,6 +83,6 @@ public interface IGraph {
      *
      * @return
      */
-    public TreeMap<String, double[]> getDistanceMatrix();
+    public TreeMap<Node, TreeMap<Node, Double>> getDistanceMatrix();
 
 }

@@ -1,9 +1,7 @@
 package com.cs51.project.roadtrip.graphs;
 
-/**
- * Created by Alexander on 14.04.2015.
- */
-public class Node {
+
+public class Node implements Comparable {
     private long id;
     private int xCoord;
     private int yCoord;
@@ -67,5 +65,11 @@ public class Node {
 
     public void setVisited(boolean visited) {
         this.visited = visited;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        //TODO well... is this ok?  should we be throwing a cast class exception or something here???
+        return this.name.compareTo(((Node) o).getName());
     }
 }

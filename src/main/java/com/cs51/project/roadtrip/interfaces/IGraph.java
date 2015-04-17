@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.interfaces;
 
 import com.cs51.project.roadtrip.graphs.Node;
 
+import java.util.List;
 import java.util.TreeMap;
 
 //TODO fill in javadocs
@@ -14,6 +15,12 @@ public interface IGraph {
      * @param numNodes
      */
 //    public void initGraph(int numNodes);
+
+    /**
+     *
+     * @return
+     */
+    public List<Node> getListOfNodes();
 
     /**
      *
@@ -78,6 +85,12 @@ public interface IGraph {
      * @return
      */
     public double getDistance(Node n1, Node n2);
+
+    /**
+     *
+     * @return
+     */
+    public Node getStartingNode();
 
     /**
      *

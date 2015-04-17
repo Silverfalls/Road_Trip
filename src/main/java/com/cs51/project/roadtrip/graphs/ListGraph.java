@@ -20,6 +20,8 @@ public class ListGraph implements IGraph {
     //TODO i read that there is a reduce function in Java 8 now.. maybe we can use that for closest and furthest
 
 
+
+
     private static final String NODE_NAME_PREFIX = "N";
     private static final int MAX_PLANE_COORD = 100;
     private static final int DISTANCE_NUM_DECIMALS = 2;
@@ -61,6 +63,8 @@ public class ListGraph implements IGraph {
 
         distanceMatrix = generateDistanceMatrix();
     }
+
+
 
     private TreeMap<Node, TreeMap<Node, Double>> generateDistanceMatrix() {
 
@@ -114,6 +118,12 @@ public class ListGraph implements IGraph {
     }
 
     //Public interface methods below TODO link to Interface javadocs for each of these methods
+
+    @Override
+    public List<Node> getListOfNodes() {
+        return nodes;
+    }
+
     @Override
     public double getDistance(Node n1, Node n2) {
         return distanceMatrix.get(n1).get(n2);
@@ -122,6 +132,11 @@ public class ListGraph implements IGraph {
     @Override
     public TreeMap<Node, TreeMap<Node, Double>> getDistanceMatrix() {
         return distanceMatrix;
+    }
+
+    @Override
+    public Node getStartingNode() {
+        return nodes.stream().filter(n -> n.isStartingNode()).findAny().orElse(null);
     }
 
     @Override

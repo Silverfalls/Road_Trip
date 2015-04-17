@@ -79,6 +79,7 @@ public class ListGraph implements IGraph {
                 if (thisNode == thatNode) {
                     continue;
                 }
+                //TODO run some test on whether or not this is actually an optimization (ie, traversing tree twice)
                 if (matrix.get(thatNode) != null && matrix.get(thatNode).get(thisNode) != null) {
                     thisMap.put(thatNode, matrix.get(thatNode).get(thisNode));
                     continue;

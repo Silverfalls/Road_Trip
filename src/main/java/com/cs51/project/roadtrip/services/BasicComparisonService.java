@@ -6,6 +6,7 @@ import com.cs51.project.roadtrip.interfaces.IComparisonService;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +20,13 @@ public class BasicComparisonService implements IComparisonService {
     private static Logger logger = Logger.getLogger(BasicComparisonService.class);
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs) {
-        return null;
+
+        //TODO i just stubbed this out for the command UI while I was working on it.. feel free to do as you please
+        Result result = new Result();
+        List<Result> results = new ArrayList<>();
+        results.add(result);
+
+        return results;
     }
 
 }

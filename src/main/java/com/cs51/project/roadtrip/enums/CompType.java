@@ -11,19 +11,21 @@ import com.cs51.project.roadtrip.services.BasicComparisonService;
  */
 public enum CompType {
 
-    BASIC("Basic Comparison", "TODO description of basic comparison", "B", new BasicComparisonService());
-//    BASIC("Basic Comparison", "description", "B", new BasicComparisonService()),
-//    RACE("Race Comparison", "description", "R", new RaceComparisonService());
+    BASIC("Basic Comparison", "TODO description of basic comparison", "B", true, new BasicComparisonService());
+//    BASIC("Basic Comparison", "description", "B", true, new BasicComparisonService()),
+//    RACE("Race Comparison", "description", "R", false, new RaceComparisonService());
 
     private final String name;
     private final String desc;
     private final String optionChar;
+    private final boolean shouldPromptNumNodes;
     private final IComparisonService service;
 
-    CompType(String name, String desc, String optionChar, IComparisonService service) {
+    CompType(String name, String desc, String optionChar, boolean shouldPromptNumNodes, IComparisonService service) {
         this.name = name;
         this.desc = desc;
         this.optionChar = optionChar;
+        this.shouldPromptNumNodes = shouldPromptNumNodes;
         this.service = service;
     }
 
@@ -38,6 +40,8 @@ public enum CompType {
     public String getOptionChar() {
         return optionChar;
     }
+
+    public boolean shouldPromptNumNodes() { return shouldPromptNumNodes; }
 
     public IComparisonService getService() {
         return service;

@@ -4,34 +4,40 @@ import com.cs51.project.roadtrip.algorithms.BranchAndBoundAlgorithm;
 import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.algorithms.NearestNeighborAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
-import org.apache.log4j.Logger;
 
 /**
- * Created by robertschupp on 4/16/15.
+ * TODO java doc needs filled out
  */
 public enum AlgType {
-    BRUTE_FORCE("Brute Force", "description", new BruteForceAlgorithm()),
-    NEAREST_NEIGHBOR("Nearest Neighbor", "description", new NearestNeighborAlgorithm()),
-    BRANCH_AND_BOUND("Branch and Bound", "description", new BranchAndBoundAlgorithm());
+    BRUTE_FORCE("Brute Force", "description", "A", new BruteForceAlgorithm()),
+    NEAREST_NEIGHBOR("Nearest Neighbor", "description", "B", new NearestNeighborAlgorithm()),
+    BRANCH_AND_BOUND("Branch and Bound", "description", "C", new BranchAndBoundAlgorithm());
 
-    /**
-     * Logger Instance
-     */
-    private static Logger logger = Logger.getLogger(AlgType.class);
+    private final String name;
+    private final String desc;
+    private final String optionChar;
+    private final IAlgorithm alg;
 
-    private String name;
-    private String desc;
-    private IAlgorithm alg;
-
-    AlgType(String name, String desc, IAlgorithm alg) {
+    AlgType(String name, String desc, String optionChar, IAlgorithm alg) {
         this.name = name;
         this.desc = desc;
+        this.optionChar = optionChar;
         this.alg = alg;
     }
 
-    //TODO
-    public IAlgorithm getAlgorithmByType(AlgType type) {
+    public String getName() {
+        return name;
+    }
 
-        return null;
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getOptionChar() {
+        return optionChar;
+    }
+
+    public IAlgorithm getAlg() {
+        return alg;
     }
 }

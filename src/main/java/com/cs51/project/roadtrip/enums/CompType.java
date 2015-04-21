@@ -1,65 +1,45 @@
 package com.cs51.project.roadtrip.enums;
 
-import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.cs51.project.roadtrip.interfaces.IComparisonService;
+import com.cs51.project.roadtrip.services.BasicComparisonService;
 
 /**
- * Created by Alexander on 14.04.2015.
+ * Comparison Type Enumeration
+ * This is where the different types of algorithm comparison modes are defined.
+ * The name, description, option char (button to press to run this comparison),
+ * and the IComparisonService implementation are all defined here.
  */
 public enum CompType {
 
-    BASIC("Basic Comparison", "TODO description of basic comparison");
-
-    /**
-     * Logger Instance
-     */
-    private static Logger logger = Logger.getLogger(CompType.class);
-
-    //we will implement this if we have time
-//    RACE("Race Comparison", "TODO description");
+    BASIC("Basic Comparison", "TODO description of basic comparison", "B", new BasicComparisonService());
+//    BASIC("Basic Comparison", "description", "B", new BasicComparisonService()),
+//    RACE("Race Comparison", "description", "R", new RaceComparisonService());
 
     private final String name;
     private final String desc;
+    private final String optionChar;
+    private final IComparisonService service;
 
-    CompType(String name, String desc) {
+    CompType(String name, String desc, String optionChar, IComparisonService service) {
         this.name = name;
         this.desc = desc;
+        this.optionChar = optionChar;
+        this.service = service;
     }
 
-    private String getName() { return name; }
-    private String getDesc() { return desc; }
-
-    //todo add javadoc
-    public String getDescriptionByType(CompType type){
-        //TODO consider changing this using streams and lambdas
-        for (CompType t : CompType.values()) {
-            if (t == type) {
-                return t.getDesc();
-            }
-        }
-        return null;
+    public String getName() {
+        return name;
     }
 
-    //TODO add javadoc
-    public String getDescriptionByName(String name){
-        //TODO also consider streams and lambdas
-        for (CompType t: CompType.values()) {
-            if (t.getName().equals(name)) {
-                return t.getDesc();
-            }
-        }
-        return null;
+    public String getDesc() {
+        return desc;
     }
 
-    //TODO add javadoc
-    public List<CompType> getAllTypes() {
-        List<CompType> types = new ArrayList<>();
-        for (CompType type : CompType.values()) {
-            types.add(type);
-        }
-        return types;
+    public String getOptionChar() {
+        return optionChar;
     }
 
+    public IComparisonService getService() {
+        return service;
+    }
 }

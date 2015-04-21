@@ -26,18 +26,17 @@ public class Main {
 //        System.out.println("N0 closest unvisited neighbor = " + graph.getClosestUnvisitedNeighbor(graph.getNodeByName("N0")).getName());
 
         //this was just a test to see that the permutation stuff i had was working... still needs work
-
-        logger.error("this is a test error");
-
-        IGraph graph = new ListGraph(3);
-        IAlgorithm bfAlg = new BruteForceAlgorithm();
-        bfAlg.execute(graph);
+//
+//        logger.error("this is a test error");
+//
+//        IGraph graph = new ListGraph(3);
+//        IAlgorithm bfAlg = new BruteForceAlgorithm();
+//        bfAlg.execute(graph);
 
 
         //TODO this is the stuff that should stay in this method
 
         IUserInterface commandUI = new CommandLineUI();
-//        commandUI.initialize();
         commandUI.execute();
     }
 

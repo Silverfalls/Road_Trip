@@ -108,7 +108,7 @@ public class CommandLineUI implements IUserInterface {
         if (algTypes.isEmpty()) {
             //log and do something here
         } else {
-            System.out.println("Commencing the " + compType.getName() + "on the following algorithm(s):");
+            System.out.println("Commencing the " + compType.getName() + " on the following algorithm(s):");
             algTypes.stream().forEach(a -> System.out.println(a.getName()));
             if (compType.shouldPromptNumNodes()) {
                 System.out.println("on a graph with " + numNodes + " nodes.");
@@ -188,7 +188,9 @@ public class CommandLineUI implements IUserInterface {
         List<AlgType> algs = new ArrayList<>();
 
         System.out.println("From the list below, choose the algorithms you would like to compare");
-        System.out.println("enter H for help on how to choose multiple algorithms");
+        System.out.println("enter H for help on how to pick and choose algorithms");
+        System.out.println("enter * to choose all of them");
+
 
         for (AlgType algType : AlgType.values()) {
             System.out.println(algType.getOptionChar() + " : " + algType.getName() + " - " + algType.getDesc());

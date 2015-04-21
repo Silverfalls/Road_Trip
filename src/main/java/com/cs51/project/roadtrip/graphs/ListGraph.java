@@ -25,9 +25,6 @@ public class ListGraph implements IGraph {
     //TODO please ignore the repeated code for now... we can fix that
     //TODO i read that there is a reduce function in Java 8 now.. maybe we can use that for closest and furthest
 
-
-
-
     private static final String NODE_NAME_PREFIX = "N";
     private static final int MAX_PLANE_COORD = 100;
     private static final int DISTANCE_NUM_DECIMALS = 2;
@@ -36,6 +33,14 @@ public class ListGraph implements IGraph {
     private Random random;
     private TreeMap<Node, TreeMap<Node, Double>> distanceMatrix;
 
+    /**
+     * Constructor for testing primarily.  Creates a graph using a passed in list of Node objects.
+     * @param nodes  a list of nodes to construct the graph with
+     */
+    public ListGraph(List<Node> nodes) {
+        this.nodes = nodes;
+        distanceMatrix = getDistanceMatrix();
+    }
 
     public ListGraph(int numNodes) {
         initGraph(numNodes);

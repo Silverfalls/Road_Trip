@@ -9,13 +9,6 @@ import java.util.TreeMap;
 
 public interface IGraph {
 
-    //TODO got rid of this to help get rid of some null checks ... just put this in the constructor
-    /**
-     *
-     * @param numNodes
-     */
-//    public void initGraph(int numNodes);
-
     /**
      *
      * @return

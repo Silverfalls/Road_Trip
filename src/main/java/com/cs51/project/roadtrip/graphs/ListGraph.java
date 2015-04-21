@@ -133,7 +133,8 @@ public class ListGraph implements IGraph {
 
     @Override
     public List<Node> getListOfNodes() {
-        return nodes;
+        //Changed this to create a new ArrayList so we can't change the actual graph when changing this list
+        return new ArrayList<Node>(nodes);
     }
 
     @Override

@@ -1,16 +1,24 @@
 package com.cs51.project.roadtrip.common.dto;
 
+import com.cs51.project.roadtrip.graphs.Node;
+
+import java.util.List;
 import java.util.Optional;
 
 
 public class Result {
-    private Optional<Boolean> isOptimal;
+    private boolean isOptimal;
     private long runningTime;
     private Optional<Long> iterations;
     private String name;
     private int graphSize;
     private boolean finished;
+    private List<Node> calculatedPath;
 
+
+    public List<Node> getCalculatedPath() {return calculatedPath;}
+
+    public void setCalculatedPath(List<Node> calculatedPath) {this.calculatedPath = calculatedPath;}
 
     public long getRunningTime() {
         return runningTime;
@@ -53,10 +61,10 @@ public class Result {
     }
 
     public Optional<Boolean> isOptimal() {
-        return isOptimal;
+        return Optional.ofNullable(isOptimal);
     }
 
-    public void setOptimal(Optional<Boolean> isOptimal) {
+    public void setOptimal(boolean isOptimal) {
         this.isOptimal = isOptimal;
     }
 

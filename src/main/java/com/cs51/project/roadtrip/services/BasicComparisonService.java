@@ -27,9 +27,7 @@ public class BasicComparisonService implements IComparisonService {
         List<Result> results = new ArrayList<>();
 
         //execute each algorithm and store the result
-        Stream<IAlgorithm> algStream = algs.stream();
-        algStream.forEach(alg -> results.add(alg.execute(graph)));
-        algStream.close();
+        algs.stream().forEach(alg -> results.add(alg.execute(graph)));
 
         return results;
     }

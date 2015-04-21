@@ -144,6 +144,7 @@ public class CommandLineUI implements IUserInterface {
                     }
                 } catch (Exception e) {
                     //do something about it
+                    e.printStackTrace();
                 }
             }
         }
@@ -188,7 +189,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("promptNumNodes | start...");
         }
 
-        int numNodes = 8;
+        int numNodes = 4;
 
         //TODO!!!!
 

@@ -1,24 +1,35 @@
 package com.cs51.project.roadtrip.algorithms;
 
+import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
-public class BruteForceAlgorithm implements IAlgorithm {
+public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     /**
      * Logger Instance
      */
     private static Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
 
-    Result result = null;
+    private Result result = null;
+
+    private Node startingNode = null;
+
+    private IGraph graph = null;
+
+    private double shortestPathDistance = Double.MAX_VALUE;
+
+    private List<Node> shortestPath = null;
+
 
 
     //TODO
@@ -37,23 +48,64 @@ public class BruteForceAlgorithm implements IAlgorithm {
             Collections.swap(nodes, k, i);
         }
         if (k == nodes.size() - 1) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < nodes.size(); i++) {
-                sb.append(nodes.get(i).getName());
-                sb.append(" -> ");
+
+            LinkedList<Node> currentPath = new LinkedList<>(nodes);
+
+            //add the starting node back to the path
+            currentPath.addFirst(startingNode);
+            currentPath.addLast(startingNode);
+
+            double currentDistance = getDistance(currentPath,graph);
+
+            if(currentDistance< shortestPathDistance){
+
+                StringBuilder sb = new StringBuilder();
+                shortestPathDistance = currentDistance;
+                shortestPath = currentPath;
+                sb.append("The following is currently the shortest path with ").append(currentDistance).append(" ");
+
+                for (Node aShortestPath : shortestPath) {
+                    sb.append(aShortestPath.getName());
+                    sb.append(" -> ");
+                }
+
+                if (logger.isDebugEnabled()) {
+                    logger.debug(sb.substring(0, sb.length() - 4));
+                }
             }
-            System.out.println(sb.toString());
         }
     }
 
     @Override
     public Result execute(IGraph graph) {
 
+        long startTime = System.currentTimeMillis();
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("start to execute BruteForceAlgorithm");
+        }
+
+        this.graph = graph;
+        startingNode = graph.getStartingNode();
+
+        List<Node> nodesList = graph.getListOfNodes();
+        nodesList.remove(startingNode);
+
         result = new Result();
 
-        permute(graph.getListOfNodes(), 0);
+        permute(nodesList, 0);
 
+        //set values of result
+        result.setCalculatedPath(shortestPath);
+        result.setFinished(true);
+        result.setOptimal(true);
+        result.setRunningTime(System.currentTimeMillis() - startTime);
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("finished BruteForceAlgorithm");
+        }
+        shortestPathDistance = Double.MAX_VALUE;
+        shortestPath = null;
         return result;
     }
 
@@ -61,4 +113,6 @@ public class BruteForceAlgorithm implements IAlgorithm {
     public void reset() {
         result = null;
     }
+
+
 }

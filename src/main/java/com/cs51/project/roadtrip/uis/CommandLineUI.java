@@ -17,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class CommandLineUI implements IUserInterface {
@@ -39,14 +40,25 @@ public class CommandLineUI implements IUserInterface {
      */
     @Override
     public void execute() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("execute | start...");
+        }
 
         showWelcomeScreen();
         displayOptions();
         getUserInput();
+
+        //should never see this line because get userInput is an infinite loop that ends when the user exits the program
+        if (logger.isDebugEnabled()) {
+            logger.debug("execute | end...");
+        }
     }
 
 
     private void displayOptions() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("displayOptions | start...");
+        }
 
         System.out.println("\nCommands:\n");
 
@@ -58,10 +70,17 @@ public class CommandLineUI implements IUserInterface {
         //print static options
         System.out.println(HELP_OPTION_CHAR + " : Help");
         System.out.println(QUIT_OPTION_CHAR + " : Quit");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("displayOptions | end...");
+        }
     }
 
 
     private void getUserInput() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("getUserInput | start...");
+        }
 
         Scanner scanner = new Scanner(System.in);
         while (true){
@@ -94,6 +113,9 @@ public class CommandLineUI implements IUserInterface {
 
     //TODO, needs lots of work
     private void setupComparison(CompType compType) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("setupComparison | start...");
+        }
 
         //set the node size for the graph and create the graph
         int numNodes = compType.shouldPromptNumNodes() ? promptNumNodes() : RoadTripConstants.DEFAULT_STARTING_NODES;
@@ -126,43 +148,65 @@ public class CommandLineUI implements IUserInterface {
             }
         }
 
-        //get the algorithms the user wants to run the comparison with
-//        List<IAlgorithm> algs = promptAlgs();
-
-//        try {
-//            //execute the comparison
-//            compService.executeComparison(graph, algs);
-//        } catch (Exception e) {
-//            //TODO parameterize these statements
-//            System.out.println("There was an error running the comparison. Please see the logs for more details");
-//            logger.error("setupComparison | error executing comparison",e);
-//        }
-
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("setupComparison | end...");
+        }
     }
 
     private void printResults(List<Result> results) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("printResults | start...");
+        }
         //TODO TODO TODO left off here
         System.out.println("In the print results section, left off here for the night");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("printResults | end...");
+        }
     }
 
     private List<IAlgorithm> converAlgTypeListToAlgs(List<AlgType> algTypes) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("converAlgTypeListToAlgs | start...");
+        }
+
         if (algTypes == null || algTypes.isEmpty()) {
             //log and do something
         }
-        List<IAlgorithm> algs = new ArrayList<>(algTypes.size());
-        for (AlgType algType : algTypes) {
-            algs.add(algType.getAlg());
+
+        List<IAlgorithm> algs = algTypes.stream().map(a -> a.getAlg()).collect(Collectors.toList());
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("converAlgTypeListToAlgs | end...");
         }
+
         return algs;
     }
 
     private int promptNumNodes() {
-        return 8;
+        if (logger.isDebugEnabled()) {
+            logger.debug("promptNumNodes | start...");
+        }
+
+        int numNodes = 8;
+
+        //TODO!!!!
+
+
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("promptNumNodes | end...");
+        }
+
+        return numNodes;
     }
 
     //ask the user if they would like to print the graph's distance matrix
     private boolean shouldPrintDistanceMatrix() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("shouldPrintDistanceMatrix | start...");
+        }
+
         boolean shouldPrint = false;
 
         System.out.println("Would you like to print the graph's distance matrix before running the comparison?");
@@ -181,10 +225,19 @@ public class CommandLineUI implements IUserInterface {
                 displayInvalidInputWarning(command);
             }
         }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("shouldPrintDistanceMatrix | end...");
+        }
+
         return shouldPrint;
     }
 
     private List<AlgType> getAlgorithmsToCompareFromUser() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("getAlgorithmsToCompareFromUser | start...");
+        }
+
         List<AlgType> algs = new ArrayList<>();
 
         System.out.println("From the list below, choose the algorithms you would like to compare");
@@ -241,11 +294,18 @@ public class CommandLineUI implements IUserInterface {
             }
         }
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("getAlgorithmsToCompareFromUser | end...");
+        }
+
         return algs;
     }
 
     //TODO UGH this method is ugly
     private void printDistanceMatrix(IGraph graph) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("printDistanceMatrix | start...");
+        }
 
         //get the distance matrix from the graph
         TreeMap<Node, TreeMap<Node, Double>> dm = graph.getDistanceMatrix();
@@ -290,10 +350,17 @@ public class CommandLineUI implements IUserInterface {
             System.out.println(sb2.toString());
             j++;
         }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("printDistanceMatrix | end...");
+        }
     }
 
     //Reads the help file's text and displays it for the user
     private void showHelp() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("showHelp | start...");
+        }
 
         try {
             Path path = Paths.get(RoadTripConstants.PATH_TO_GENERAL_HELP_FILE);
@@ -302,31 +369,60 @@ public class CommandLineUI implements IUserInterface {
             System.out.println("Could not read the help file. Please check the logs for more info");
             logger.error("showHelp | error reading help file",eio);
         }
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("showHelp | end...");
+        }
     }
 
     private void displayInvalidInputWarning(String command) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("displayInvalidInputWarning | start...");
+        }
+
         System.out.println("Invalid input: " + command + "\n");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("displayInvalidInputWarning | end...");
+        }
     }
 
     private void exitProgram() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("exitProgram | start...");
+        }
 
         showClosingScreen();
         System.exit(0);
     }
 
     private void showWelcomeScreen() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("showWelcomeScreen | start...");
+        }
 
         System.out.println(DECORATIVE_BORDER + "\n");
         System.out.println("Welcome to " + RoadTripConstants.PROGRAM_NAME + "\n");
         System.out.println(DECORATIVE_BORDER + "\n");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("showWelcomeScreen | end...");
+        }
     }
 
     private void showClosingScreen() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("showClosingScreen | start...");
+        }
 
         System.out.println(DECORATIVE_BORDER + "\n");
         System.out.println("Thank you for using " + RoadTripConstants.PROGRAM_NAME);
         System.out.println("Goodbye...\n");
         System.out.println(DECORATIVE_BORDER + "\n");
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("showClosingScreen | end...");
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.cs51.project.roadtrip.algorithms;
 
+import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collector;
 
 
-public class BranchAndBoundAlgorithm implements IAlgorithm {
+public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     /**
      * Logger instance
@@ -56,10 +57,12 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
         do {
             Branch branch = getShortestBranch();
             Node closestNode = getClosestNeighborToNode(branch.getNode(), branch.getUnvisitedNodes());
-            Branch newBranch = new Branch(branch, closestNode);
-            branch.getUnvisitedNodes().remove(closestNode);
-            branches.add(newBranch);
-            if (branch.getUnvisitedNodes().isEmpty()) {
+            if (closestNode != null) {
+                Branch newBranch = new Branch(branch, closestNode);
+                branch.getUnvisitedNodes().remove(closestNode);
+                branches.add(newBranch);
+            } else {
+//            if (branch.getUnvisitedNodes().isEmpty()) {
                 if (visitedEverywhere(branch)) {
                     Branch getHomeBranch = new Branch(branch, startingNode);
                     if (shortestGoalBranch == null
@@ -72,6 +75,7 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
             pruneBranches();
         } while (!branches.isEmpty());
 
+        System.out.println("shortest path = " + shortestGoalBranch.toString());
 
         System.out.println("we're done");
 
@@ -101,15 +105,15 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
 //        }
 //        int i = 0;
         for (Node n : allNodes) {
-//            if (!b.getVisitedNodes().contains(n)) {
-//                return false;
-//            }
-//            i++;
-            for (Node n1 : b.getVisitedNodes()) {
-                if (!n.getName().equals(n1.getName())) {
-                    return false;
-                }
+            if (!b.getVisitedNodes().contains(n)) {
+                return false;
             }
+//            i++;
+//            for (Node n1 : b.getVisitedNodes()) {
+//                if (!n.getName().equals(n1.getName())) {
+//                    return false;
+//                }
+//            }
         }
         return true;
     }
@@ -157,6 +161,9 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
         }
 
         private void setUnvisitedNodes(Branch parent, Node node) {
+//            if (parent.getUnvisitedNodes() == null) {
+//                System.out.println("empty parent");
+//            }
             unvisitedNodes = new ArrayList<>();
             //TODO says I can use collect here
             for (Node n : parent.getUnvisitedNodes()) {
@@ -164,6 +171,9 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
                     unvisitedNodes.add(n);
                 }
             }
+//            if (unvisitedNodes.size() == 0) {
+//                System.out.println("empyt unvisited nodes");
+//            }
         }
 
         public List<Node> getVisitedNodes() {
@@ -273,6 +283,10 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
             logger.error("getClosestNeighborToNode | node or nodes is null");
         }
         return nodeToReturn;
+    }
+
+    public Double getD(List<Node> n, IGraph g) {
+        return getDistance(n, g);
     }
 
 

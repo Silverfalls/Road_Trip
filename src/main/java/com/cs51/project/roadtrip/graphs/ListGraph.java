@@ -39,7 +39,7 @@ public class ListGraph implements IGraph {
      */
     public ListGraph(List<Node> nodes) {
         this.nodes = nodes;
-        distanceMatrix = getDistanceMatrix();
+        distanceMatrix = generateDistanceMatrix();
     }
 
     public ListGraph(int numNodes) {

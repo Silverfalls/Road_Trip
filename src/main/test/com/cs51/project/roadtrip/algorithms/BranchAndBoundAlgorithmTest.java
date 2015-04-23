@@ -24,7 +24,7 @@ public class BranchAndBoundAlgorithmTest {
     @Test
     public void testTest() {
 
-        Node n0 = new Node(0, 1, 1, "N0", true);
+        Node n0 = new Node(0, 25, 13, "N0", true);
         Node n1 = new Node(1, 50, 89, "N1", false);
         Node n2 = new Node(2, 99, 77, "N2", false);
         Node n3 = new Node(3, 43, 4, "N3", false);
@@ -46,39 +46,39 @@ public class BranchAndBoundAlgorithmTest {
         l1.add(n0);
 
         List<Node> l2 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n1);
-        l1.add(n3);
-        l1.add(n2);
-        l1.add(n0);
+        l2.add(n0);
+        l2.add(n1);
+        l2.add(n3);
+        l2.add(n2);
+        l2.add(n0);
 
         List<Node> l3 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n2);
-        l1.add(n1);
-        l1.add(n3);
-        l1.add(n0);
+        l3.add(n0);
+        l3.add(n2);
+        l3.add(n1);
+        l3.add(n3);
+        l3.add(n0);
 
         List<Node> l4 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n2);
-        l1.add(n3);
-        l1.add(n1);
-        l1.add(n0);
+        l4.add(n0);
+        l4.add(n2);
+        l4.add(n3);
+        l4.add(n1);
+        l4.add(n0);
 
         List<Node> l5 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n3);
-        l1.add(n1);
-        l1.add(n2);
-        l1.add(n0);
+        l5.add(n0);
+        l5.add(n3);
+        l5.add(n1);
+        l5.add(n2);
+        l5.add(n0);
 
         List<Node> l6 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n3);
-        l1.add(n2);
-        l1.add(n1);
-        l1.add(n0);
+        l6.add(n0);
+        l6.add(n3);
+        l6.add(n2);
+        l6.add(n1);
+        l6.add(n0);
 
         List<List<Node>> possibilities = new ArrayList<>();
         possibilities.add(l1);
@@ -93,6 +93,7 @@ public class BranchAndBoundAlgorithmTest {
             for (Node n : l) {
                 sb.append(n.getName() + " -> ");
             }
+
             sb.append(alg.getD(l, graph));
             System.out.println(sb.toString());
         }

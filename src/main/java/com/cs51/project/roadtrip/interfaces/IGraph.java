@@ -91,4 +91,11 @@ public interface IGraph {
      */
     public TreeMap<Node, TreeMap<Node, Double>> getDistanceMatrix();
 
+    /**
+     *
+     * @param node
+     * @return
+     */
+    public List<Node> getAllNeighbors(Node node);
+
 }

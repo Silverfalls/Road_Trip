@@ -134,8 +134,8 @@ public class CommandLineUI implements IUserInterface {
             algTypes.stream().forEach(a -> System.out.println(a.getName()));
             if (compType.shouldPromptNumNodes()) {
                 System.out.println("on a graph with " + numNodes + " nodes.");
-                System.out.println(WAITING_INDICATOR);
                 try {
+                    System.out.println(WAITING_INDICATOR);
                     List<Result> results = compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes));
                     if (results != null) {
                         printResults(results);
@@ -178,7 +178,7 @@ public class CommandLineUI implements IUserInterface {
         List<IAlgorithm> algs = algTypes.stream().map(a -> a.getAlg()).collect(Collectors.toList());
 
         if (logger.isDebugEnabled()) {
-            logger.debug("converAlgTypeListToAlgs | end...");
+            logger.debug("printResults | end...");
         }
 
         return algs;

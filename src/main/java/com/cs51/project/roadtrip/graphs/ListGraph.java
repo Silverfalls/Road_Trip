@@ -293,6 +293,17 @@ public class ListGraph implements IGraph {
         return nodes.stream().filter(n -> name.equals(n.getName())).findAny().orElse(null);
     }
 
+    @Override
+    public List<Node> getAllNeighbors(Node node) {
+        //TODO this can probably be consolidated
+        List<Node> neighbors = new ArrayList<>(nodes.size() - 1);
+        for (Node gNode : nodes) {
+            if (gNode != node) {
+                neighbors.add(gNode);
+            }
+        }
+        return neighbors;
+    }
 
     //TODO not sure if I wrote this inner class right with the modifiers and the constructor... also, I left off the setter
     //TODO because I thought we really don't need it
@@ -319,4 +330,5 @@ public class ListGraph implements IGraph {
             return x == o.getX() && y == o.getY();
         }
     }
+
 }

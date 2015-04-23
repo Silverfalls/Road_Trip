@@ -51,3 +51,193 @@
 2015-04-21 22:30:45 DEBUG CommandLineUI:153 - setupComparison | end...
 2015-04-21 22:30:45 DEBUG CommandLineUI:60 - displayOptions | start...
 2015-04-21 22:30:45 DEBUG CommandLineUI:75 - displayOptions | end...
+2015-04-23 00:42:29 DEBUG CommandLineUI:44 - execute | start...
+2015-04-23 00:42:29 DEBUG CommandLineUI:402 - showWelcomeScreen | start...
+2015-04-23 00:42:29 DEBUG CommandLineUI:410 - showWelcomeScreen | end...
+2015-04-23 00:42:29 DEBUG CommandLineUI:60 - displayOptions | start...
+2015-04-23 00:42:29 DEBUG CommandLineUI:75 - displayOptions | end...
+2015-04-23 00:42:29 DEBUG CommandLineUI:82 - getUserInput | start...
+2015-04-23 00:42:31 DEBUG CommandLineUI:117 - setupComparison | start...
+2015-04-23 00:42:31 DEBUG CommandLineUI:189 - promptNumNodes | start...
+2015-04-23 00:42:31 DEBUG CommandLineUI:199 - promptNumNodes | end...
+2015-04-23 00:42:31 DEBUG CommandLineUI:208 - shouldPrintDistanceMatrix | start...
+2015-04-23 00:42:33 DEBUG CommandLineUI:231 - shouldPrintDistanceMatrix | end...
+2015-04-23 00:42:33 DEBUG CommandLineUI:308 - printDistanceMatrix | start...
+2015-04-23 00:42:33 DEBUG CommandLineUI:356 - printDistanceMatrix | end...
+2015-04-23 00:42:33 DEBUG CommandLineUI:239 - getAlgorithmsToCompareFromUser | start...
+2015-04-23 00:42:41 DEBUG CommandLineUI:299 - getAlgorithmsToCompareFromUser | end...
+2015-04-23 00:42:41 DEBUG CommandLineUI:171 - converAlgTypeListToAlgs | start...
+2015-04-23 00:42:41 DEBUG CommandLineUI:181 - printResults | end...
+2015-04-23 00:42:41 DEBUG CommandLineUI:153 - setupComparison | end...
+2015-04-23 00:42:41 DEBUG CommandLineUI:60 - displayOptions | start...
+2015-04-23 00:42:41 DEBUG CommandLineUI:75 - displayOptions | end...
+2015-04-23 00:42:57 DEBUG CommandLineUI:393 - exitProgram | start...
+2015-04-23 00:42:57 DEBUG CommandLineUI:416 - showClosingScreen | start...
+2015-04-23 00:42:57 DEBUG CommandLineUI:425 - showClosingScreen | end...
+2015-04-23 00:43:11 DEBUG CommandLineUI:44 - execute | start...
+2015-04-23 00:43:11 DEBUG CommandLineUI:402 - showWelcomeScreen | start...
+2015-04-23 00:43:11 DEBUG CommandLineUI:410 - showWelcomeScreen | end...
+2015-04-23 00:43:11 DEBUG CommandLineUI:60 - displayOptions | start...
+2015-04-23 00:43:11 DEBUG CommandLineUI:75 - displayOptions | end...
+2015-04-23 00:43:11 DEBUG CommandLineUI:82 - getUserInput | start...
+2015-04-23 00:43:13 DEBUG CommandLineUI:117 - setupComparison | start...
+2015-04-23 00:43:13 DEBUG CommandLineUI:189 - promptNumNodes | start...
+2015-04-23 00:43:13 DEBUG CommandLineUI:199 - promptNumNodes | end...
+2015-04-23 00:43:13 DEBUG CommandLineUI:208 - shouldPrintDistanceMatrix | start...
+2015-04-23 00:43:14 DEBUG CommandLineUI:231 - shouldPrintDistanceMatrix | end...
+2015-04-23 00:43:14 DEBUG CommandLineUI:308 - printDistanceMatrix | start...
+2015-04-23 00:43:14 DEBUG CommandLineUI:356 - printDistanceMatrix | end...
+2015-04-23 00:43:14 DEBUG CommandLineUI:239 - getAlgorithmsToCompareFromUser | start...
+2015-04-23 00:43:18 DEBUG CommandLineUI:299 - getAlgorithmsToCompareFromUser | end...
+2015-04-23 00:43:18 DEBUG CommandLineUI:171 - converAlgTypeListToAlgs | start...
+2015-04-23 00:43:18 DEBUG CommandLineUI:181 - printResults | end...
+2015-04-23 00:43:18 DEBUG CommandLineUI:153 - setupComparison | end...
+2015-04-23 00:43:18 DEBUG CommandLineUI:60 - displayOptions | start...
+2015-04-23 00:43:18 DEBUG CommandLineUI:75 - displayOptions | end...
+2015-04-23 02:30:09 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:31:48 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:33:00 ERROR BranchAndBoundAlgorithm:251 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:35:39 ERROR BranchAndBoundAlgorithm:254 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:37:18 ERROR BranchAndBoundAlgorithm:254 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:37:38 ERROR BranchAndBoundAlgorithm:254 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:38:11 ERROR BranchAndBoundAlgorithm:257 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:38:51 ERROR BranchAndBoundAlgorithm:259 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:39:25 ERROR BranchAndBoundAlgorithm:260 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:40:14 ERROR BranchAndBoundAlgorithm:261 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:41:17 ERROR BranchAndBoundAlgorithm:262 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:42:00 ERROR BranchAndBoundAlgorithm:252 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:43:11 ERROR BranchAndBoundAlgorithm:253 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:44:20 ERROR BranchAndBoundAlgorithm:253 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:45:41 ERROR BranchAndBoundAlgorithm:251 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:47:55 ERROR BranchAndBoundAlgorithm:252 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:48:29 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:48:52 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:48:55 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:49:34 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:50:05 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:50:34 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:52:23 ERROR BranchAndBoundAlgorithm:250 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:53:22 ERROR BranchAndBoundAlgorithm:251 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:53:37 ERROR BranchAndBoundAlgorithm:251 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:54:33 ERROR BranchAndBoundAlgorithm:252 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:54:45 ERROR BranchAndBoundAlgorithm:252 - getClosestNeighborToNode | node or nodes is null
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:33 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:55:41 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:56:07 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:56:07 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:56:07 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:56:35 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:56:35 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:24 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:40 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:40 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:57:40 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:58:16 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 02:59:30 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:30 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 02:59:52 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:00:46 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:01:37 INFO  BranchAndBoundAlgorithm:224 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:02:46 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:03:21 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:03:30 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:03:37 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:03:44 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:03:54 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:04:06 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:05:56 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:06:52 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:07:17 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:07:31 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:08:05 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:08:29 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:08:48 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:09:22 INFO  BranchAndBoundAlgorithm:225 - pruneBranches | goal is not set yet
+2015-04-23 03:13:24 INFO  BranchAndBoundAlgorithm:229 - pruneBranches | goal is not set yet
+2015-04-23 03:14:06 INFO  BranchAndBoundAlgorithm:228 - pruneBranches | goal is not set yet
+2015-04-23 03:14:06 INFO  BranchAndBoundAlgorithm:228 - pruneBranches | goal is not set yet
+2015-04-23 03:14:06 INFO  BranchAndBoundAlgorithm:228 - pruneBranches | goal is not set yet
+2015-04-23 03:14:06 INFO  BranchAndBoundAlgorithm:228 - pruneBranches | goal is not set yet
+2015-04-23 03:14:06 INFO  BranchAndBoundAlgorithm:228 - pruneBranches | goal is not set yet
+2015-04-23 03:14:39 INFO  BranchAndBoundAlgorithm:229 - pruneBranches | goal is not set yet
+2015-04-23 03:14:39 INFO  BranchAndBoundAlgorithm:229 - pruneBranches | goal is not set yet
+2015-04-23 03:14:39 INFO  BranchAndBoundAlgorithm:229 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:16:18 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:19:58 INFO  BranchAndBoundAlgorithm:235 - pruneBranches | goal is not set yet
+2015-04-23 03:21:33 INFO  BranchAndBoundAlgorithm:238 - pruneBranches | goal is not set yet
+2015-04-23 03:21:33 INFO  BranchAndBoundAlgorithm:238 - pruneBranches | goal is not set yet
+2015-04-23 03:21:33 INFO  BranchAndBoundAlgorithm:238 - pruneBranches | goal is not set yet
+2015-04-23 03:23:02 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:23:02 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:23:02 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:17 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:24:23 INFO  BranchAndBoundAlgorithm:243 - pruneBranches | goal is not set yet
+2015-04-23 03:27:01 INFO  BranchAndBoundAlgorithm:245 - pruneBranches | goal is not set yet
+2015-04-23 03:27:46 INFO  BranchAndBoundAlgorithm:245 - pruneBranches | goal is not set yet

@@ -132,6 +132,7 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
             this.unvisitedNodes = unvisitedNodes;
             this.accumulatedDistance = 0.0;
             this.parent = null;
+            node = visitedNodes.get(0);
         }
 
         //constructor for all other branches
@@ -139,7 +140,7 @@ public class BranchAndBoundAlgorithm implements IAlgorithm {
             this.parent = parent;
             setVisitedNodes(parent, node);
             setUnvisitedNodes(parent, node);
-            this.accumulatedDistance = mGraph.getDistance(visitedNodes.get(visitedNodes.size() - 2), node);
+            this.accumulatedDistance = parent.getAccumulatedDistance() + mGraph.getDistance(parent.getNode(), node);
             this.node = node;
             this.name = node.getName();
         }

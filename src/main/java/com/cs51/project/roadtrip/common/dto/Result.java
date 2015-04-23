@@ -7,7 +7,7 @@ import java.util.Optional;
 
 
 public class Result {
-    private boolean isOptimal;
+    private Boolean isOptimal;
     private long runningTime;
     private Optional<Long> iterations;
     private String name;

@@ -44,9 +44,11 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
         Result result = new Result();
 
         //set values of result
-        result.setCalculatedPath(shortestPath);
-        result.setFinished(true);
         result.setRunningTime(System.currentTimeMillis() - startTime);
+        result.setCalculatedDistance(getDistance(shortestPath, graph));
+        result.setCalculatedPath(shortestPath);
+        result.setGraphSize(graph.getGraphSize());
+        result.setFinished(true);
 
         if (logger.isDebugEnabled()) {
             StringBuilder sb = new StringBuilder();

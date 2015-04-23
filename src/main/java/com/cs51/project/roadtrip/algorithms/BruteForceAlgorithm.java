@@ -96,10 +96,12 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         permute(nodesList, 0);
 
         //set values of result
+        result.setRunningTime(System.currentTimeMillis() - startTime);
+        result.setCalculatedDistance(shortestPathDistance);
         result.setCalculatedPath(shortestPath);
+        result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
         result.setOptimal(true);
-        result.setRunningTime(System.currentTimeMillis() - startTime);
 
         if (logger.isDebugEnabled()) {
             logger.debug("finished BruteForceAlgorithm");

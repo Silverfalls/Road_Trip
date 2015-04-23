@@ -98,4 +98,10 @@ public interface IGraph {
      */
     public List<Node> getAllNeighbors(Node node);
 
+    /**
+     *
+     * @return
+     */
+    public int getGraphSize();
+
 }

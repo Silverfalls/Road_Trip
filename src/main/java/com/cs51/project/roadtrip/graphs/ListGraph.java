@@ -305,6 +305,11 @@ public class ListGraph implements IGraph {
         return neighbors;
     }
 
+    @Override
+    public int getGraphSize() {
+        return nodes.size();
+    }
+
     //TODO not sure if I wrote this inner class right with the modifiers and the constructor... also, I left off the setter
     //TODO because I thought we really don't need it
     private class Coordinate {

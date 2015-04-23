@@ -14,8 +14,17 @@ public class Result {
     private int graphSize;
     private boolean finished;
     private List<Node> calculatedPath;
+    //Maybe we should use BigDecimal here
+    private double calculatedDistance;
 
+    public double getCalculatedDistance() {
+        return calculatedDistance;
+    }
 
+    public void setCalculatedDistance(double calculatedDistance) {
+        this.calculatedDistance = calculatedDistance;
+    }
+    
     public List<Node> getCalculatedPath() {return calculatedPath;}
 
     public void setCalculatedPath(List<Node> calculatedPath) {this.calculatedPath = calculatedPath;}

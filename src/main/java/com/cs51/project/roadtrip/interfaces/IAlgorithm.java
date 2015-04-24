@@ -7,12 +7,14 @@ import com.cs51.project.roadtrip.common.dto.Result;
 public interface IAlgorithm {
 
     /**
-     *
-     * @param graph
-     * @return
+     * Executes this specific algorithm on a graph
+     * @param graph the graph
+     * @return the result of this algorithm
      */
     public Result execute(IGraph graph);
 
+
+    //TODO: should we remove this?
     /**
      *
      */

@@ -4,15 +4,13 @@ import com.cs51.project.roadtrip.common.dto.Result;
 
 import java.util.List;
 
-//TODO fill in java docs
-
 public interface IComparisonService {
 
     /**
-     *
-     * @param graph
-     * @param algs
-     * @return
+     * Executes the specific typ of algorithm
+     * @param graph the graph for the comparison
+     * @param algs a list of algorithms
+     * @return a list of results from the algorithms
      * @throws Exception
      */
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs) throws Exception;

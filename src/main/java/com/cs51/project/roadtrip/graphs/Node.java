@@ -19,6 +19,17 @@ public class Node implements Comparable {
         visited = false;
     }
 
+    //Added this to initialize a Node
+    public Node(long id, int xCoord, int yCoord, String name) {
+        this(id, xCoord, yCoord, name, false);
+    }
+
+    public Node clone (){
+        Node newNode = new Node (id, xCoord, yCoord, name, isStartingNode);
+        newNode.setVisited(visited);
+        return newNode;
+    }
+
     public long getId() {
         return id;
     }

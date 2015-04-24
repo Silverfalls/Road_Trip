@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -42,8 +43,24 @@ public class ListGraph implements IGraph {
         distanceMatrix = generateDistanceMatrix();
     }
 
+    /**
+     * Standard constructor to create a Graph with numNodes random nodes.
+     * @param numNodes number of Nodes in the Graph
+     */
     public ListGraph(int numNodes) {
         initGraph(numNodes);
+    }
+
+    /**
+     * Clones the current Graph
+     * @return IGraph the cloned Graph
+     */
+    public IGraph clone(){
+        List<Node> newNodes = new ArrayList<>();
+        //we need a copy of all nodes
+        nodes.stream().forEach(n -> newNodes.add(n.clone()));
+
+        return new ListGraph(newNodes);
     }
 
     public void initGraph(int numNodes) {
@@ -64,11 +81,12 @@ public class ListGraph implements IGraph {
 
             coordsUsed.add(coord);
 
-            //TODO we have some repeating code here... can we shorten this with a lambda?
+            Node newNode = new Node(i, coord.getX(), coord.getY(), (NODE_NAME_PREFIX + i));
+
+            nodes.add(newNode);
+
             if (i == 0) {
-                nodes.add(new Node(i, coord.getX(), coord.getY(), (NODE_NAME_PREFIX + i), true));
-            } else {
-                nodes.add(new Node(i, coord.getX(), coord.getY(), (NODE_NAME_PREFIX + i), false));
+                newNode.setIsStartingNode(true);
             }
         }
 
@@ -83,6 +101,7 @@ public class ListGraph implements IGraph {
 
         TreeMap<Node, TreeMap<Node, Double>> matrix = new TreeMap<Node, TreeMap<Node, Double>>();
 
+        long start = System.currentTimeMillis();
         for (Node thisNode : nodes) {
             TreeMap<Node, Double> thisMap = new TreeMap<>();
 
@@ -90,7 +109,10 @@ public class ListGraph implements IGraph {
                 if (thisNode == thatNode) {
                     continue;
                 }
-                //TODO run some test on whether or not this is actually an optimization (ie, traversing tree twice)
+
+                /*tested this and at least on my machine this is actually quicker but it's only measurable with a
+                * few hundred nodes
+                */
                 if (matrix.get(thatNode) != null && matrix.get(thatNode).get(thisNode) != null) {
                     thisMap.put(thatNode, matrix.get(thatNode).get(thisNode));
                     continue;
@@ -99,7 +121,7 @@ public class ListGraph implements IGraph {
             }
             matrix.put(thisNode, thisMap);
         }
-
+        System.out.println("time spend :" + (System.currentTimeMillis() - start));
         return matrix;
     }
 
@@ -115,16 +137,12 @@ public class ListGraph implements IGraph {
         int xDiff = n2.getxCoord() - n1.getxCoord();
         int yDiff = n2.getyCoord() - n1.getyCoord();
 
-        //TODO should we only show 2 decimal places here?
         return round(Math.sqrt(Math.pow(xDiff,2) + Math.pow(yDiff,2)), DISTANCE_NUM_DECIMALS);
     }
 
     //stole this off of stack overflow
     private double round(double value, int places) {
-        //TODO i think we should have this exception here, but how should we handle it?
-//        if (places < 0) throw new IllegalArgumentException();
-
-        BigDecimal bd = new BigDecimal(value);
+        BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
@@ -149,7 +167,10 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getStartingNode() {
-        return nodes.stream().filter(n -> n.isStartingNode()).findAny().orElse(null);
+        return nodes.stream()
+                    .filter(n -> n.isStartingNode())
+                    .findAny()
+                    .orElse(null);
     }
 
     @Override
@@ -157,7 +178,10 @@ public class ListGraph implements IGraph {
         if (n1 == null) {
             return null;
         }
-        return nodes.stream().filter(n -> n != n1).findAny().orElse(null);
+        return nodes.stream()
+                    .filter(n -> n != n1)
+                    .findAny()
+                    .orElse(null);
     }
 
     @Override
@@ -168,7 +192,10 @@ public class ListGraph implements IGraph {
         if (n1 == null) {
             return null;
         }
-        return nodes.stream().filter(n -> n != n1 && !n.isVisited()).findAny().orElse(null);
+        return nodes.stream()
+                    .filter(n -> n != n1 && !n.isVisited())
+                    .findAny()
+                    .orElse(null);
     }
 
     @Override
@@ -281,7 +308,10 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getNodeById(long id) {
-        return nodes.stream().filter(n -> n.getId() == id).findAny().orElse(null);
+        return nodes.stream()
+                    .filter(n -> n.getId() == id)
+                    .findAny()
+                    .orElse(null);
     }
 
     @Override
@@ -289,19 +319,17 @@ public class ListGraph implements IGraph {
         if (name == null) {
             return null;
         }
-        //.equals() must be called on name here and not n.getName() because name (by this point) is guaranteed not to be null
-        return nodes.stream().filter(n -> name.equals(n.getName())).findAny().orElse(null);
+        return nodes.stream()
+                    .filter(n -> name.equals(n.getName()))
+                    .findAny()
+                    .orElse(null);
     }
 
     @Override
     public List<Node> getAllNeighbors(Node node) {
-        //TODO this can probably be consolidated
-        List<Node> neighbors = new ArrayList<>(nodes.size() - 1);
-        for (Node gNode : nodes) {
-            if (gNode != node) {
-                neighbors.add(gNode);
-            }
-        }
+        List<Node> neighbors = nodes.stream()
+                                    .filter(n -> n!= node)
+                                    .collect(Collectors.toList());
         return neighbors;
     }
 
@@ -310,8 +338,6 @@ public class ListGraph implements IGraph {
         return nodes.size();
     }
 
-    //TODO not sure if I wrote this inner class right with the modifiers and the constructor... also, I left off the setter
-    //TODO because I thought we really don't need it
     private class Coordinate {
         private int x;
         private int y;
@@ -327,12 +353,6 @@ public class ListGraph implements IGraph {
 
         private int getY() {
             return y;
-        }
-
-        //TODO i put this here because I thought the list.contains() call above would need this... but intellij is saying it's never used
-        //TODO maybe that's because it's never called explicitly... i'm not sure
-        boolean equals(Coordinate o) {
-            return x == o.getX() && y == o.getY();
         }
     }
 

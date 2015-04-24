@@ -189,7 +189,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("promptNumNodes | start...");
         }
 
-        int numNodes = 4;
+        int numNodes = 5;
 
         //TODO!!!!
 

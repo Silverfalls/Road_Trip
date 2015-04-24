@@ -140,14 +140,11 @@ public class ListGraph implements IGraph {
         return round(Math.sqrt(Math.pow(xDiff,2) + Math.pow(yDiff,2)), DISTANCE_NUM_DECIMALS);
     }
 
-    //stole this off of stack overflow
     private double round(double value, int places) {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-
-    //Public interface methods below TODO link to Interface javadocs for each of these methods
 
     @Override
     public List<Node> getListOfNodes() {
@@ -206,23 +203,13 @@ public class ListGraph implements IGraph {
         }
 
         TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
-        Node n2 = null;
-        double minDist = 0;
 
-        for (Node thatN : thisMap.keySet()) {
-            double thisDist = thisMap.get(thatN);
-            if (n2 == null && !thatN.isVisited()) {
-                n2 = thatN;
-                minDist = thisDist;
-                continue;
-            }
-            if (thisDist < minDist && !thatN.isVisited()) {
-                n2 = thatN;
-                minDist = thisDist;
-            }
-        }
+        Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
+                .stream()
+                .reduce((dist, minDist) -> dist.getValue() < minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .orElse(null);
 
-        return n2;
+        return closestEntry.getKey();
     }
 
     @Override
@@ -233,23 +220,13 @@ public class ListGraph implements IGraph {
         }
 
         TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
-        Node n2 = null;
-        double maxDist = 0;
 
-        for (Node thatN : thisMap.keySet()) {
-            double thisDist = thisMap.get(thatN);
-            if (n2 == null && !thatN.isVisited()) {
-                n2 = thatN;
-                maxDist = thisDist;
-                continue;
-            }
-            if (thisDist > maxDist && !thatN.isVisited()) {
-                n2 = thatN;
-                maxDist = thisDist;
-            }
-        }
+        Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
+                .stream()
+                .reduce((dist, minDist) -> dist.getValue() > minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .orElse(null);
 
-        return n2;
+        return furthestEntry.getKey();
     }
 
     @Override
@@ -260,23 +237,13 @@ public class ListGraph implements IGraph {
         }
 
         TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
-        Node n2 = null;
-        double minDist = 0;
 
-        for (Node thatN : thisMap.keySet()) {
-            double thisDist = thisMap.get(thatN);
-            if (n2 == null) {
-                n2 = thatN;
-                minDist = thisDist;
-                continue;
-            }
-            if (thisDist < minDist) {
-                n2 = thatN;
-                minDist = thisDist;
-            }
-        }
+        Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
+                .stream()
+                .reduce((dist, minDist) -> dist.getValue() < minDist.getValue() ? dist : minDist)
+                .orElse(null);
 
-        return n2;
+        return closestEntry.getKey();
     }
 
     @Override
@@ -287,31 +254,21 @@ public class ListGraph implements IGraph {
         }
 
         TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
-        Node n2 = null;
-        double maxDist = 0;
 
-        for (Node thatN : thisMap.keySet()) {
-            double thisDist = thisMap.get(thatN);
-            if (n2 == null) {
-                n2 = thatN;
-                maxDist = thisDist;
-                continue;
-            }
-            if (thisDist > maxDist) {
-                n2 = thatN;
-                maxDist = thisDist;
-            }
-        }
+        Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
+                .stream()
+                .reduce((dist, minDist) -> dist.getValue() > minDist.getValue() ? dist : minDist)
+                .orElse(null);
 
-        return n2;
+        return furthestEntry.getKey();
     }
 
     @Override
     public Node getNodeById(long id) {
         return nodes.stream()
-                    .filter(n -> n.getId() == id)
-                    .findAny()
-                    .orElse(null);
+                .filter(n -> n.getId() == id)
+                .findAny()
+                .orElse(null);
     }
 
     @Override
@@ -320,15 +277,15 @@ public class ListGraph implements IGraph {
             return null;
         }
         return nodes.stream()
-                    .filter(n -> name.equals(n.getName()))
-                    .findAny()
-                    .orElse(null);
+                .filter(n -> name.equals(n.getName()))
+                .findAny()
+                .orElse(null);
     }
 
     @Override
     public List<Node> getAllNeighbors(Node node) {
         List<Node> neighbors = nodes.stream()
-                                    .filter(n -> n!= node)
+                                    .filter(n -> n != node)
                                     .collect(Collectors.toList());
         return neighbors;
     }

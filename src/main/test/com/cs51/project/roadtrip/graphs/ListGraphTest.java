@@ -131,15 +131,15 @@ public class ListGraphTest {
     public void getAllNeighborsTest() {
         List<Node> result = graph.getAllNeighbors(n0);
         List<Node> expResult = new ArrayList<>(3);
-        expResult.add(n0);
         expResult.add(n1);
         expResult.add(n2);
+        expResult.add(n3);
         assertTrue(result.containsAll(expResult));
     }
 
     @Test
     public void getGraphSizeTest() {
         assertEquals(4,graph.getGraphSize());
-        assertEquals(25,new ListGraph(25));
+        assertEquals(25,new ListGraph(25).getGraphSize());
     }
 }

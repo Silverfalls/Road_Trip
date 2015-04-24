@@ -206,10 +206,16 @@ public class ListGraph implements IGraph {
 
         Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((dist, minDist) -> dist.getValue() < minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue() < minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-        return closestEntry.getKey();
+        Node result = null;
+
+        if (closestEntry != null){
+            result = closestEntry.getKey();
+        }
+
+        return result;
     }
 
     @Override
@@ -223,10 +229,18 @@ public class ListGraph implements IGraph {
 
         Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((dist, minDist) -> dist.getValue() > minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .reduce((minDist,dist) -> dist.getValue() > minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-        return furthestEntry.getKey();
+        Node result = null;
+
+        if (furthestEntry != null){
+            result = furthestEntry.getKey();
+        }
+
+        return result;
+
+
     }
 
     @Override
@@ -240,10 +254,16 @@ public class ListGraph implements IGraph {
 
         Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((dist, minDist) -> dist.getValue() < minDist.getValue() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue() < minDist.getValue() ? dist : minDist)
                 .orElse(null);
 
-        return closestEntry.getKey();
+        Node result = null;
+
+        if (closestEntry != null){
+            result = closestEntry.getKey();
+        }
+
+        return result;
     }
 
     @Override
@@ -257,10 +277,16 @@ public class ListGraph implements IGraph {
 
         Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((dist, minDist) -> dist.getValue() > minDist.getValue() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue() > minDist.getValue() ? dist : minDist)
                 .orElse(null);
 
-        return furthestEntry.getKey();
+        Node result = null;
+
+        if (furthestEntry != null){
+            result = furthestEntry.getKey();
+        }
+
+        return result;
     }
 
     @Override

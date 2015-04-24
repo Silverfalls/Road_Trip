@@ -1,8 +1,17 @@
 package com.cs51.project.roadtrip.graphs;
 
 import com.cs51.project.roadtrip.interfaces.IGraph;
+import junit.framework.Assert;
 import org.apache.log4j.Logger;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
 
 /**
  * Created by robertschupp on 4/17/15.
@@ -14,12 +23,123 @@ public class ListGraphTest {
      */
     private static Logger logger = Logger.getLogger(ListGraphTest.class);
 
-    @Test
-    public void performance() {
-        for (int i = 0; i < 25; i++) {
-            IGraph graph = new ListGraph(40);
-        }
+    private static IGraph graph;
+
+    private static List<Node> baseList;
+
+    private static Node n0;
+    private static Node n1;
+    private static Node n2;
+    private static Node n3;
+
+    @BeforeClass
+    public static void initTest(){
+        n0 = new Node(0, 25, 13, "N0", true);
+        n1 = new Node(1, 50, 89, "N1", false);
+        n2 = new Node(2, 99, 77, "N2", false);
+        n3 = new Node(3, 43, 4, "N3", false);
+        baseList = new ArrayList<>(4);
+        baseList.add(n0);
+        baseList.add(n1);
+        baseList.add(n2);
+        baseList.add(n3);
+        n2.setVisited(true);
+
+        graph = new ListGraph(baseList);
     }
 
+    @Test
+    public void cloneTest() {
+        IGraph newGraph = graph.clone();
+        assertTrue("Nodes from original graph in clone",
+                newGraph.getListOfNodes().stream().allMatch(n -> !baseList.contains(n)));
 
+        //TODO: oh god this looks ugly
+        assertTrue("Nodevalues of the clone don't macht with the origninal",
+                newGraph.getListOfNodes().stream().allMatch(n ->
+                {
+                    boolean inList = false;
+                    for (Node node : baseList) {
+                        if (node.getName() == n.getName() && node.getxCoord() == n.getxCoord() && node.getyCoord() == n.getyCoord() &&
+                                node.isVisited() == n.isVisited() && node.isStartingNode() == n.isStartingNode())
+                            inList = true;
+                    }
+                    return inList;
+                }));
+    }
+
+    @Test
+    public void getListOfNodesTest() {
+        List<Node> nodesList = graph.getListOfNodes();
+        assertTrue(graph.getListOfNodes().stream().allMatch(n -> nodesList.contains(n)));
+    }
+
+    @Test
+    public void getNodeByIdTest() {
+        assertEquals(n1, graph.getNodeById(1));
+        assertEquals(n3, graph.getNodeById(3));
+        assertEquals(null, graph.getNodeById(8));
+    }
+
+    @Test
+    public void getNodeByNameTest() {
+        assertEquals(n1, graph.getNodeByName("N1"));
+        assertEquals(n3, graph.getNodeByName("N3"));
+        assertEquals(null, graph.getNodeByName("N8"));
+    }
+
+    @Test
+    public void getClosestNeighborTest() {
+        assertEquals(n2, graph.getClosestNeighbor(n1));
+        assertEquals(n0, graph.getClosestNeighbor(n3));
+    }
+
+    @Test
+    public void getClosestUnvisitedNeighborTest() {
+        assertEquals(n0, graph.getClosestUnvisitedNeighbor(n1));
+        assertEquals(n0, graph.getClosestUnvisitedNeighbor(n3));
+    }
+
+    @Test
+    public void getFurthestNeighborTest() {
+        assertEquals(n2, graph.getFurthestNeighbor(n3));
+        assertEquals(n0, graph.getFurthestNeighbor(n2));
+    }
+
+    @Test
+    public void getFurthestUnvisitedNeighborTest() {
+        assertEquals(n1, graph.getFurthestUnvisitedNeighbor(n3));
+        assertEquals(n0, graph.getFurthestUnvisitedNeighbor(n2));
+    }
+
+    @Test
+    public void getDistanceTest() {
+        assertEquals(80.01, graph.getDistance(n0,n1), 0.01);
+        assertEquals(92.01, graph.getDistance(n2,n3), 0.01);
+    }
+
+    @Test
+    public void getStartingNodeTest() {
+        assertEquals(n0, graph.getStartingNode());
+    }
+
+    @Test
+    public void getDistanceMatrixTest() {
+    }
+
+    @Test
+    public void getAllNeighborsTest() {
+        List<Node> result = graph.getAllNeighbors(n0);
+        List<Node> expResult = new ArrayList<>(3);
+        expResult.add(n0);
+        expResult.add(n1);
+        expResult.add(n2);
+        assertTrue(result.containsAll(expResult));
+    }
+
+    @Test
+    public void getGraphSizeTest() {
+        assertEquals(4,graph.getGraphSize());
+        assertEquals(25,new ListGraph(25));
+    }
 }

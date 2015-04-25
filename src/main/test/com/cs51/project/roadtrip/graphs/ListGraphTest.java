@@ -1,11 +1,11 @@
 package com.cs51.project.roadtrip.graphs;
 
 import com.cs51.project.roadtrip.interfaces.IGraph;
-import junit.framework.Assert;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,8 +114,8 @@ public class ListGraphTest {
 
     @Test
     public void getDistanceTest() {
-        assertEquals(80.01, graph.getDistance(n0,n1), 0.01);
-        assertEquals(92.01, graph.getDistance(n2,n3), 0.01);
+        assertEquals(new BigDecimal("80.01"), graph.getDistance(n0,n1));
+        assertEquals(new BigDecimal("92.01"), graph.getDistance(n2,n3));
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.common.dto;
 
 import com.cs51.project.roadtrip.graphs.Node;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,13 +16,13 @@ public class Result {
     private boolean finished;
     private List<Node> calculatedPath;
     //Maybe we should use BigDecimal here
-    private double calculatedDistance;
+    private BigDecimal calculatedDistance;
 
-    public double getCalculatedDistance() {
+    public BigDecimal getCalculatedDistance() {
         return calculatedDistance;
     }
 
-    public void setCalculatedDistance(double calculatedDistance) {
+    public void setCalculatedDistance(BigDecimal calculatedDistance) {
         this.calculatedDistance = calculatedDistance;
     }
     

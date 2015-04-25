@@ -13,6 +13,7 @@ import com.cs51.project.roadtrip.interfaces.IUserInterface;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -309,7 +310,7 @@ public class CommandLineUI implements IUserInterface {
         }
 
         //get the distance matrix from the graph
-        TreeMap<Node, TreeMap<Node, Double>> dm = graph.getDistanceMatrix();
+        TreeMap<Node, TreeMap<Node, BigDecimal>> dm = graph.getDistanceMatrix();
 
         //define our formatting strings
         String leftColumnFormat = "%-4s";
@@ -344,7 +345,7 @@ public class CommandLineUI implements IUserInterface {
                 if (k == j) {
                     break;
                 }
-                Double distance = dm.get(thisNode).get(thatNode);
+                BigDecimal distance = dm.get(thisNode).get(thatNode);
                 sb2.append(String.format(distanceFormat, distance));
                 k++;
             }

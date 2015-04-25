@@ -32,7 +32,7 @@ public class ListGraph implements IGraph {
 
     private List<Node> nodes;
     private Random random;
-    private TreeMap<Node, TreeMap<Node, Double>> distanceMatrix;
+    private TreeMap<Node, TreeMap<Node, BigDecimal>> distanceMatrix;
 
     /**
      * Constructor for testing primarily.  Creates a graph using a passed in list of Node objects.
@@ -49,18 +49,6 @@ public class ListGraph implements IGraph {
      */
     public ListGraph(int numNodes) {
         initGraph(numNodes);
-    }
-
-    /**
-     * Clones the current Graph
-     * @return IGraph the cloned Graph
-     */
-    public IGraph clone(){
-        List<Node> newNodes = new ArrayList<>();
-        //we need a copy of all nodes
-        nodes.stream().forEach(n -> newNodes.add(n.clone()));
-
-        return new ListGraph(newNodes);
     }
 
     public void initGraph(int numNodes) {
@@ -93,17 +81,14 @@ public class ListGraph implements IGraph {
         distanceMatrix = generateDistanceMatrix();
     }
 
-
-
-    private TreeMap<Node, TreeMap<Node, Double>> generateDistanceMatrix() {
+    private TreeMap<Node, TreeMap<Node, BigDecimal>> generateDistanceMatrix() {
 
         //TODO we probably need to revisit this... maybe we can use Java 8 map lambda
 
-        TreeMap<Node, TreeMap<Node, Double>> matrix = new TreeMap<Node, TreeMap<Node, Double>>();
+        TreeMap<Node, TreeMap<Node, BigDecimal>> matrix = new TreeMap<Node, TreeMap<Node, BigDecimal>>();
 
-        long start = System.currentTimeMillis();
         for (Node thisNode : nodes) {
-            TreeMap<Node, Double> thisMap = new TreeMap<>();
+            TreeMap<Node, BigDecimal> thisMap = new TreeMap<>();
 
             for (Node thatNode : nodes) {
                 if (thisNode == thatNode) {
@@ -121,9 +106,10 @@ public class ListGraph implements IGraph {
             }
             matrix.put(thisNode, thisMap);
         }
-        System.out.println("time spend :" + (System.currentTimeMillis() - start));
         return matrix;
     }
+
+
 
     private Coordinate getRandomCoordinate() {
         return new Coordinate(getRandomPoint(), getRandomPoint());
@@ -133,17 +119,26 @@ public class ListGraph implements IGraph {
         return random.nextInt(MAX_PLANE_COORD + 1);
     }
 
-    private double calcDistance(Node n1, Node n2) {
+    private BigDecimal calcDistance(Node n1, Node n2) {
         int xDiff = n2.getxCoord() - n1.getxCoord();
         int yDiff = n2.getyCoord() - n1.getyCoord();
 
         return round(Math.sqrt(Math.pow(xDiff,2) + Math.pow(yDiff,2)), DISTANCE_NUM_DECIMALS);
     }
 
-    private double round(double value, int places) {
+    private BigDecimal round(double value, int places) {
         BigDecimal bd = BigDecimal.valueOf(value);
         bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        return bd;
+    }
+
+    @Override
+    public IGraph clone(){
+        List<Node> newNodes = new ArrayList<>();
+        //we need a copy of all nodes
+        nodes.stream().forEach(n -> newNodes.add(n.clone()));
+
+        return new ListGraph(newNodes);
     }
 
     @Override
@@ -153,12 +148,12 @@ public class ListGraph implements IGraph {
     }
 
     @Override
-    public double getDistance(Node n1, Node n2) {
+    public BigDecimal getDistance(Node n1, Node n2) {
         return distanceMatrix.get(n1).get(n2);
     }
 
     @Override
-    public TreeMap<Node, TreeMap<Node, Double>> getDistanceMatrix() {
+    public TreeMap<Node, TreeMap<Node, BigDecimal>> getDistanceMatrix() {
         return distanceMatrix;
     }
 
@@ -202,20 +197,26 @@ public class ListGraph implements IGraph {
             return null;
         }
 
-        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
+        TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
+        /*
         Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
                 .stream()
                 .reduce((minDist, dist) -> dist.getValue() < minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .orElse(null);*/
+        Map.Entry<Node, BigDecimal> closestEntry = thisMap.entrySet()
+                .stream()
+                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue()) == -1 && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
+
+
 
         Node result = null;
 
-        if (closestEntry != null){
-            result = closestEntry.getKey();
-        }
-
-        return result;
+        if (closestEntry.getKey().isVisited())
+            return null;
+        else
+            return closestEntry.getKey();
     }
 
     @Override
@@ -225,22 +226,17 @@ public class ListGraph implements IGraph {
             return null;
         }
 
-        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
+        TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
-        Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
+        Map.Entry<Node, BigDecimal> furthestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((minDist,dist) -> dist.getValue() > minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
+                .reduce((minDist,dist) -> dist.getValue().compareTo(minDist.getValue()) == 1 && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-        Node result = null;
-
-        if (furthestEntry != null){
-            result = furthestEntry.getKey();
-        }
-
-        return result;
-
-
+        if (furthestEntry.getKey().isVisited())
+            return null;
+        else
+            return furthestEntry.getKey();
     }
 
     @Override
@@ -250,11 +246,11 @@ public class ListGraph implements IGraph {
             return null;
         }
 
-        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
+        TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
-        Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
+        Map.Entry<Node, BigDecimal> closestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((minDist, dist) -> dist.getValue() < minDist.getValue() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue()) == -1 ? dist : minDist)
                 .orElse(null);
 
         Node result = null;
@@ -273,11 +269,11 @@ public class ListGraph implements IGraph {
             return null;
         }
 
-        TreeMap<Node, Double> thisMap = distanceMatrix.get(n1);
+        TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
-        Map.Entry<Node, Double> furthestEntry = thisMap.entrySet()
+        Map.Entry<Node, BigDecimal> furthestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((minDist, dist) -> dist.getValue() > minDist.getValue() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue())  == 1  ? dist : minDist)
                 .orElse(null);
 
         Node result = null;

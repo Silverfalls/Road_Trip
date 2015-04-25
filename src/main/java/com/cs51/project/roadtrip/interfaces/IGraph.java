@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.interfaces;
 
 import com.cs51.project.roadtrip.graphs.Node;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -77,7 +78,7 @@ public interface IGraph {
      * @param n2 node 2
      * @return distance between node 1 and node 2
      */
-    public double getDistance(Node n1, Node n2);
+    public BigDecimal getDistance(Node n1, Node n2);
 
     /**
      * get the starting node
@@ -89,7 +90,7 @@ public interface IGraph {
      * get the distance matrix of this graph
      * @return the distance matrix
      */
-    public TreeMap<Node, TreeMap<Node, Double>> getDistanceMatrix();
+    public TreeMap<Node, TreeMap<Node, BigDecimal>> getDistanceMatrix();
 
     /**
      * Get all neighbors to a node

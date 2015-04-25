@@ -7,6 +7,7 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     private IGraph graph = null;
 
-    private double shortestPathDistance = Double.MAX_VALUE;
+    private BigDecimal shortestPathDistance = BigDecimal.ZERO;
 
     private List<Node> shortestPath = null;
 
@@ -55,9 +56,9 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
             currentPath.addFirst(startingNode);
             currentPath.addLast(startingNode);
 
-            double currentDistance = getDistance(currentPath,graph);
+            BigDecimal currentDistance = getDistance(currentPath,graph);
 
-            if(currentDistance< shortestPathDistance){
+            if(currentDistance.compareTo(shortestPathDistance) == -1 || shortestPathDistance.compareTo(BigDecimal.ZERO) == 0){
 
                 StringBuilder sb = new StringBuilder();
                 shortestPathDistance = currentDistance;
@@ -106,7 +107,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         if (logger.isDebugEnabled()) {
             logger.debug("finished BruteForceAlgorithm");
         }
-        shortestPathDistance = Double.MAX_VALUE;
+        shortestPathDistance = BigDecimal.ZERO;
         shortestPath = null;
         return result;
     }

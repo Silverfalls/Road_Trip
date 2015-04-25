@@ -7,6 +7,7 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -66,7 +67,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
                 if (visitedEverywhere(branch)) {
                     Branch getHomeBranch = new Branch(branch, startingNode);
                     if (shortestGoalBranch == null
-                            || getHomeBranch.getAccumulatedDistance() < shortestGoalBranch.getAccumulatedDistance()) {
+                            || getHomeBranch.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1) {
                         shortestGoalBranch = getHomeBranch;
                     }
                 }
@@ -126,7 +127,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         private Branch parent;
         private List<Branch> children;
         private List<Node> unvisitedNodes;
-        private Double accumulatedDistance;
+        private BigDecimal accumulatedDistance;
         private Node node;
         private String name;
 
@@ -134,7 +135,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         private Branch(List<Node> visitedNodes, List<Node> unvisitedNodes) {
             this.visitedNodes = visitedNodes;
             this.unvisitedNodes = unvisitedNodes;
-            this.accumulatedDistance = 0.0;
+            this.accumulatedDistance = BigDecimal.ZERO;
             this.parent = null;
             node = visitedNodes.get(0);
         }
@@ -144,7 +145,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             this.parent = parent;
             setVisitedNodes(parent, node);
             setUnvisitedNodes(parent, node);
-            this.accumulatedDistance = parent.getAccumulatedDistance() + mGraph.getDistance(parent.getNode(), node);
+            this.accumulatedDistance = parent.getAccumulatedDistance().add(mGraph.getDistance(parent.getNode(), node));
             this.node = node;
             this.name = node.getName();
         }
@@ -195,7 +196,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             children.add(branch);
         }
 
-        public Double getAccumulatedDistance() {
+        public BigDecimal getAccumulatedDistance() {
             return accumulatedDistance;
         }
 
@@ -222,14 +223,14 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     private Branch getShortestBranch() {
         Branch branchToReturn = null;
         if (branches != null) {
-            Double minDistance = null;
+            BigDecimal minDistance = null;
             for (Branch b : branches) {
                 if (minDistance == null) {
                     minDistance = b.getAccumulatedDistance();
                     branchToReturn = b;
                     continue;
                 }
-                if (b.getAccumulatedDistance() < minDistance) {
+                if (b.getAccumulatedDistance().compareTo(minDistance) == -1) {
                     minDistance = b.getAccumulatedDistance();
                     branchToReturn = b;
                 }
@@ -247,7 +248,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             Iterator iterator = branches.iterator();
             while (iterator.hasNext()) {
                 Branch b = (Branch) iterator.next();
-                if (b.getAccumulatedDistance() >= shortestGoalBranch.getAccumulatedDistance()) {
+                if (b.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) >= 0) {
                     iterator.remove();
                 }
             }
@@ -263,18 +264,18 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     private Node getClosestNeighborToNode(Node node, List<Node> nodes) {
         Node nodeToReturn = null;
         if (nodes != null && node != null) {
-            Double distance = null;
+            BigDecimal distance = null;
             for (Node n : nodes) {
                 if (n == node) {
                     continue;
                 }
-                Double d = mGraph.getDistance(n, node);
+                BigDecimal d = mGraph.getDistance(n, node);
                 if (distance == null) {
                     distance = d;
                     nodeToReturn = n;
                     continue;
                 }
-                if (d < distance) {
+                if (d.compareTo(distance) ==  -1) {
                     distance = d;
                     nodeToReturn = n;
                 }
@@ -285,7 +286,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         return nodeToReturn;
     }
 
-    public Double getD(List<Node> n, IGraph g) {
+    public BigDecimal getD(List<Node> n, IGraph g) {
         return getDistance(n, g);
     }
 

@@ -189,11 +189,39 @@ public class ListGraph implements IGraph {
 
         TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
+        //TODO maybe we should revisit this (never could get it working,... alternative to the reduce stuff below)
+//        BigDecimal mD = null;
+//        Node n = null;
+//        for (Node key : thisMap.keySet()) {
+//            System.out.println("node name = " + key.getName());
+//            if (key.isVisited()) {
+//                if (n == null) {
+//                    if (mD == null) {
+//                        mD = thisMap.get(key);
+//                    }
+//                    n = key;
+//                }
+//                continue;
+//            }
+//            if (mD == null) {
+//                mD = thisMap.get(key);
+//            } else {
+//                if (thisMap.get(key).compareTo(mD) == -1) {
+//                    mD = thisMap.get(key);
+//                    n = key;
+//                }
+//            }
+//        }
+//        return n;
+
+        //TODO comment about this
         Map.Entry<Node, BigDecimal> closestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue()) == -1
-                        && !dist.getKey().isVisited() ? dist : minDist)
+                .reduce((minDist, dist) -> (dist.getValue().compareTo(minDist.getValue()) == -1 && !dist.getKey().isVisited())
+                        || minDist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
+
+
 
         return (closestEntry.getKey().isVisited()) ? null : closestEntry.getKey();
     }

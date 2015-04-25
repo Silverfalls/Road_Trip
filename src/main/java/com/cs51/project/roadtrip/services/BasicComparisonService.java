@@ -23,8 +23,15 @@ public class BasicComparisonService implements IComparisonService {
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs) {
 
+        return executeComparison(graph, algs, 1);
+    }
+
+    public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int numCycles) {
         //create a list for our results
         List<Result> results = new ArrayList<>();
+
+
+
 
         //execute each algorithm and store the result
         algs.stream().forEach(alg -> results.add(alg.execute(graph)));

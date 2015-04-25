@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
+import com.cs51.project.roadtrip.enums.AlgType;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
@@ -49,6 +50,7 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
         result.setCalculatedPath(shortestPath);
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
+        result.setName(AlgType.NEAREST_NEIGHBOR.getName());
 
         if (logger.isDebugEnabled()) {
             StringBuilder sb = new StringBuilder();

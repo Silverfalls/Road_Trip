@@ -9,8 +9,9 @@ public class RoadTripConstants {
     public static final String PROGRAM_NAME = "Road Trip";
     public static final String PATH_TO_GENERAL_HELP_FILE = "src/resources/help/general_help.txt";
     public static final String PATH_TO_ALGORITHM_CHOICE_HELP_FILE = "src/resources/help/algorithm_help.txt";
+    public static final String TOUR_PATH_SEPARATOR = " -> ";
 
     //integer constants
-    public static final int MAX_GRAPH_SIZE = 13;
+    public static final int MAX_GRAPH_SIZE = 100; //TODO change this back to a lower number (maybe !!!)
     public static final int DEFAULT_STARTING_NODES = 3;
 }

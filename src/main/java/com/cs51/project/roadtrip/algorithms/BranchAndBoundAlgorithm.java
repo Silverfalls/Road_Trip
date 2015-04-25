@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
+import com.cs51.project.roadtrip.enums.AlgType;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
@@ -21,30 +22,21 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
      */
     private static Logger logger = Logger.getLogger(BranchAndBoundAlgorithm.class);
 
-    IGraph mGraph;
-    List<Branch> branches;
-    Branch shortestGoalBranch;
-    Long iterations = 0L;
+    private IGraph mGraph;
+    private List<Branch> branches;
+    private Branch shortestGoalBranch;
+    private Long iterations = 0L;
+    private Result result = null;
+    private long runningTime = 0L;
 
     @Override
     public Result execute(IGraph graph) {
-
-        IAlgorithm nnA = new NearestNeighborAlgorithm();
-        Result result = nnA.execute(graph);
-        Branch sBranch = new Branch(result.getCalculatedPath(), null);
-        sBranch.setAccumulatedDistance(result.getCalculatedDistance());
-        shortestGoalBranch = sBranch;
-        System.out.println("Nearest neighbor distance = " + result.getCalculatedDistance());
-
-        IAlgorithm bfA = new BruteForceAlgorithm();
-        Result r = bfA.execute(graph);
-        System.out.println("brute force solution = " + r.getCalculatedDistance());
-
-
-
-
+        result = new Result();
         mGraph = graph;
         branches = new ArrayList<>();
+
+        //start the clock
+        long startTime = System.currentTimeMillis();
 
         //get our starting node and its neighbors (all other nodes in this case)
         Node startingNode = graph.getStartingNode();
@@ -63,12 +55,6 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         }
         //clear the root unvisited list now since technically a branch has been created for all its neighbors
         root.getUnvisitedNodes().clear();
-
-
-//        for (Branch b : branches) {
-//            System.out.println(b.toString());
-//        }
-
 
         do {
             iterations++;
@@ -92,52 +78,37 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             pruneBranches();
         } while (!branches.isEmpty());
 
-        System.out.println("num iterations = " + iterations);
+        //stop the clock
+        runningTime = System.currentTimeMillis() - startTime;
 
-        System.out.println("shortest path = " + shortestGoalBranch.getAccumulatedDistance());
+        //set the result for return
+        setResult();
 
-        System.out.println("we're done");
+        reset();
 
+        return result;
+    }
 
-
-
-
-
-//        System.out.println("root = " + root.toString());
-//        System.out.println("first branch = " + firstBranch.toString());
-
-
-
-        return null;
+    private void setResult() {
+        result.setName(AlgType.BRANCH_AND_BOUND.getName());
+        result.setCalculatedDistance(shortestGoalBranch.getAccumulatedDistance());
+        result.setGraphSize(mGraph.getGraphSize());
+        result.setIterations(iterations);
+        result.setRunningTime(runningTime);
+        result.setCalculatedPath(shortestGoalBranch.visitedNodes);
     }
 
     private boolean visitedEverywhere(Branch b) {
-//        System.out.println("starting new iteration");
+
         List<Node> allNodes = mGraph.getListOfNodes();
-//        System.out.println("all nodes");
-//        for (Node n : allNodes) {
-//            System.out.println(n.getName());
-//        }
-//        System.out.println("visited nodes");
-//        for (Node n : b.getVisitedNodes()) {
-//            System.out.println(n.getName());
-//        }
-//        int i = 0;
+
         for (Node n : allNodes) {
             if (!b.getVisitedNodes().contains(n)) {
                 return false;
             }
-//            i++;
-//            for (Node n1 : b.getVisitedNodes()) {
-//                if (!n.getName().equals(n1.getName())) {
-//                    return false;
-//                }
-//            }
         }
         return true;
     }
-
-
 
     private class Branch {
 
@@ -173,10 +144,6 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             visitedNodes = new ArrayList<>(parent.getVisitedNodes().size() + 1);
             visitedNodes.addAll(parent.getVisitedNodes());
             visitedNodes.add(node);
-//            System.out.println("new branch visited nodes");
-//            for (Node n : visitedNodes) {
-//                System.out.println(n.getName());
-//            }
         }
 
         public void setAccumulatedDistance(BigDecimal d) {
@@ -184,9 +151,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         }
 
         private void setUnvisitedNodes(Branch parent, Node node) {
-//            if (parent.getUnvisitedNodes() == null) {
-//                System.out.println("empty parent");
-//            }
+
             unvisitedNodes = new ArrayList<>();
             //TODO says I can use collect here
             for (Node n : parent.getUnvisitedNodes()) {
@@ -194,9 +159,6 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
                     unvisitedNodes.add(n);
                 }
             }
-//            if (unvisitedNodes.size() == 0) {
-//                System.out.println("empyt unvisited nodes");
-//            }
         }
 
         public List<Node> getVisitedNodes() {
@@ -285,8 +247,9 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     //this takes a list of nodes and a node and returns the closest node from the list to the passed in node
     private Node getClosestNeighborToNode(Node node, List<Node> nodes) {
         Node nodeToReturn = null;
+        BigDecimal distance = null;
+
         if (nodes != null && node != null) {
-            BigDecimal distance = null;
             for (Node n : nodes) {
                 if (n == node) {
                     continue;
@@ -316,6 +279,9 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
 
     @Override
     public void reset() {
-
+        runningTime = 0L;
+        iterations = 0L;
+        shortestGoalBranch = null;
+        //no need to set result to null here because it will be reinstantiated on next execution
     }
 }

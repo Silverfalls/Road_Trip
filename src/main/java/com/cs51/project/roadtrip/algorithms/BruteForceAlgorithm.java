@@ -99,7 +99,6 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         result.setCalculatedPath(shortestPath);
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
-        result.setOptimal(true);
         result.setIterations(iterations);
 
         shortestPathDistance = BigDecimal.ZERO;

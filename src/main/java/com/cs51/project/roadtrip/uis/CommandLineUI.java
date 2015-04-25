@@ -170,9 +170,6 @@ public class CommandLineUI implements IUserInterface {
             System.out.println("- num iterations  - " + result.getIterations());
             System.out.println("- path            - " + RoadTripUtils.convertListToPath(result.getCalculatedPath()));
             System.out.println("- distance        - " + result.getCalculatedDistance());
-            if (result.isOptimal() != null) {
-                System.out.println("- is optimal path - " + (result.isOptimal() ? "Yes" : "No"));
-            }
             System.out.println("\n");
         }
 

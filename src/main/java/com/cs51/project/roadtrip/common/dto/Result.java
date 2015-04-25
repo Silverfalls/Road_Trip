@@ -8,7 +8,6 @@ import java.util.Optional;
 
 
 public class Result {
-    private Boolean isOptimal;
     private long runningTime;
     private long iterations;
     private String name;
@@ -69,13 +68,4 @@ public class Result {
     public void setFinished(boolean finished) {
         this.finished = finished;
     }
-
-    public Boolean isOptimal() {
-        return isOptimal;
-    }
-
-    public void setOptimal(boolean isOptimal) {
-        this.isOptimal = isOptimal;
-    }
-
 }

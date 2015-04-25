@@ -17,14 +17,14 @@ public interface IGraph {
     public List<Node> getListOfNodes();
 
     /**
-     * Get a node by it's ID
+     * Get a node by its ID
      * @param id ID of the node
      * @return the node
      */
     public Node getNodeById(long id);
 
     /**
-     * Get a node by it's name
+     * Get a node by its name
      * @param name name of the node
      * @return the node
      */

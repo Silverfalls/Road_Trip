@@ -34,74 +34,82 @@ public class BranchAndBoundAlgorithmTest {
         baseList.add(n2);
         baseList.add(n3);
 
-        IGraph graph = new ListGraph(baseList);
-        BranchAndBoundAlgorithm alg = new BranchAndBoundAlgorithm();
+//        IGraph graph = new ListGraph(baseList);
+//        IGraph graph = new ListGraph(13);
+//
+//        BranchAndBoundAlgorithm alg = new BranchAndBoundAlgorithm();
 
 
-        List<Node> l1 = new ArrayList<>();
-        l1.add(n0);
-        l1.add(n1);
-        l1.add(n2);
-        l1.add(n3);
-        l1.add(n0);
+//        List<Node> l1 = new ArrayList<>();
+//        l1.add(n0);
+//        l1.add(n1);
+//        l1.add(n2);
+//        l1.add(n3);
+//        l1.add(n0);
+//
+//        List<Node> l2 = new ArrayList<>();
+//        l2.add(n0);
+//        l2.add(n1);
+//        l2.add(n3);
+//        l2.add(n2);
+//        l2.add(n0);
+//
+//        List<Node> l3 = new ArrayList<>();
+//        l3.add(n0);
+//        l3.add(n2);
+//        l3.add(n1);
+//        l3.add(n3);
+//        l3.add(n0);
+//
+//        List<Node> l4 = new ArrayList<>();
+//        l4.add(n0);
+//        l4.add(n2);
+//        l4.add(n3);
+//        l4.add(n1);
+//        l4.add(n0);
+//
+//        List<Node> l5 = new ArrayList<>();
+//        l5.add(n0);
+//        l5.add(n3);
+//        l5.add(n1);
+//        l5.add(n2);
+//        l5.add(n0);
+//
+//        List<Node> l6 = new ArrayList<>();
+//        l6.add(n0);
+//        l6.add(n3);
+//        l6.add(n2);
+//        l6.add(n1);
+//        l6.add(n0);
+//
+//        List<List<Node>> possibilities = new ArrayList<>();
+//        possibilities.add(l1);
+//        possibilities.add(l2);
+//        possibilities.add(l3);
+//        possibilities.add(l4);
+//        possibilities.add(l5);
+//        possibilities.add(l6);
+//
+//        for (List<Node> l : possibilities) {
+//            StringBuilder sb = new StringBuilder();
+//            for (Node n : l) {
+//                sb.append(n.getName() + " -> ");
+//            }
+//
+//            sb.append(alg.getD(l, graph));
+//            System.out.println(sb.toString());
+//        }
 
-        List<Node> l2 = new ArrayList<>();
-        l2.add(n0);
-        l2.add(n1);
-        l2.add(n3);
-        l2.add(n2);
-        l2.add(n0);
+for (int i = 0; i < 5; i++) {
+    IGraph graph = new ListGraph(7);
 
-        List<Node> l3 = new ArrayList<>();
-        l3.add(n0);
-        l3.add(n2);
-        l3.add(n1);
-        l3.add(n3);
-        l3.add(n0);
-
-        List<Node> l4 = new ArrayList<>();
-        l4.add(n0);
-        l4.add(n2);
-        l4.add(n3);
-        l4.add(n1);
-        l4.add(n0);
-
-        List<Node> l5 = new ArrayList<>();
-        l5.add(n0);
-        l5.add(n3);
-        l5.add(n1);
-        l5.add(n2);
-        l5.add(n0);
-
-        List<Node> l6 = new ArrayList<>();
-        l6.add(n0);
-        l6.add(n3);
-        l6.add(n2);
-        l6.add(n1);
-        l6.add(n0);
-
-        List<List<Node>> possibilities = new ArrayList<>();
-        possibilities.add(l1);
-        possibilities.add(l2);
-        possibilities.add(l3);
-        possibilities.add(l4);
-        possibilities.add(l5);
-        possibilities.add(l6);
-
-        for (List<Node> l : possibilities) {
-            StringBuilder sb = new StringBuilder();
-            for (Node n : l) {
-                sb.append(n.getName() + " -> ");
-            }
-
-            sb.append(alg.getD(l, graph));
-            System.out.println(sb.toString());
-        }
-
-
+    BranchAndBoundAlgorithm alg = new BranchAndBoundAlgorithm();
 
 //        IGraph graph = new ListGraph(3);
-        alg.execute(graph);
+    Long startTime = System.currentTimeMillis();
+    alg.execute(graph);
+    System.out.println("exe time = " + (System.currentTimeMillis() - startTime));
+}
     }
 
 

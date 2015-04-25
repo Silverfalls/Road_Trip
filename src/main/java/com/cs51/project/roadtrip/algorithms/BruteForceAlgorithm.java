@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
+import com.cs51.project.roadtrip.enums.AlgType;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
@@ -63,19 +64,11 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
             if(currentDistance.compareTo(shortestPathDistance) == -1 || shortestPathDistance.compareTo(BigDecimal.ZERO) == 0){
 
-                StringBuilder sb = new StringBuilder();
+//                StringBuilder sb = new StringBuilder();
                 shortestPathDistance = currentDistance;
                 shortestPath = currentPath;
-                sb.append("The following is currently the shortest path with ").append(currentDistance).append(" ");
+//                sb.append("The following is currently the shortest path with ").append(currentDistance).append(" ");
 
-                for (Node aShortestPath : shortestPath) {
-                    sb.append(aShortestPath.getName());
-                    sb.append(" -> ");
-                }
-
-                if (logger.isDebugEnabled()) {
-                    logger.debug(sb.substring(0, sb.length() - 4));
-                }
             }
         }
     }
@@ -100,6 +93,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         permute(nodesList, 0);
 
         //set values of result
+        result.setName(AlgType.BRUTE_FORCE.getName());
         result.setRunningTime(System.currentTimeMillis() - startTime);
         result.setCalculatedDistance(shortestPathDistance);
         result.setCalculatedPath(shortestPath);

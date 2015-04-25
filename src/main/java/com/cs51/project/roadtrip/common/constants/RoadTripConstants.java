@@ -11,6 +11,6 @@ public class RoadTripConstants {
     public static final String PATH_TO_ALGORITHM_CHOICE_HELP_FILE = "src/resources/help/algorithm_help.txt";
 
     //integer constants
-    public static final int MAX_GRAPH_SIZE = 7;
+    public static final int MAX_GRAPH_SIZE = 13;
     public static final int DEFAULT_STARTING_NODES = 3;
 }

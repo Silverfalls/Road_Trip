@@ -3,6 +3,7 @@ package com.cs51.project.roadtrip.uis;
 import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.common.constants.RoadTripConstants;
 import com.cs51.project.roadtrip.common.dto.Result;
+import com.cs51.project.roadtrip.common.utils.RoadTripUtils;
 import com.cs51.project.roadtrip.enums.AlgType;
 import com.cs51.project.roadtrip.enums.CompType;
 import com.cs51.project.roadtrip.graphs.ListGraph;
@@ -35,6 +36,7 @@ public class CommandLineUI implements IUserInterface {
     private static final String YES = "Y";
     private static final String NO = "N";
     private static final String WILDCARD = "*";
+    private static final int RESULT_PAD_AMOUNT = 15;
 
     /**
      * TODO link to interface javadoc
@@ -159,8 +161,20 @@ public class CommandLineUI implements IUserInterface {
         if (logger.isDebugEnabled()) {
             logger.debug("printResults | start...");
         }
-        //TODO TODO TODO left off here
-        System.out.println("In the print results section, left off here for the night");
+
+        //TODO just convert this to use padding... should have done that in the first place
+        for (Result result : results) {
+            System.out.println("Results for " + result.getName());
+            System.out.println("- graph size      - " + result.getGraphSize());
+            System.out.println("- running time    - " + result.getRunningTime() + "ms");
+            System.out.println("- num iterations  - " + result.getIterations());
+            System.out.println("- path            - " + RoadTripUtils.convertListToPath(result.getCalculatedPath()));
+            System.out.println("- distance        - " + result.getCalculatedDistance());
+            if (result.isOptimal() != null) {
+                System.out.println("- is optimal path - " + (result.isOptimal() ? "Yes" : "No"));
+            }
+            System.out.println("\n");
+        }
 
         if (logger.isDebugEnabled()) {
             logger.debug("printResults | end...");
@@ -190,11 +204,26 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("promptNumNodes | start...");
         }
 
-        int numNodes = 6;
+        System.out.println("Please enter the number of nodes for the graph the algorithms will attempt to solve");
+        System.out.println("The max number of nodes " + RoadTripConstants.PROGRAM_NAME +
+                " supports is " + RoadTripConstants.MAX_GRAPH_SIZE);
 
-        //TODO!!!!
-
-
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        int numNodes;
+        while (true) {
+            command = scanner.next();
+            try {
+                numNodes = Integer.parseInt(command);
+                if (numNodes > RoadTripConstants.MAX_GRAPH_SIZE) {
+                    System.out.println("That is too many nodes");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                displayInvalidInputWarning(command);
+            }
+        }
 
         if (logger.isDebugEnabled()) {
             logger.debug("promptNumNodes | end...");

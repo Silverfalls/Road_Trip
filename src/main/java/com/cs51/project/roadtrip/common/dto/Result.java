@@ -70,8 +70,8 @@ public class Result {
         this.finished = finished;
     }
 
-    public Optional<Boolean> isOptimal() {
-        return Optional.ofNullable(isOptimal);
+    public Boolean isOptimal() {
+        return isOptimal;
     }
 
     public void setOptimal(boolean isOptimal) {

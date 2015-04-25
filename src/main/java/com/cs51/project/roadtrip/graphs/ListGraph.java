@@ -20,12 +20,6 @@ public class ListGraph implements IGraph {
      */
     private static Logger logger = Logger.getLogger(ListGraph.class);
 
-    //TODO something to keep in mind... we might be able to reuse most of the code for get closest neighbor and getfurthest neighbor and
-    //TODO use some lambdas... they're pretty much the same except one uses > and the other < and an isVisitedCheck... we should talk about these...
-    //TODO i think there's a lot of room for improvement
-    //TODO please ignore the repeated code for now... we can fix that
-    //TODO i read that there is a reduce function in Java 8 now.. maybe we can use that for closest and furthest
-
     private static final String NODE_NAME_PREFIX = "N";
     private static final int MAX_PLANE_COORD = 100;
     private static final int DISTANCE_NUM_DECIMALS = 2;
@@ -83,8 +77,6 @@ public class ListGraph implements IGraph {
 
     private TreeMap<Node, TreeMap<Node, BigDecimal>> generateDistanceMatrix() {
 
-        //TODO we probably need to revisit this... maybe we can use Java 8 map lambda
-
         TreeMap<Node, TreeMap<Node, BigDecimal>> matrix = new TreeMap<Node, TreeMap<Node, BigDecimal>>();
 
         for (Node thisNode : nodes) {
@@ -95,9 +87,6 @@ public class ListGraph implements IGraph {
                     continue;
                 }
 
-                /*tested this and at least on my machine this is actually quicker but it's only measurable with a
-                * few hundred nodes
-                */
                 if (matrix.get(thatNode) != null && matrix.get(thatNode).get(thisNode) != null) {
                     thisMap.put(thatNode, matrix.get(thatNode).get(thisNode));
                     continue;
@@ -108,8 +97,6 @@ public class ListGraph implements IGraph {
         }
         return matrix;
     }
-
-
 
     private Coordinate getRandomCoordinate() {
         return new Coordinate(getRandomPoint(), getRandomPoint());
@@ -183,6 +170,9 @@ public class ListGraph implements IGraph {
         //TODO but if we do that, should we be throwing exceptions ???
         if (n1 == null) {
             return null;
+        } else if (this.getNodeById(n1.getId()) == null) {
+            logger.error("getRandomUnvisitedNeighbor | the passed in node is not part of the graph");
+            return null;
         }
         return nodes.stream()
                     .filter(n -> n != n1 && !n.isVisited())
@@ -199,24 +189,13 @@ public class ListGraph implements IGraph {
 
         TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
-        /*
-        Map.Entry<Node, Double> closestEntry = thisMap.entrySet()
-                .stream()
-                .reduce((minDist, dist) -> dist.getValue() < minDist.getValue() && !dist.getKey().isVisited() ? dist : minDist)
-                .orElse(null);*/
         Map.Entry<Node, BigDecimal> closestEntry = thisMap.entrySet()
                 .stream()
-                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue()) == -1 && !dist.getKey().isVisited() ? dist : minDist)
+                .reduce((minDist, dist) -> dist.getValue().compareTo(minDist.getValue()) == -1
+                        && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-
-
-        Node result = null;
-
-        if (closestEntry.getKey().isVisited())
-            return null;
-        else
-            return closestEntry.getKey();
+        return (closestEntry.getKey().isVisited()) ? null : closestEntry.getKey();
     }
 
     @Override
@@ -233,10 +212,7 @@ public class ListGraph implements IGraph {
                 .reduce((minDist,dist) -> dist.getValue().compareTo(minDist.getValue()) == 1 && !dist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-        if (furthestEntry.getKey().isVisited())
-            return null;
-        else
-            return furthestEntry.getKey();
+        return (furthestEntry.getKey().isVisited()) ? null : furthestEntry.getKey();
     }
 
     @Override

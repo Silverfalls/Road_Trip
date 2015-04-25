@@ -2,6 +2,7 @@ package com.cs51.project.roadtrip.enums;
 
 import com.cs51.project.roadtrip.interfaces.IComparisonService;
 import com.cs51.project.roadtrip.services.BasicComparisonService;
+import com.cs51.project.roadtrip.services.RaceComparisonService;
 
 /**
  * Comparison Type Enumeration
@@ -11,9 +12,8 @@ import com.cs51.project.roadtrip.services.BasicComparisonService;
  */
 public enum CompType {
 
-    BASIC("Basic Comparison", "TODO description of basic comparison", "B", true, new BasicComparisonService());
-//    BASIC("Basic Comparison", "description", "B", true, new BasicComparisonService()),
-//    RACE("Race Comparison", "description", "R", false, new RaceComparisonService());
+    BASIC("Basic Comparison", "description", "B", true, new BasicComparisonService()),
+    RACE("Race Comparison", "description", "R", false, new RaceComparisonService());
 
     private final String name;
     private final String desc;

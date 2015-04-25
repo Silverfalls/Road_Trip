@@ -24,9 +24,24 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     IGraph mGraph;
     List<Branch> branches;
     Branch shortestGoalBranch;
+    Long iterations = 0L;
 
     @Override
     public Result execute(IGraph graph) {
+
+        IAlgorithm nnA = new NearestNeighborAlgorithm();
+        Result result = nnA.execute(graph);
+        Branch sBranch = new Branch(result.getCalculatedPath(), null);
+        sBranch.setAccumulatedDistance(result.getCalculatedDistance());
+        shortestGoalBranch = sBranch;
+        System.out.println("Nearest neighbor distance = " + result.getCalculatedDistance());
+
+        IAlgorithm bfA = new BruteForceAlgorithm();
+        Result r = bfA.execute(graph);
+        System.out.println("brute force solution = " + r.getCalculatedDistance());
+
+
+
 
         mGraph = graph;
         branches = new ArrayList<>();
@@ -56,6 +71,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
 
 
         do {
+            iterations++;
             Branch branch = getShortestBranch();
             Node closestNode = getClosestNeighborToNode(branch.getNode(), branch.getUnvisitedNodes());
             if (closestNode != null) {
@@ -76,7 +92,9 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
             pruneBranches();
         } while (!branches.isEmpty());
 
-        System.out.println("shortest path = " + shortestGoalBranch.toString());
+        System.out.println("num iterations = " + iterations);
+
+        System.out.println("shortest path = " + shortestGoalBranch.getAccumulatedDistance());
 
         System.out.println("we're done");
 
@@ -159,6 +177,10 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
 //            for (Node n : visitedNodes) {
 //                System.out.println(n.getName());
 //            }
+        }
+
+        public void setAccumulatedDistance(BigDecimal d) {
+            accumulatedDistance = d;
         }
 
         private void setUnvisitedNodes(Branch parent, Node node) {

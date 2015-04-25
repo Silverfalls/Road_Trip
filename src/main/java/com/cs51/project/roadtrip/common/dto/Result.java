@@ -10,7 +10,7 @@ import java.util.Optional;
 public class Result {
     private Boolean isOptimal;
     private long runningTime;
-    private Optional<Long> iterations;
+    private long iterations;
     private String name;
     private int graphSize;
     private boolean finished;
@@ -38,11 +38,11 @@ public class Result {
         this.runningTime = runningTime;
     }
 
-    public Optional<Long> getIterations() {
+    public long getIterations() {
         return iterations;
     }
 
-    public void setIterations(Optional<Long> iterations) {
+    public void setIterations(long iterations) {
         this.iterations = iterations;
     }
 

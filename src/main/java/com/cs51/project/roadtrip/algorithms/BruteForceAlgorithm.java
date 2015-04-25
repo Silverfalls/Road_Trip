@@ -31,6 +31,8 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     private List<Node> shortestPath = null;
 
+    private long iterations = 0;
+
 
 
     //TODO
@@ -55,6 +57,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
             //add the starting node back to the path
             currentPath.addFirst(startingNode);
             currentPath.addLast(startingNode);
+            iterations++;
 
             BigDecimal currentDistance = getDistance(currentPath,graph);
 
@@ -103,12 +106,15 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
         result.setOptimal(true);
+        result.setIterations(iterations);
+
+        shortestPathDistance = BigDecimal.ZERO;
+        shortestPath = null;
+        iterations  = 0;
 
         if (logger.isDebugEnabled()) {
             logger.debug("finished BruteForceAlgorithm");
         }
-        shortestPathDistance = BigDecimal.ZERO;
-        shortestPath = null;
         return result;
     }
 

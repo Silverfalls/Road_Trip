@@ -28,6 +28,7 @@ public class ListGraph implements IGraph {
     private Random random;
     private TreeMap<Node, TreeMap<Node, BigDecimal>> distanceMatrix;
 
+
     /**
      * Constructor for testing primarily.  Creates a graph using a passed in list of Node objects.
      * @param nodes  a list of nodes to construct the graph with

@@ -13,16 +13,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
-public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm {
+public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     /**
      * Logger instance
      */
-    private static Logger logger = Logger.getLogger(BranchAndBoundAlgorithm.class);
+    private static Logger logger = Logger.getLogger(ListBranchAndBoundAlgorithm.class);
 
     private IGraph mGraph;
     private List<Branch> branches;
@@ -30,12 +29,17 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     private Long iterations = 0L;
     private Result result = null;
     private long runningTime = 0L;
+    private List<Node> allGraphNodes;
 
     @Override
     public Result execute(IGraph graph) {
         result = new Result();
         mGraph = graph;
         branches = new ArrayList<>();
+
+        if (allGraphNodes == null) {
+            allGraphNodes = graph.getListOfNodes();
+        }
 
         //start the clock
         long startTime = System.currentTimeMillis();
@@ -83,6 +87,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
                     if (shortestGoalBranch == null
                             || getHomeBranch.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1) {
                         shortestGoalBranch = getHomeBranch;
+                        pruneBranches();
                     }
                     /*System.out.println("SGB path = " + RoadTripUtils.convertListToPath(shortestGoalBranch.getVisitedNodes())
                         + " accumulated distance = " + shortestGoalBranch.getAccumulatedDistance());*/
@@ -92,13 +97,12 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
                 }
                 branches.remove(branch);
             }
-            pruneBranches();
         } while (!branches.isEmpty());
 
         //stop the clock
         runningTime = System.currentTimeMillis() - startTime;
 
-        System.out.println("B&B final path = " + RoadTripUtils.convertListToPath(shortestGoalBranch.getVisitedNodes()));
+//        System.out.println("B&B final path = " + RoadTripUtils.convertListToPath(shortestGoalBranch.getVisitedNodes()));
 
         //set the result for return
         setResult();
@@ -109,7 +113,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     }
 
     private void setResult() {
-        result.setName(AlgType.BRANCH_AND_BOUND.getName());
+        result.setName(AlgType.BRANCH_AND_BOUND_LIST.getName());
         result.setCalculatedDistance(shortestGoalBranch.getAccumulatedDistance());
         result.setGraphSize(mGraph.getGraphSize());
         result.setIterations(iterations);
@@ -136,12 +140,15 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         private List<Branch> children;
         private List<Node> unvisitedNodes;
         private BigDecimal accumulatedDistance;
+//        private List<Node> unvisitedNodesForChildren;
         private Node node;
 
         //constructor for root branch only
         private Branch(List<Node> visitedNodes, List<Node> unvisitedNodes) {
+            System.out.println("unvisited nodes size = " + unvisitedNodes.size());
             this.visitedNodes = visitedNodes;
             this.unvisitedNodes = unvisitedNodes;
+//            this.unvisitedNodesForChildren = new ArrayList<>(unvisitedNodes);
             this.accumulatedDistance = BigDecimal.ZERO;
             this.parent = null;
             node = visitedNodes.get(0);
@@ -169,22 +176,40 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
         }
 
         private void setUnvisitedNodes(Branch parent, Node node) {
+//            if (parent != null) {
+//                if (parent.getUnvisitedNodesForChildren() == null) {
+//                    System.out.println("parent children unvisited = null");
+//                }
+//            }
 
             unvisitedNodes = new ArrayList<>();
-            //TODO says I can use collect here
+//            //TODO says I can use collect here
             List<Node> alreadyVisited = parent.getVisitedNodes();
             unvisitedNodes = mGraph.getListOfNodes().stream()
                     .filter(n -> !alreadyVisited.contains(n))
                     .collect(Collectors.toList());
 
+//            List<Node> parentVisitedNodes = new ArrayList<>();
+////            for (Node n : mGraph.getListOfNodes()) {
+//            for (Node n : allGraphNodes) {
+//                if (!parentVisitedNodes.contains(n)) {
+//                    unvisitedNodes.add(n);
+//                }
+//            }
 
-            /*for (Node n : parent.getUnvisitedNodes()) {
-                if (n != node) {
-                    unvisitedNodes.add(n);
-                }
-            }*/
+
+//            for (Node n : parent.getUnvisitedNodesForChildren()) {
+//                if (n != node) {
+//                    unvisitedNodes.add(n);
+//                }
+//            }
+//            unvisitedNodesForChildren = new ArrayList<>(unvisitedNodes);
 
         }
+
+//        public List<Node> getUnvisitedNodesForChildren() {
+//            return unvisitedNodesForChildren;
+//        }
 
         public List<Node> getVisitedNodes() {
             return visitedNodes;
@@ -254,6 +279,7 @@ public class BranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm
     }
 
     private void pruneBranches() {
+        System.out.println("inside prune branches");
         if (shortestGoalBranch != null) {
             Iterator iterator = branches.iterator();
             while (iterator.hasNext()) {

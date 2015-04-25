@@ -2,7 +2,6 @@ package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.graphs.ListGraph;
 import com.cs51.project.roadtrip.graphs.Node;
-import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -103,7 +102,7 @@ public class BranchAndBoundAlgorithmTest {
 for (int i = 0; i < 5; i++) {
     IGraph graph = new ListGraph(7);
 
-    BranchAndBoundAlgorithm alg = new BranchAndBoundAlgorithm();
+    ListBranchAndBoundAlgorithm alg = new ListBranchAndBoundAlgorithm();
 
 //        IGraph graph = new ListGraph(3);
     Long startTime = System.currentTimeMillis();

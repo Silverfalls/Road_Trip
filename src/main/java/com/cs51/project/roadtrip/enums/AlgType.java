@@ -1,6 +1,6 @@
 package com.cs51.project.roadtrip.enums;
 
-import com.cs51.project.roadtrip.algorithms.BranchAndBoundAlgorithm;
+import com.cs51.project.roadtrip.algorithms.ListBranchAndBoundAlgorithm;
 import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.algorithms.NearestNeighborAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
@@ -11,7 +11,8 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 public enum AlgType {
     BRUTE_FORCE("Brute Force", "description", "A", new BruteForceAlgorithm()),
     NEAREST_NEIGHBOR("Nearest Neighbor", "description", "B", new NearestNeighborAlgorithm()),
-    BRANCH_AND_BOUND("Branch and Bound", "description", "C", new BranchAndBoundAlgorithm());
+    BRANCH_AND_BOUND_LIST("Branch and Bound (List Based)", "description", "C", new ListBranchAndBoundAlgorithm()),
+    BRANCH_AND_BOUND_TREE("Branch and Bound (Tree Based)", "description", "D", new ListBranchAndBoundAlgorithm());
 
     private final String name;
     private final String desc;

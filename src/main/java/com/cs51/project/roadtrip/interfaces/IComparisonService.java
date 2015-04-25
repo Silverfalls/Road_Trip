@@ -13,7 +13,7 @@ public interface IComparisonService {
      * @return a list of results from the algorithms
      * @throws Exception
      */
-    public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs) throws Exception;
+    public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int iterations) throws Exception;
 
 
 }

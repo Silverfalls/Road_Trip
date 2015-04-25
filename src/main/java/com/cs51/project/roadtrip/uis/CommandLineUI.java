@@ -139,7 +139,9 @@ public class CommandLineUI implements IUserInterface {
                 System.out.println("on a graph with " + numNodes + " nodes.");
                 try {
                     System.out.println(WAITING_INDICATOR);
-                    List<Result> results = compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes));
+                    //TODO somehow i get the iterations from userinput here and set iterations accordingly
+                    int iterations = 1;
+                    List<Result> results = compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes), iterations);
                     if (results != null) {
                         printResults(results);
                     } else {

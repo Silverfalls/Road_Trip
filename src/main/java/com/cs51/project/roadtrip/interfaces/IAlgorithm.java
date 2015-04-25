@@ -13,10 +13,8 @@ public interface IAlgorithm {
      */
     public Result execute(IGraph graph);
 
-
-    //TODO: should we remove this?
     /**
-     *
+     * this can be used to reset the result information on a
      */
     public void reset();
 }

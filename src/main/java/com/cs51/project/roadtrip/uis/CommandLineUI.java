@@ -20,7 +20,9 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/**
+ * UI for the RoadTrip program geared around a command line interface
+ */
 public class CommandLineUI implements IUserInterface {
 
     /**

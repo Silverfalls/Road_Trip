@@ -6,8 +6,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.TreeMap;
 
-//TODO fill in javadocs
-
+/**
+ * All graphs should implement this interface
+ */
 public interface IGraph {
 
     /**

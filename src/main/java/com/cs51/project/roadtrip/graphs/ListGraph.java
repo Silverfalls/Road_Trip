@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A very simple and dumb implementation using a standard List
+ * A very simple implementation of the IGraph interface using a standard List
  */
 public class ListGraph implements IGraph {
 

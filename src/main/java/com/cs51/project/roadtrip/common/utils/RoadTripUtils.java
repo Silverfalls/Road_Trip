@@ -16,8 +16,6 @@ public class RoadTripUtils {
         StringBuilder sb = new StringBuilder();
 
         int i = 0;
-        //TODO does java somehow keep a variable for size anyway for its list... maybe my argument earlier about
-        //tODO getting this variable so it doesn't have to perform nodes.size everytime on line 22 is unecessary
         int size = nodes.size();
         for (Node node : nodes) {
             sb.append(node.getName());

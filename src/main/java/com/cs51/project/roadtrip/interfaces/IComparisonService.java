@@ -4,6 +4,9 @@ import com.cs51.project.roadtrip.common.dto.Result;
 
 import java.util.List;
 
+/**
+ * All Comparison Services should implement this interface
+ */
 public interface IComparisonService {
 
     /**

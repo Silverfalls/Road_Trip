@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by robertschupp on 4/17/15.
+ * Test class for the branch and bound algorithm implementation
  */
 public class BranchAndBoundAlgorithmTest {
 

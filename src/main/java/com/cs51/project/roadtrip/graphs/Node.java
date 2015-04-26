@@ -1,6 +1,8 @@
 package com.cs51.project.roadtrip.graphs;
 
-
+/**
+ * Node POJO used to hold information about 'cities' in the traveling salesman problem
+ */
 public class Node implements Comparable {
     private long id;
     private int xCoord;

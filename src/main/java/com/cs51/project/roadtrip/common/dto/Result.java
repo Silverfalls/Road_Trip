@@ -4,9 +4,10 @@ import com.cs51.project.roadtrip.graphs.Node;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
-
+/**
+ * POJO to store information about algorithm execution metrics
+ */
 public class Result {
     private long runningTime;
     private long iterations;

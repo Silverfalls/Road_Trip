@@ -2,8 +2,9 @@ package com.cs51.project.roadtrip.interfaces;
 
 import com.cs51.project.roadtrip.common.dto.Result;
 
-//TODO fill in javadocs
-
+/**
+ * All algorithm implementations should implement this interface
+ */
 public interface IAlgorithm {
 
     /**
@@ -14,7 +15,7 @@ public interface IAlgorithm {
     public Result execute(IGraph graph);
 
     /**
-     * this can be used to reset the result information on a
+     * this can be used to reset the result information for an algorithm
      */
     public void reset();
 }

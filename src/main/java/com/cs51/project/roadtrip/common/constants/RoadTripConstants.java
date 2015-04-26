@@ -13,5 +13,6 @@ public class RoadTripConstants {
 
     //integer constants
     public static final int MAX_GRAPH_SIZE = 100;
+    public static final int MIN_GRAPH_SIZE = 3;
     public static final int DEFAULT_STARTING_NODES = 3;
 }

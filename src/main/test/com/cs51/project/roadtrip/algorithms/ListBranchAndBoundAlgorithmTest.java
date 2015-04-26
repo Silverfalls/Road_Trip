@@ -12,12 +12,12 @@ import java.util.List;
 /**
  * Test class for the branch and bound algorithm implementation
  */
-public class BranchAndBoundAlgorithmTest {
+public class ListBranchAndBoundAlgorithmTest {
 
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(BranchAndBoundAlgorithmTest.class);
+    private static Logger logger = Logger.getLogger(ListBranchAndBoundAlgorithmTest.class);
 
 
     @Test

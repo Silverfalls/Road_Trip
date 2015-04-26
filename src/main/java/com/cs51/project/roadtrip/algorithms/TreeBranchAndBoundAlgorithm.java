@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * Created by Alexander on 26.04.2015.
+ * Tree Based implementation of the branch and bound algorithm
  */
 
 public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgorithm {
@@ -177,35 +177,49 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                         if (bound.compareTo(bottomNode.getDistance()) >= 0){
                             bestNode = bottomNode;
                             bound = bottomNode.getDistance();
-                            final BigDecimal currentBound = bound;
-                            Iterator iterator = bottomNodes.iterator();
-                            while (iterator.hasNext()) {
-                                TreeNode b = (TreeNode) iterator.next();
-                                if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
-                                    iterator.remove();
+
+//                            //TODO comment why we used other way for performance
+//                            Iterator iterator = bottomNodes.iterator();
+//                            while (iterator.hasNext()) {
+//                                TreeNode b = (TreeNode) iterator.next();
+//                                if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
+//                                    iterator.remove();
+//                                }
+//                            }
+
+                            PriorityQueue<TreeNode> nBottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
+                            for (TreeNode tn : bottomNodes) {
+                                if (tn.getDistance().compareTo(bestNode.getDistance()) == -1) {
+                                    nBottomNodes.add(tn);
+                                } else {
+                                    break;
                                 }
                             }
-
-                            /*
-                            bottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
-                            bottomNodes.addAll(bottomNodes.stream().filter(tn -> tn.getDistance().compareTo(currentBound)> 0).collect(Collectors.toList()));*/
+                            bottomNodes = nBottomNodes;
                         }
                     }
                     else {
                         bestNode = bottomNode;
                         bound = bottomNode.getDistance();
-                        final BigDecimal currentBound = bound;
 
-                        Iterator iterator = bottomNodes.iterator();
-                        while (iterator.hasNext()) {
-                            TreeNode b = (TreeNode) iterator.next();
-                            if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
-                                iterator.remove();
+//                        //see comment out this code in if block
+//                        Iterator iterator = bottomNodes.iterator();
+//                        while (iterator.hasNext()) {
+//                            TreeNode b = (TreeNode) iterator.next();
+//                            if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
+//                                iterator.remove();
+//                            }
+//                        }
+
+                        PriorityQueue<TreeNode> nBottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
+                        for (TreeNode tn : bottomNodes) {
+                            if (tn.getDistance().compareTo(bestNode.getDistance()) == -1) {
+                                nBottomNodes.add(tn);
+                            } else {
+                                break;
                             }
                         }
-                        /*
-                        bottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
-                        bottomNodes.addAll(bottomNodes.stream().filter(tn -> tn.getDistance().compareTo(currentBound)> 0).collect(Collectors.toList()));*/
+                        bottomNodes = nBottomNodes;
                     }
 
                 }
@@ -230,12 +244,12 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
         result.setIterations(iterations);
+        iterations = 0;
 
         return result;
     }
 
     @Override
     public void reset() {
-
     }
 }

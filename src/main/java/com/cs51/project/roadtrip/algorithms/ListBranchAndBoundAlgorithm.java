@@ -60,10 +60,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             branches.add(b);
         }
 
-        //TODO delete
-        for (Branch b : branches) {
-            System.out.println("initial branch = " + RoadTripUtils.convertListToPath(b.getVisitedNodes()));
-        }
         //clear the root unvisited list now since technically a branch has been created for all its neighbors
         root.getUnvisitedNodes().clear();
 
@@ -77,20 +73,14 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                 Branch newBranch = new Branch(branch, closestNode);
                 branch.getUnvisitedNodes().remove(closestNode);
                 branches.add(newBranch);
-                /*System.out.println("added branch " + RoadTripUtils.convertListToPath(newBranch.getVisitedNodes()));*/
             } else {
-//                System.out.println("unvisited nodes = empty so here is the path : " + RoadTripUtils.convertListToPath(branch.getVisitedNodes()));
                 if (visitedEverywhere(branch)) {
                     Branch getHomeBranch = new Branch(branch, startingNode);
-                   /* System.out.println("SGB candidate = " + RoadTripUtils.convertListToPath(getHomeBranch.getVisitedNodes()) +
-                        " accumulated distance = " + getHomeBranch.getAccumulatedDistance());*/
                     if (shortestGoalBranch == null
                             || getHomeBranch.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1) {
                         shortestGoalBranch = getHomeBranch;
                         pruneBranches();
                     }
-                    /*System.out.println("SGB path = " + RoadTripUtils.convertListToPath(shortestGoalBranch.getVisitedNodes())
-                        + " accumulated distance = " + shortestGoalBranch.getAccumulatedDistance());*/
                 } else {
                     logger.warn("execute | for some reason, getClosestNeighborToNode returned null but the branch did" +
                         " not pass the visitedEverywhere check");
@@ -101,8 +91,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
         //stop the clock
         runningTime = System.currentTimeMillis() - startTime;
-
-//        System.out.println("B&B final path = " + RoadTripUtils.convertListToPath(shortestGoalBranch.getVisitedNodes()));
 
         //set the result for return
         setResult();
@@ -118,6 +106,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         result.setGraphSize(mGraph.getGraphSize());
         result.setIterations(iterations);
         result.setRunningTime(runningTime);
+        result.setFinished(true);
         result.setCalculatedPath(shortestGoalBranch.getVisitedNodes());
     }
 
@@ -140,15 +129,12 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         private List<Branch> children;
         private List<Node> unvisitedNodes;
         private BigDecimal accumulatedDistance;
-//        private List<Node> unvisitedNodesForChildren;
         private Node node;
 
         //constructor for root branch only
         private Branch(List<Node> visitedNodes, List<Node> unvisitedNodes) {
-            System.out.println("unvisited nodes size = " + unvisitedNodes.size());
             this.visitedNodes = visitedNodes;
             this.unvisitedNodes = unvisitedNodes;
-//            this.unvisitedNodesForChildren = new ArrayList<>(unvisitedNodes);
             this.accumulatedDistance = BigDecimal.ZERO;
             this.parent = null;
             node = visitedNodes.get(0);
@@ -176,40 +162,14 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         }
 
         private void setUnvisitedNodes(Branch parent, Node node) {
-//            if (parent != null) {
-//                if (parent.getUnvisitedNodesForChildren() == null) {
-//                    System.out.println("parent children unvisited = null");
-//                }
-//            }
 
             unvisitedNodes = new ArrayList<>();
-//            //TODO says I can use collect here
+
             List<Node> alreadyVisited = parent.getVisitedNodes();
             unvisitedNodes = mGraph.getListOfNodes().stream()
                     .filter(n -> !alreadyVisited.contains(n))
                     .collect(Collectors.toList());
-
-//            List<Node> parentVisitedNodes = new ArrayList<>();
-////            for (Node n : mGraph.getListOfNodes()) {
-//            for (Node n : allGraphNodes) {
-//                if (!parentVisitedNodes.contains(n)) {
-//                    unvisitedNodes.add(n);
-//                }
-//            }
-
-
-//            for (Node n : parent.getUnvisitedNodesForChildren()) {
-//                if (n != node) {
-//                    unvisitedNodes.add(n);
-//                }
-//            }
-//            unvisitedNodesForChildren = new ArrayList<>(unvisitedNodes);
-
         }
-
-//        public List<Node> getUnvisitedNodesForChildren() {
-//            return unvisitedNodesForChildren;
-//        }
 
         public List<Node> getVisitedNodes() {
             return visitedNodes;
@@ -241,20 +201,8 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         public Node getNode() {
             return node;
         }
-
-        //TODO, if we have time, include this and clean it up, otherwise throw it away
-//        public String toString() {
-//            StringBuilder sb = new StringBuilder();
-//            sb.append("accumulated distance = " + accumulatedDistance + "\n");
-//            sb.append("unextended nodes list size = " + unvisitedNodes.size() + "\n");
-//            sb.append("path node list size = " + visitedNodes.size() + "\n");
-//            sb.append("children list size = " + ((children != null) ? children.size() : "null children") + "\n");
-//            return sb.toString();
-//        }
-
     }
 
-    //TODO can we shorten this method down???
     private Branch getShortestBranch() {
         Branch branchToReturn = null;
         if (branches != null) {
@@ -278,19 +226,20 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         return branchToReturn;
     }
 
+    //get rid of any branches that couldn't possibly be the best route
     private void pruneBranches() {
-        System.out.println("inside prune branches");
+
         if (shortestGoalBranch != null) {
-            Iterator iterator = branches.iterator();
-            while (iterator.hasNext()) {
-                Branch b = (Branch) iterator.next();
-                if (b.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) >= 0) {
-                            iterator.remove();
+            List<Branch> newBranches = new ArrayList<>();
+            for (Branch b : branches) {
+                if (b.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1) {
+                    newBranches.add(b);
                 }
             }
+            branches = newBranches;
         } else {
-            if (logger.isInfoEnabled()) {
-                logger.info("pruneBranches | goal is not set yet");
+            if (logger.isDebugEnabled()) {
+                logger.debug("pruneBranches | goal is not yet set");
             }
         }
     }
@@ -326,8 +275,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
     public BigDecimal getD(List<Node> n, IGraph g) {
         return getDistance(n, g);
     }
-
-
 
     @Override
     public void reset() {

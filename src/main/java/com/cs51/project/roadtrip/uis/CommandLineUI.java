@@ -20,7 +20,9 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+/**
+ * UI for the RoadTrip program geared around a command line interface
+ */
 public class CommandLineUI implements IUserInterface {
 
     /**
@@ -175,7 +177,10 @@ public class CommandLineUI implements IUserInterface {
             command = scanner.next();
             try {
                 numIterations = Integer.parseInt(command);
-                break;
+                if (numIterations >= 1) {
+                    break;
+                }
+                System.out.println("the number of iterations must be at least 1");
             } catch (Exception e) {
                 displayInvalidInputWarning(command);
                 continue;
@@ -243,6 +248,8 @@ public class CommandLineUI implements IUserInterface {
                 numNodes = Integer.parseInt(command);
                 if (numNodes > RoadTripConstants.MAX_GRAPH_SIZE) {
                     System.out.println("That is too many nodes");
+                } else if (numNodes < RoadTripConstants.MIN_GRAPH_SIZE) {
+                    System.out.println("A graph must have at least " + RoadTripConstants.MIN_GRAPH_SIZE + " nodes");
                 } else {
                     break;
                 }
@@ -358,7 +365,7 @@ public class CommandLineUI implements IUserInterface {
         return algs;
     }
 
-    //TODO UGH this method is ugly
+    //prints the node distance matrix to stdout
     private void printDistanceMatrix(IGraph graph) {
         if (logger.isDebugEnabled()) {
             logger.debug("printDistanceMatrix | start...");

@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 
 /**
- * Created by robertschupp on 4/17/15.
+ * Test class for the list based implementation of the IGraph interface
  */
 public class ListGraphTest {
 

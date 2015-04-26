@@ -6,7 +6,7 @@ import com.cs51.project.roadtrip.algorithms.NearestNeighborAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 
 /**
- * TODO java doc needs filled out
+ * Definitions of different types of algorithm implementations
  */
 public enum AlgType {
     BRUTE_FORCE("Brute Force", "calculates the distance of all possible routes and picks the smallest one", "A", new BruteForceAlgorithm()),

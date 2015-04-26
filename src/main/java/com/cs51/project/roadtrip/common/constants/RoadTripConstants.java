@@ -12,6 +12,7 @@ public class RoadTripConstants {
     public static final String TOUR_PATH_SEPARATOR = " -> ";
 
     //integer constants
-    public static final int MAX_GRAPH_SIZE = 100; //TODO change this back to a lower number (maybe !!!)
+    public static final int MAX_GRAPH_SIZE = 100;
+    public static final int MIN_GRAPH_SIZE = 3;
     public static final int DEFAULT_STARTING_NODES = 3;
 }

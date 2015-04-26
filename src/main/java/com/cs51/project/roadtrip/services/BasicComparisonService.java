@@ -23,6 +23,21 @@ public class BasicComparisonService implements IComparisonService {
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int numCycles) {
 
+        if (algs == null || algs.isEmpty()) {
+            logger.warn("executeComparison | list of algs is either null or empty");
+            return null;
+        }
+
+        if (graph == null) {
+            logger.warn("executeComparison | graph is null");
+            return null;
+        }
+
+        if (numCycles < 1) {
+            logger.warn("executeComparison | numCycles is less than 1");
+            return null;
+        }
+
         avgResults = null;
 
         //create a list for our results
@@ -42,6 +57,7 @@ public class BasicComparisonService implements IComparisonService {
         return avgResults;
     }
 
+    //add the most recent results to our average results
     private void addResults(List<Result> current, int count) {
         if (avgResults == null) {
             if (current != null) {
@@ -68,6 +84,7 @@ public class BasicComparisonService implements IComparisonService {
         }
     }
 
+    //any fields that should be averaged overage cycles should have it done here
     private void averageFields(int numCycles) {
         for (Result r : avgResults) {
             r.setRunningTime(r.getRunningTime() / (long) numCycles);

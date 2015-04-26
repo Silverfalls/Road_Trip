@@ -1,6 +1,8 @@
 package com.cs51.project.roadtrip.graphs;
 
-
+/**
+ * Node POJO used to hold information about 'cities' in the traveling salesman problem
+ */
 public class Node implements Comparable {
     private long id;
     private int xCoord;
@@ -80,7 +82,6 @@ public class Node implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        //TODO well... is this ok?  should we be throwing a cast class exception or something here???
         return this.name.compareTo(((Node) o).getName());
     }
 }

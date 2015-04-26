@@ -9,10 +9,10 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
  * TODO java doc needs filled out
  */
 public enum AlgType {
-    BRUTE_FORCE("Brute Force", "description", "A", new BruteForceAlgorithm()),
-    NEAREST_NEIGHBOR("Nearest Neighbor", "description", "B", new NearestNeighborAlgorithm()),
-    BRANCH_AND_BOUND_LIST("Branch and Bound (List Based)", "description", "C", new ListBranchAndBoundAlgorithm()),
-    BRANCH_AND_BOUND_TREE("Branch and Bound (Tree Based)", "description", "D", new ListBranchAndBoundAlgorithm());
+    BRUTE_FORCE("Brute Force", "calculates the distance of all possible routes and picks the smallest one", "A", new BruteForceAlgorithm()),
+    NEAREST_NEIGHBOR("Nearest Neighbor", "always goes to the closest neighboring node until there are none left", "B", new NearestNeighborAlgorithm()),
+    BRANCH_AND_BOUND_LIST("Branch and Bound (List Based)", "attempts to ignore routes that could not possibly be optimal (a list based implementation)", "C", new ListBranchAndBoundAlgorithm()),
+    BRANCH_AND_BOUND_TREE("Branch and Bound (Tree Based)", "attempts to ignore routes that could not possibly be optimal (a tree based implementation)", "D", new ListBranchAndBoundAlgorithm());
 
     private final String name;
     private final String desc;

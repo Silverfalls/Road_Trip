@@ -36,7 +36,6 @@ public class CommandLineUI implements IUserInterface {
     private static final String YES = "Y";
     private static final String NO = "N";
     private static final String WILDCARD = "*";
-    private static final int RESULT_PAD_AMOUNT = 15;
 
     /**
      * TODO link to interface javadoc
@@ -122,6 +121,7 @@ public class CommandLineUI implements IUserInterface {
 
         //set the node size for the graph and create the graph
         int numNodes = compType.shouldPromptNumNodes() ? promptNumNodes() : RoadTripConstants.DEFAULT_STARTING_NODES;
+        int numIterations = compType.shouldPromptIterations() ? promptIterations() : 1;
         IGraph graph = new ListGraph(numNodes);
 
         if (shouldPrintDistanceMatrix()) {
@@ -139,9 +139,8 @@ public class CommandLineUI implements IUserInterface {
                 System.out.println("on a graph with " + numNodes + " nodes.");
                 try {
                     System.out.println(WAITING_INDICATOR);
-                    //TODO somehow i get the iterations from userinput here and set iterations accordingly
-                    int iterations = 1;
-                    List<Result> results = compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes), iterations);
+                    List<Result> results =
+                            compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes), numIterations);
                     if (results != null) {
                         printResults(results);
                     } else {
@@ -157,6 +156,26 @@ public class CommandLineUI implements IUserInterface {
         if (logger.isDebugEnabled()) {
             logger.debug("setupComparison | end...");
         }
+    }
+
+    private int promptIterations() {
+
+        System.out.println("Enter the amount of runs you would like the results averaged over");
+
+        int numIterations = 1;
+        Scanner scanner = new Scanner(System.in);
+        String command;
+        while (true) {
+            command = scanner.next();
+            try {
+                numIterations = Integer.parseInt(command);
+                break;
+            } catch (Exception e) {
+                displayInvalidInputWarning(command);
+                continue;
+            }
+        }
+        return numIterations;
     }
 
     private void printResults(List<Result> results) {

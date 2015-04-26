@@ -12,10 +12,9 @@ import com.cs51.project.roadtrip.services.BasicComparisonService;
  */
 public enum CompType {
 
-    //TODO fill in descriptions and change APPROX COMP TO RIGHT object
-    BASIC("Basic Comparison", "description", "B", true, false, new BasicComparisonService()),
-    BASIC_AVG("Basic Comparison (ran n times with results averaged)", "description", "BA", true, true, new BasicComparisonService()),
-    APPROX_COMP("non-exact solution vs exact solution", "description", "AC", true, true, new ApproximateComparisonService());
+    BASIC("Basic Comparison", "run one or more algorithms on the same graph and see various metrics", "B", true, false, new BasicComparisonService()),
+    BASIC_AVG("Basic Comparison Averaged", "same as basic comparison but with certain results averaged n times", "BA", true, true, new BasicComparisonService()),
+    APPROX_COMP("Compare Accuracy", "comparison that uses an exact algorithm as a base and compares the results of one or more non-exact algorithms", "AC", true, true, new ApproximateComparisonService());
 
     private final String name;
     private final String desc;

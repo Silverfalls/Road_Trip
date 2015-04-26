@@ -35,6 +35,22 @@ public class ApproximateComparisonService implements IComparisonService {
 
         IAlgorithm optimalAlg = null;
         List<IAlgorithm> approximateAlgs = null;
+
+        if (iterations < 1) {
+            logger.warn("executeComparison | iterations is less than 1");
+            return null;
+        }
+
+        if (graph == null) {
+            logger.warn("executeComparison | graph is null");
+            return null;
+        }
+
+        if (algs == null) {
+            logger.warn("execute | passed in list of algorithms is null");
+            return null;
+        }
+
         for (IAlgorithm alg : algs) {
             AlgType algType = AlgType.getAlgTypeByImplementation(alg);
             if (algType.isOptimal()) {
@@ -61,6 +77,9 @@ public class ApproximateComparisonService implements IComparisonService {
             }
 
             averageResults(iterations);
+        } else {
+            logger.warn("execute | this comparison requires at least one exact algorithm and one or more non exact algorithms");
+            return null;
         }
 
         approxResults.add(0, optimalResult);

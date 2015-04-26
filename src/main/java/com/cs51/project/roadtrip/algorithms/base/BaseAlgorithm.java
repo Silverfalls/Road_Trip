@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Created by robertschupp on 4/16/15.
+ * any common functionality to algorithms should go in here
  */
 public abstract class BaseAlgorithm {
 
@@ -18,9 +18,7 @@ public abstract class BaseAlgorithm {
      */
     private static Logger logger = Logger.getLogger(BaseAlgorithm.class);
 
-    //any common functionality to algorithms should go in here
-
-    //I needed this in the BruteForceAlgorithm its probably useful in other algorithms
+    //get the overall distance of a list based path
     public BigDecimal getDistance (List<Node> nodesList, IGraph lg){
         BigDecimal distance = BigDecimal.ZERO;
         for (int i = 0; i < nodesList.size() - 1; i++) {

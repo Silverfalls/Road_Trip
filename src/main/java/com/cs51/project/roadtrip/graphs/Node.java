@@ -80,7 +80,6 @@ public class Node implements Comparable {
 
     @Override
     public int compareTo(Object o) {
-        //TODO well... is this ok?  should we be throwing a cast class exception or something here???
         return this.name.compareTo(((Node) o).getName());
     }
 }

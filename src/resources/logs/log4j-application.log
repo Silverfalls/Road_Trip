@@ -6177,3 +6177,11 @@
 2015-04-26 00:28:40 WARN  ListBranchAndBoundAlgorithm:95 - execute | for some reason, getClosestNeighborToNode returned null but the branch did not pass the visitedEverywhere check
 2015-04-26 00:28:40 WARN  ListBranchAndBoundAlgorithm:95 - execute | for some reason, getClosestNeighborToNode returned null but the branch did not pass the visitedEverywhere check
 2015-04-26 00:28:40 WARN  ListBranchAndBoundAlgorithm:95 - execute | for some reason, getClosestNeighborToNode returned null but the branch did not pass the visitedEverywhere check
+2015-04-26 10:17:16 WARN  BasicComparisonService:37 - executeComparison | numCycles is less than 1
+2015-04-26 10:17:16 WARN  BasicComparisonService:27 - executeComparison | list of algs is either null or empty
+2015-04-26 10:17:16 WARN  BasicComparisonService:32 - executeComparison | graph is null
+2015-04-26 10:17:16 WARN  BasicComparisonService:27 - executeComparison | list of algs is either null or empty
+2015-04-26 10:35:33 WARN  BasicComparisonService:37 - executeComparison | numCycles is less than 1
+2015-04-26 10:35:33 WARN  BasicComparisonService:27 - executeComparison | list of algs is either null or empty
+2015-04-26 10:35:33 WARN  BasicComparisonService:32 - executeComparison | graph is null
+2015-04-26 10:35:33 WARN  BasicComparisonService:27 - executeComparison | list of algs is either null or empty

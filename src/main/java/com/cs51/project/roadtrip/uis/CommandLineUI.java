@@ -358,7 +358,7 @@ public class CommandLineUI implements IUserInterface {
         return algs;
     }
 
-    //TODO UGH this method is ugly
+    //prints the node distance matrix to stdout
     private void printDistanceMatrix(IGraph graph) {
         if (logger.isDebugEnabled()) {
             logger.debug("printDistanceMatrix | start...");

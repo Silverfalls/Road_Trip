@@ -1,6 +1,5 @@
 package com.cs51.project.roadtrip.uis;
 
-import com.cs51.project.roadtrip.algorithms.BruteForceAlgorithm;
 import com.cs51.project.roadtrip.common.constants.RoadTripConstants;
 import com.cs51.project.roadtrip.common.dto.Result;
 import com.cs51.project.roadtrip.common.utils.RoadTripUtils;
@@ -38,7 +37,7 @@ public class CommandLineUI implements IUserInterface {
     private static final String WILDCARD = "*";
 
     /**
-     * TODO link to interface javadoc
+     * kicks off the CommandLineUI's functionality
      */
     @Override
     public void execute() {
@@ -57,6 +56,7 @@ public class CommandLineUI implements IUserInterface {
     }
 
 
+    //displays the main options to the user
     private void displayOptions() {
         if (logger.isDebugEnabled()) {
             logger.debug("displayOptions | start...");
@@ -79,6 +79,7 @@ public class CommandLineUI implements IUserInterface {
     }
 
 
+    //get user input for main options
     private void getUserInput() {
         if (logger.isDebugEnabled()) {
             logger.debug("getUserInput | start...");
@@ -97,6 +98,7 @@ public class CommandLineUI implements IUserInterface {
                 validInput = true;
                 exitProgram();
             } else {
+                //check if command is a comparison type option
                 for (CompType compType : CompType.values()) {
                     if (compType.getOptionChar().toUpperCase().equals(commandUpper)) {
                         validInput = true;
@@ -133,15 +135,18 @@ public class CommandLineUI implements IUserInterface {
         if (algTypes.isEmpty()) {
             //log and do something here
         } else {
-            System.out.println("Commencing the " + compType.getName() + " on the following algorithm(s):");
+            System.out.println("\nCommencing the " + compType.getName() + " on the following algorithm(s):");
             algTypes.stream().forEach(a -> System.out.println(a.getName()));
             if (compType.shouldPromptNumNodes()) {
                 System.out.println("on a graph with " + numNodes + " nodes.");
                 try {
-                    System.out.println(WAITING_INDICATOR);
+                    System.out.println("\n" + WAITING_INDICATOR + "\n");
                     List<Result> results =
-                            compType.getService().executeComparison(graph, converAlgTypeListToAlgs(algTypes), numIterations);
+                            compType.getService().executeComparison(graph, convertAlgTypeListToAlgs(algTypes), numIterations);
                     if (results != null) {
+                        if (numIterations > 1) {
+                            System.out.println("results are averaged over " + numIterations + " runs\n");
+                        }
                         printResults(results);
                     } else {
                         //do something
@@ -158,6 +163,7 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
+    //ask the user how many iterations of an algorithm should the comparison average results over
     private int promptIterations() {
 
         System.out.println("Enter the amount of runs you would like the results averaged over");
@@ -178,20 +184,19 @@ public class CommandLineUI implements IUserInterface {
         return numIterations;
     }
 
+    //print the results from the comparison
     private void printResults(List<Result> results) {
         if (logger.isDebugEnabled()) {
             logger.debug("printResults | start...");
         }
 
-        //TODO just convert this to use padding... should have done that in the first place
         for (Result result : results) {
-            System.out.println("Results for " + result.getName());
+            System.out.println("\nResults for " + result.getName());
             System.out.println("- graph size      - " + result.getGraphSize());
             System.out.println("- running time    - " + result.getRunningTime() + "ms");
             System.out.println("- num iterations  - " + result.getIterations());
             System.out.println("- path            - " + RoadTripUtils.convertListToPath(result.getCalculatedPath()));
             System.out.println("- distance        - " + result.getCalculatedDistance());
-            System.out.println("\n");
         }
 
         if (logger.isDebugEnabled()) {
@@ -199,13 +204,15 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
-    private List<IAlgorithm> converAlgTypeListToAlgs(List<AlgType> algTypes) {
+    //get a list of algorithm implementations based on a List of AlgType enums
+    private List<IAlgorithm> convertAlgTypeListToAlgs(List<AlgType> algTypes) {
         if (logger.isDebugEnabled()) {
-            logger.debug("converAlgTypeListToAlgs | start...");
+            logger.debug("convertAlgTypeListToAlgs | start...");
         }
 
         if (algTypes == null || algTypes.isEmpty()) {
-            //log and do something
+            logger.warn("convertAlgTypeListToAlgs | algTypes is null or empty");
+            return null;
         }
 
         List<IAlgorithm> algs = algTypes.stream().map(a -> a.getAlg()).collect(Collectors.toList());
@@ -217,6 +224,7 @@ public class CommandLineUI implements IUserInterface {
         return algs;
     }
 
+    //ask the user how many nodes large a graph should be
     private int promptNumNodes() {
         if (logger.isDebugEnabled()) {
             logger.debug("promptNumNodes | start...");
@@ -399,6 +407,7 @@ public class CommandLineUI implements IUserInterface {
             System.out.println(sb2.toString());
             j++;
         }
+        System.out.println("\n");
 
         if (logger.isDebugEnabled()) {
             logger.debug("printDistanceMatrix | end...");
@@ -424,6 +433,7 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
+    //displays a warning that the user input is invalid
     private void displayInvalidInputWarning(String command) {
         if (logger.isDebugEnabled()) {
             logger.debug("displayInvalidInputWarning | start...");
@@ -436,6 +446,7 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
+    //steps required to shut down the program
     private void exitProgram() {
         if (logger.isDebugEnabled()) {
             logger.debug("exitProgram | start...");
@@ -445,6 +456,7 @@ public class CommandLineUI implements IUserInterface {
         System.exit(0);
     }
 
+    //shows the welcome screen when the program first starts
     private void showWelcomeScreen() {
         if (logger.isDebugEnabled()) {
             logger.debug("showWelcomeScreen | start...");
@@ -459,6 +471,7 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
+    //prints the closing screen when the program is exiting
     private void showClosingScreen() {
         if (logger.isDebugEnabled()) {
             logger.debug("showClosingScreen | start...");

@@ -36,6 +36,7 @@ public interface IGraph {
      * @param n1 the node
      * @return the random neighbor
      */
+    @SuppressWarnings("unused")
     public Node getRandomNeighbor(Node n1);
 
     /**
@@ -43,6 +44,7 @@ public interface IGraph {
      * @param n1 the node
      * @return the random neighbor
      */
+    @SuppressWarnings("unused")
     public Node getRandomUnvisitedNeighbor(Node n1);
 
     /**
@@ -110,6 +112,6 @@ public interface IGraph {
      * Make a copy of an existing Graph
      * @return the copy of the graph
      */
-    public IGraph clone();
+    public IGraph getClone();
 
 }

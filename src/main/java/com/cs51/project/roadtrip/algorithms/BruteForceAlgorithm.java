@@ -9,7 +9,6 @@ import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,17 +33,6 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
 
     private long iterations = 0;
 
-
-
-    //TODO
-    //we have to still:
-    //remove the starting Node, then calculate all permutations, then add the starting node back on to the head and the tail
-    //then calculate the distance
-    //because n! grows so fast, we will probably want to implement it in such a way that we are not storing all permutations in
-    //memory at once... rather, we get a permutation, calculate the distance,... if that's the new lowest distance, store that as the
-    //solution and the distance, then repeat
-
-    //This function simply prints out the different permutations...read the comments above... we are far from done with this one :)
     private void permute(List<Node> nodes, int k) {
         for (int i = k; i < nodes.size(); i++) {
             Collections.swap(nodes, i, k);

@@ -45,8 +45,8 @@ public class BasicComparisonService implements IComparisonService {
 
         for (int i = 0; i < numCycles; i++) {
             //execute each algorithm and store the result
-            algs.stream().forEach(alg -> currentResults.add(alg.execute(graph.clone())));
-            addResults(currentResults, i);
+            algs.stream().forEach(alg -> currentResults.add(alg.execute(graph.getClone())));
+            addResults(currentResults);
             currentResults.clear();
         }
 
@@ -58,7 +58,8 @@ public class BasicComparisonService implements IComparisonService {
     }
 
     //add the most recent results to our average results
-    private void addResults(List<Result> current, int count) {
+    private void addResults(List<Result> current) {
+        //if this is just the first set of results, set the average results to the list of results
         if (avgResults == null) {
             if (current != null) {
                 avgResults = new ArrayList<>();
@@ -73,6 +74,7 @@ public class BasicComparisonService implements IComparisonService {
 
         for (Result r : avgResults) {
             for (Result cr : current) {
+                //merge the results however you want based on the field
                 if (r.getName().equals(cr.getName())) {
                     r.setCalculatedPath(cr.getCalculatedPath());
                     r.setGraphSize(cr.getGraphSize());
@@ -84,11 +86,11 @@ public class BasicComparisonService implements IComparisonService {
         }
     }
 
-    //any fields that should be averaged overage cycles should have it done here
+    //any fields that should be averaged over numCycles should have it done here
     private void averageFields(int numCycles) {
         for (Result r : avgResults) {
             r.setRunningTime(r.getRunningTime() / (long) numCycles);
-            r.setIterations(r.getIterations() / numCycles);
+            r.setIterations(r.getIterations() / (long) numCycles);
         }
     }
 }

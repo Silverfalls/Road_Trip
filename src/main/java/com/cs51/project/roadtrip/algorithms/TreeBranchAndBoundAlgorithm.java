@@ -19,17 +19,9 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
     private static Logger logger = Logger.getLogger(TreeBranchAndBoundAlgorithm.class);
 
-    private Result result = null;
-
     private List<Node> nodesList = null;
 
-    private Node startingNode = null;
-
     private IGraph graph = null;
-
-    private BigDecimal shortestPathDistance = BigDecimal.ZERO;
-
-    private List<Node> shortestPath = null;
 
     private long iterations = 0;
 
@@ -37,8 +29,8 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         private BigDecimal distance = BigDecimal.ZERO;
         private TreeNode parent = null;
         private Node node = null;
-        private List<Node> unvisited = new LinkedList<Node>();
-        private List<Node> visited = new LinkedList<Node>();
+        private List<Node> unvisited = new LinkedList<>();
+        private List<Node> visited = new LinkedList<>();
         private boolean complete = false;
 
         public TreeNode(Node node, TreeNode parent){
@@ -56,7 +48,7 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         }
 
         private List<Node> calculateUnvisited() {
-            LinkedList<Node> unvisitedNodes = new LinkedList<Node>(nodesList);
+            LinkedList<Node> unvisitedNodes = new LinkedList<>(nodesList);
             unvisitedNodes.removeAll(visited);
             unvisitedNodes.sort((uvNode1, uvNode2) -> graph.getDistance(node,uvNode1).compareTo(graph.getDistance(node,uvNode2)));
             return unvisitedNodes;
@@ -64,10 +56,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
         public TreeNode getParent (){
             return parent;
-        }
-
-        public void setVisited(Node n){
-            unvisited.remove(n);
         }
 
         public BigDecimal getDistance(){
@@ -84,7 +72,7 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
         private List<Node> calculateVisited(TreeNode parent) {
 
-            List<Node> visitedNodes = new LinkedList<Node>(parent.getVisited());
+            List<Node> visitedNodes = new LinkedList<>(parent.getVisited());
             visitedNodes.add(node);
             if (visitedNodes.containsAll(nodesList)){
                 setComplete(true);
@@ -136,17 +124,15 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
     @Override
     public Result execute(IGraph graph) {
-        long startTime = System.currentTimeMillis();
-
         if (logger.isDebugEnabled()) {
-            logger.debug("start to execute BruteForceAlgorithm");
+            logger.debug("execute | start...");
         }
 
+        long startTime = System.currentTimeMillis();
         BigDecimal bound = null;
-        LinkedList<Node> currentOptimal = null;
-
+        LinkedList<Node> currentOptimal;
         this.graph = graph;
-        startingNode = graph.getStartingNode();
+        Node startingNode = graph.getStartingNode();
 
         nodesList = graph.getListOfNodes();
         nodesList.remove(startingNode);
@@ -166,9 +152,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             Node shortestUnvisited = shortest.getShortestUnvisited();
             TreeNode bottomNode;
 
-
-
-
             if (shortestUnvisited == null) {
                 if (shortest.isComplete()){
                     bottomNode = new TreeNode(startingNode, shortest);
@@ -177,15 +160,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                         if (bound.compareTo(bottomNode.getDistance()) >= 0){
                             bestNode = bottomNode;
                             bound = bottomNode.getDistance();
-
-//                            //TODO comment why we used other way for performance
-//                            Iterator iterator = bottomNodes.iterator();
-//                            while (iterator.hasNext()) {
-//                                TreeNode b = (TreeNode) iterator.next();
-//                                if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
-//                                    iterator.remove();
-//                                }
-//                            }
 
                             PriorityQueue<TreeNode> nBottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
                             for (TreeNode tn : bottomNodes) {
@@ -202,15 +176,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                         bestNode = bottomNode;
                         bound = bottomNode.getDistance();
 
-//                        //see comment out this code in if block
-//                        Iterator iterator = bottomNodes.iterator();
-//                        while (iterator.hasNext()) {
-//                            TreeNode b = (TreeNode) iterator.next();
-//                            if (b.getDistance().compareTo(bestNode.getDistance()) >= 0) {
-//                                iterator.remove();
-//                            }
-//                        }
-
                         PriorityQueue<TreeNode> nBottomNodes = new PriorityQueue<>((distance1, distance2) -> distance1.getDistance().compareTo(distance2.getDistance()));
                         for (TreeNode tn : bottomNodes) {
                             if (tn.getDistance().compareTo(bestNode.getDistance()) == -1) {
@@ -221,7 +186,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                         }
                         bottomNodes = nBottomNodes;
                     }
-
                 }
                 bottomNodes.remove(shortest);
             }
@@ -233,18 +197,21 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         } while (!bottomNodes.isEmpty());
 
         currentOptimal = bestNode.getPath();
-        shortestPathDistance = getDistance(currentOptimal, graph);
 
-        result = new Result();
+        Result result = new Result();
 
         result.setName(AlgType.BRANCH_AND_BOUND_TREE.getName());
         result.setRunningTime(System.currentTimeMillis() - startTime);
-        result.setCalculatedDistance(shortestPathDistance);
+        result.setCalculatedDistance(getDistance(currentOptimal, graph));
         result.setCalculatedPath(currentOptimal);
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
         result.setIterations(iterations);
         iterations = 0;
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("execute | end...");
+        }
 
         return result;
     }

@@ -1,7 +1,6 @@
 package com.cs51.project.roadtrip.graphs;
 
 import com.cs51.project.roadtrip.interfaces.IGraph;
-import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,7 +20,7 @@ public class ListGraphTest {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(ListGraphTest.class);
+//    private static Logger logger = Logger.getLogger(ListGraphTest.class);
 
     private static IGraph graph;
 
@@ -50,17 +49,17 @@ public class ListGraphTest {
 
     @Test
     public void cloneTest() {
-        IGraph newGraph = graph.clone();
+        IGraph newGraph = graph.getClone();
         assertTrue("Nodes from original graph in clone",
                 newGraph.getListOfNodes().stream().allMatch(n -> !baseList.contains(n)));
 
         //TODO: oh god this looks ugly
-        assertTrue("Nodevalues of the clone don't macht with the origninal",
+        assertTrue("Node values of the clone don't match with the original",
                 newGraph.getListOfNodes().stream().allMatch(n ->
                 {
                     boolean inList = false;
                     for (Node node : baseList) {
-                        if (node.getName() == n.getName() && node.getxCoord() == n.getxCoord() && node.getyCoord() == n.getyCoord() &&
+                        if (node.getName().equals(n.getName()) && node.getxCoord() == n.getxCoord() && node.getyCoord() == n.getyCoord() &&
                                 node.isVisited() == n.isVisited() && node.isStartingNode() == n.isStartingNode())
                             inList = true;
                     }
@@ -71,7 +70,7 @@ public class ListGraphTest {
     @Test
     public void getListOfNodesTest() {
         List<Node> nodesList = graph.getListOfNodes();
-        assertTrue(graph.getListOfNodes().stream().allMatch(n -> nodesList.contains(n)));
+        assertTrue(graph.getListOfNodes().stream().allMatch(nodesList::contains));
     }
 
     @Test

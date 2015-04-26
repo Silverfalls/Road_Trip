@@ -2,7 +2,6 @@ package com.cs51.project.roadtrip.algorithms;
 
 import com.cs51.project.roadtrip.algorithms.base.BaseAlgorithm;
 import com.cs51.project.roadtrip.common.dto.Result;
-import com.cs51.project.roadtrip.common.utils.RoadTripUtils;
 import com.cs51.project.roadtrip.enums.AlgType;
 import com.cs51.project.roadtrip.graphs.Node;
 import com.cs51.project.roadtrip.interfaces.IAlgorithm;
@@ -11,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,7 +54,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         //set up branches for all of the neighbors to the root
         for (Node node : neighbors) {
             Branch b = new Branch(root, node);
-            root.addChildBranch(b);
+//            root.addChildBranch(b);
             branches.add(b);
         }
 
@@ -125,8 +123,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
     private class Branch {
 
         private List<Node> visitedNodes;
-        private Branch parent;
-        private List<Branch> children;
         private List<Node> unvisitedNodes;
         private BigDecimal accumulatedDistance;
         private Node node;
@@ -136,15 +132,13 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             this.visitedNodes = visitedNodes;
             this.unvisitedNodes = unvisitedNodes;
             this.accumulatedDistance = BigDecimal.ZERO;
-            this.parent = null;
             node = visitedNodes.get(0);
         }
 
         //constructor for all other branches
         private Branch(Branch parent, Node node) {
-            this.parent = parent;
             setVisitedNodes(parent, node);
-            setUnvisitedNodes(parent, node);
+            setUnvisitedNodes(parent);
             this.accumulatedDistance = parent.getAccumulatedDistance().add(mGraph.getDistance(parent.getNode(), node));
             this.node = node;
         }
@@ -156,12 +150,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             visitedNodes.add(node);
         }
 
-        public void setAccumulatedDistance(BigDecimal d) {
-
-            accumulatedDistance = d;
-        }
-
-        private void setUnvisitedNodes(Branch parent, Node node) {
+        private void setUnvisitedNodes(Branch parent) {
 
             unvisitedNodes = new ArrayList<>();
 
@@ -175,27 +164,12 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             return visitedNodes;
         }
 
-        public Branch getParent() {
-            return parent;
-        }
-
         public List<Node> getUnvisitedNodes() {
             return unvisitedNodes;
         }
 
-        public void addChildBranch(Branch branch) {
-            if (children == null) {
-                children = new ArrayList<>();
-            }
-            children.add(branch);
-        }
-
         public BigDecimal getAccumulatedDistance() {
             return accumulatedDistance;
-        }
-
-        public void removeNodeFromUnvisitedList(Node node) {
-            unvisitedNodes.remove(node);
         }
 
         public Node getNode() {
@@ -270,10 +244,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
             logger.error("getClosestNeighborToNode | node or nodes is null");
         }
         return nodeToReturn;
-    }
-
-    public BigDecimal getD(List<Node> n, IGraph g) {
-        return getDistance(n, g);
     }
 
     @Override

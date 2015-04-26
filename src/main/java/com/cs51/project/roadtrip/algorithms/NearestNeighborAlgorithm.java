@@ -9,10 +9,10 @@ import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
- * Created by robertschupp on 4/16/15.
+ * Nearest neighbor algorithm
+ * Always chooses the closest neighbor until there are none left and then goes back to starting city
  */
 public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorithm {
 

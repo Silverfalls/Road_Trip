@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * A very simple implementation of the IGraph interface using a standard List
@@ -78,7 +77,7 @@ public class ListGraph implements IGraph {
 
     private TreeMap<Node, TreeMap<Node, BigDecimal>> generateDistanceMatrix() {
 
-        TreeMap<Node, TreeMap<Node, BigDecimal>> matrix = new TreeMap<Node, TreeMap<Node, BigDecimal>>();
+        TreeMap<Node, TreeMap<Node, BigDecimal>> matrix = new TreeMap<>();
 
         for (Node thisNode : nodes) {
             TreeMap<Node, BigDecimal> thisMap = new TreeMap<>();
@@ -121,7 +120,7 @@ public class ListGraph implements IGraph {
     }
 
     @Override
-    public IGraph clone(){
+    public IGraph getClone(){
         List<Node> newNodes = new ArrayList<>();
         //we need a copy of all nodes
         nodes.stream().forEach(n -> newNodes.add(n.clone()));
@@ -132,7 +131,7 @@ public class ListGraph implements IGraph {
     @Override
     public List<Node> getListOfNodes() {
         //Changed this to create a new ArrayList so we can't change the actual graph when changing this list
-        return new ArrayList<Node>(nodes);
+        return new ArrayList<>(nodes);
     }
 
     @Override
@@ -148,7 +147,7 @@ public class ListGraph implements IGraph {
     @Override
     public Node getStartingNode() {
         return nodes.stream()
-                    .filter(n -> n.isStartingNode())
+                    .filter(Node::isStartingNode)
                     .findAny()
                     .orElse(null);
     }
@@ -166,9 +165,6 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getRandomUnvisitedNeighbor(Node n1) {
-        //TODO this applies to all of these get methods... how do we ensure the node is part of the graph???
-        //TODO  we could use a check like  this.getNodeById(n1.getId()) == null
-        //TODO but if we do that, should we be throwing exceptions ???
         if (n1 == null) {
             return null;
         } else if (this.getNodeById(n1.getId()) == null) {
@@ -183,53 +179,25 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getClosestUnvisitedNeighbor(Node n1) {
-        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
         if (n1 == null || distanceMatrix.get(n1) == null) {
             return null;
         }
 
         TreeMap<Node, BigDecimal> thisMap = distanceMatrix.get(n1);
 
-        //TODO maybe we should revisit this (never could get it working,... alternative to the reduce stuff below)
-//        BigDecimal mD = null;
-//        Node n = null;
-//        for (Node key : thisMap.keySet()) {
-//            System.out.println("node name = " + key.getName());
-//            if (key.isVisited()) {
-//                if (n == null) {
-//                    if (mD == null) {
-//                        mD = thisMap.get(key);
-//                    }
-//                    n = key;
-//                }
-//                continue;
-//            }
-//            if (mD == null) {
-//                mD = thisMap.get(key);
-//            } else {
-//                if (thisMap.get(key).compareTo(mD) == -1) {
-//                    mD = thisMap.get(key);
-//                    n = key;
-//                }
-//            }
-//        }
-//        return n;
-
-        //TODO comment about this
+        //get the closest unvisited neighbor
         Map.Entry<Node, BigDecimal> closestEntry = thisMap.entrySet()
                 .stream()
                 .reduce((minDist, dist) -> (dist.getValue().compareTo(minDist.getValue()) == -1 && !dist.getKey().isVisited())
                         || minDist.getKey().isVisited() ? dist : minDist)
                 .orElse(null);
 
-
-
+        //return the Node key
         return (closestEntry.getKey().isVisited()) ? null : closestEntry.getKey();
     }
 
     @Override
     public Node getFurthestUnvisitedNeighbor(Node n1) {
-        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
         if (n1 == null || distanceMatrix.get(n1) == null) {
             return null;
         }
@@ -246,7 +214,6 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getClosestNeighbor(Node n1) {
-        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
         if (n1 == null || distanceMatrix.get(n1) == null) {
             return null;
         }
@@ -269,7 +236,6 @@ public class ListGraph implements IGraph {
 
     @Override
     public Node getFurthestNeighbor(Node n1) {
-        //TODO for the 2nd check, maybe we should split that off and throw an exception ???
         if (n1 == null || distanceMatrix.get(n1) == null) {
             return null;
         }
@@ -311,10 +277,7 @@ public class ListGraph implements IGraph {
 
     @Override
     public List<Node> getAllNeighbors(Node node) {
-        List<Node> neighbors = nodes.stream()
-                                    .filter(n -> n != node)
-                                    .collect(Collectors.toList());
-        return neighbors;
+        return nodes.stream().filter(n -> n != node).collect(Collectors.toList());
     }
 
     @Override

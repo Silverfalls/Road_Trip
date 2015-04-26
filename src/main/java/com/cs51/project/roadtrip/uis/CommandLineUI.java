@@ -82,6 +82,7 @@ public class CommandLineUI implements IUserInterface {
 
 
     //get user input for main options
+    @SuppressWarnings("getUserInput")
     private void getUserInput() {
         if (logger.isDebugEnabled()) {
             logger.debug("getUserInput | start...");

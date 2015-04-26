@@ -1,6 +1,7 @@
 package com.cs51.project.roadtrip.enums;
 
 import com.cs51.project.roadtrip.interfaces.IComparisonService;
+import com.cs51.project.roadtrip.services.ApproximateComparisonService;
 import com.cs51.project.roadtrip.services.BasicComparisonService;
 
 /**
@@ -11,8 +12,10 @@ import com.cs51.project.roadtrip.services.BasicComparisonService;
  */
 public enum CompType {
 
+    //TODO fill in descriptions and change APPROX COMP TO RIGHT object
     BASIC("Basic Comparison", "description", "B", true, false, new BasicComparisonService()),
-    BASIC_AVG("Basic Comparison (ran n times with results averaged)", "description", "BA", true, true, new BasicComparisonService());
+    BASIC_AVG("Basic Comparison (ran n times with results averaged)", "description", "BA", true, true, new BasicComparisonService()),
+    APPROX_COMP("non-exact solution vs exact solution", "description", "AC", true, true, new ApproximateComparisonService());
 
     private final String name;
     private final String desc;

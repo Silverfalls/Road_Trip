@@ -15,8 +15,25 @@ public class Result {
     private int graphSize;
     private boolean finished;
     private List<Node> calculatedPath;
-    //Maybe we should use BigDecimal here
     private BigDecimal calculatedDistance;
+    private Integer numIncorrectSolutions;
+    private BigDecimal averageDeviation;
+
+    public BigDecimal getAverageDeviation() {
+        return averageDeviation;
+    }
+
+    public void setAverageDeviation(BigDecimal averageDeviation) {
+        this.averageDeviation = averageDeviation;
+    }
+
+    public Integer getNumIncorrectSolutions() {
+        return numIncorrectSolutions;
+    }
+
+    public void setNumIncorrectSolutions(Integer numIncorrectSolutions) {
+        this.numIncorrectSolutions = numIncorrectSolutions;
+    }
 
     public BigDecimal getCalculatedDistance() {
         return calculatedDistance;

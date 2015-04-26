@@ -37,6 +37,7 @@ public class CommandLineUI implements IUserInterface {
     private static final String YES = "Y";
     private static final String NO = "N";
     private static final String WILDCARD = "*";
+    private static final String NOT_APPLICABLE = "n/a";
 
     /**
      * kicks off the CommandLineUI's functionality
@@ -201,8 +202,12 @@ public class CommandLineUI implements IUserInterface {
             System.out.println("- graph size      - " + result.getGraphSize());
             System.out.println("- running time    - " + result.getRunningTime() + "ms");
             System.out.println("- num iterations  - " + result.getIterations());
-            System.out.println("- path            - " + RoadTripUtils.convertListToPath(result.getCalculatedPath()));
+            System.out.println("- path            - " + (RoadTripUtils.convertListToPath(result.getCalculatedPath())));
             System.out.println("- distance        - " + result.getCalculatedDistance());
+            System.out.println("- # incorrect     - " +
+                    ((result.getNumIncorrectSolutions() != null) ? result.getNumIncorrectSolutions() : 0));
+            System.out.println("- average dev     - " +
+                    ((result.getAverageDeviation() != null) ? result.getAverageDeviation() : NOT_APPLICABLE));
         }
 
         if (logger.isDebugEnabled()) {

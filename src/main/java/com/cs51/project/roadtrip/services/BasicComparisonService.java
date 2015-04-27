@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO fill this out
+ * Runs the selected algorithms on the same graph n times.  If n is > 1, it averages the running
+ * time for each algorithm.
  */
 public class BasicComparisonService implements IComparisonService {
 
@@ -23,16 +24,19 @@ public class BasicComparisonService implements IComparisonService {
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int numCycles) {
 
+        //have to have some algorithms to run
         if (algs == null || algs.isEmpty()) {
             logger.warn("executeComparison | list of algs is either null or empty");
             return null;
         }
 
+        //have to have a graph
         if (graph == null) {
             logger.warn("executeComparison | graph is null");
             return null;
         }
 
+        //have to have at least one iteration
         if (numCycles < 1) {
             logger.warn("executeComparison | numCycles is less than 1");
             return null;
@@ -43,6 +47,7 @@ public class BasicComparisonService implements IComparisonService {
         //create a list for our results
         List<Result> currentResults = new ArrayList<>();
 
+        //execute the algorithms on the graph numCycles times
         for (int i = 0; i < numCycles; i++) {
             //execute each algorithm and store the result
             algs.stream().forEach(alg -> currentResults.add(alg.execute(graph.getClone())));

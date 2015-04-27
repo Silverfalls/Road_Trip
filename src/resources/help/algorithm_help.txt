@@ -1,2 +1,43 @@
-This is the algorithm choice help file:
-yayayaya
+
+
+Given the following choices in the algorithm screen:
+
+A : My Algorithm
+B : Your Algorithm
+C : Her Algorithm
+
+You could choose only Your Algorithm by entering B.
+You could choose My Algorithm and Her Algorithm by entering AC.
+You could choose all three algorithms by entering ABC (in any order), or 
+by entering *.
+
+The following is a list of the algorithms and what they do:
+
+Brute Force Algorithm:
+
+The Brute Force algorithm is a naive solution to the TSP.  
+It simply calculates every possible route, adds up the cost of the that 
+route and picks the lowest cost route.
+
+This is an exact algorithm.
+
+An iteration for this algorithm means that
+
+
+Nearest Neighbor Algorithm:
+
+The Nearest Neighbor algorithm is a greedy algorithm that simply keeps 
+picking the next closest node and marking it as visited.  Once all nodes 
+have been visited, it adds a trip back to the starting node to the tour 
+and is complete.
+
+This is a non-exact algorithm.
+
+An iteration for this algorithm means that
+
+
+Branch and Bound Algorithm (List Based):
+
+
+
+Branch and Bound Algorithm (Tree Based):

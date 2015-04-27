@@ -9,13 +9,16 @@ import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * TODO fill this out
+ * This comparison requires that at least one exact algorithm and at least one non-exact algorithm are selected.
+ * It then picks one of the exact algorithms as the control.  It then runs every algorithm against the same graph
+ * number of iterations times.  However, after each iteration, it generates a new graph of the same size.  Then, after
+ * all iterations, it reports how many times each non-exact solution was not the optimal solution and on average how
+ * far off the optimal solution it was.
  */
 public class ApproximateComparisonService implements IComparisonService {
 
@@ -27,6 +30,14 @@ public class ApproximateComparisonService implements IComparisonService {
     List<Result> approxResults = null;
     Result optimalResult = null;
 
+    /**
+     * executes the Compare Accuracy comparison
+     *
+     * @param graph the graph for the comparison
+     * @param algs a list of algorithms
+     * @param iterations
+     * @return null if there is not an exact algorithm or a non-exact algorithm or iterations is < 1
+     */
     @Override
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int iterations) {
 
@@ -36,21 +47,25 @@ public class ApproximateComparisonService implements IComparisonService {
         IAlgorithm optimalAlg = null;
         List<IAlgorithm> approximateAlgs = null;
 
+        //have to have at least one iteration
         if (iterations < 1) {
             logger.warn("executeComparison | iterations is less than 1");
             return null;
         }
 
+        //have to have a graph to start (just to get the desired size)
         if (graph == null) {
             logger.warn("executeComparison | graph is null");
             return null;
         }
 
+        //can't have a null list of algorithms
         if (algs == null) {
             logger.warn("execute | passed in list of algorithms is null");
             return null;
         }
 
+        //set the control algorithm and all of the non-exact algorithms
         for (IAlgorithm alg : algs) {
             AlgType algType = AlgType.getAlgTypeByImplementation(alg);
             if (algType.isOptimal()) {
@@ -63,6 +78,7 @@ public class ApproximateComparisonService implements IComparisonService {
             }
         }
 
+        //make sure we have at least one exact and one non-exact algorithm before we run
         if (optimalAlg != null && approximateAlgs != null && !approximateAlgs.isEmpty()) {
 
             for (int i = 0; i < iterations; i++) {
@@ -82,11 +98,13 @@ public class ApproximateComparisonService implements IComparisonService {
             return null;
         }
 
+        //put the optimal result at the start of the list so it is the first one printed out
         approxResults.add(0, optimalResult);
 
         return approxResults;
     }
 
+    //update the running results with the most recent set of results
     private void mergeResults(Result optimal, List<Result> notOptimal) {
 
         if (optimal != null) {
@@ -104,6 +122,7 @@ public class ApproximateComparisonService implements IComparisonService {
 
         optimalResult.setCalculatedDistance(optimalResult.getCalculatedDistance().add(optimal.getCalculatedDistance()));
 
+        //aggregate the results
         for (Result r : notOptimal) {
             for (Result ar : approxResults) {
                 if (r.getName().equals(ar.getName())) {
@@ -122,6 +141,7 @@ public class ApproximateComparisonService implements IComparisonService {
         }
     }
 
+    //any fields that should be averaged can use the number of iterations (cycles) and the summed values
     private void averageResults(int cycles) {
         for (Result r : approxResults) {
             BigDecimal numCycles = new BigDecimal(cycles);

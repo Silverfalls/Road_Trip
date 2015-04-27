@@ -1,3 +1,47 @@
-This is the help file.  Here we can write to this and change it without changing code.
-This is the second line.
-This is the third line.
+
+
+To run a certain type of comparison, simply enter the corresponding
+option character(s) for the comparison you'd like to run.
+
+Depending on the goal of the comparison, you may be asked to enter a
+number of nodes which corresponds to the size of the graph the
+comparison will use.
+The minimum number of nodes is 3 and the maximum is 100.
+
+Also depending on the goal of the comparison, you may be asked to enter
+the number of iterations the comparison should run.  If for instance a
+comparison should run algorithm A on graph of size X, this number of
+iterations will tell the comparison to run algorithm A on graph of
+size X Y times.  This is likely being asked for by the comparison so
+it can average results for certain metrics.
+
+After you have gotten this far, you will be asked what algorithms you
+would like to execute.  You can choose one of them or all of them or
+somewhere in between.
+
+What does each comparison do?
+
+Basic Comparison:
+-prompts user for graph size (number of nodes)
+
+This comparison simply runs the selected algorithms on the same graph
+once and reports the results.
+
+Basic Comparison Averaged:
+-prompts user for graph size (number of nodes)
+-prompts user for number of iterations
+
+This comparison runs the selected algorithms on the same graph number
+of iterations times and averages the running time for each algorithm.
+
+Compare Accuracy Comparison:
+-prompts user for graph size (number of nodes)
+-prompts user for number of iterations
+
+This comparison requires that at least one exact algorithm and at least
+one non-exact algorithm are selected.  It then picks one of the exact
+algorithms as the control.  It then runs every algorithm against the same
+graph number of iterations times.  However, after each iteration, it
+generates a new graph of the same size.  Then, after all iterations, it
+reports how many times each non-exact solution was not the optimal solution
+and on average how far off the optimal solution it was.

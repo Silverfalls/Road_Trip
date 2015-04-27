@@ -49,12 +49,8 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
             BigDecimal currentDistance = getDistance(currentPath,graph);
 
             if(currentDistance.compareTo(shortestPathDistance) == -1 || shortestPathDistance.compareTo(BigDecimal.ZERO) == 0){
-
-//                StringBuilder sb = new StringBuilder();
                 shortestPathDistance = currentDistance;
                 shortestPath = currentPath;
-//                sb.append("The following is currently the shortest path with ").append(currentDistance).append(" ");
-
             }
         }
     }

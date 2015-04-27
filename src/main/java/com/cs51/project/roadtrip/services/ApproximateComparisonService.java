@@ -32,11 +32,7 @@ public class ApproximateComparisonService implements IComparisonService {
 
     /**
      * executes the Compare Accuracy comparison
-     *
-     * @param graph the graph for the comparison
-     * @param algs a list of algorithms
-     * @param iterations
-     * @return null if there is not an exact algorithm or a non-exact algorithm or iterations is < 1
+     * returns null if there is not an exact algorithm or a non-exact algorithm or iterations is < 1
      */
     @Override
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int iterations) {
@@ -107,35 +103,35 @@ public class ApproximateComparisonService implements IComparisonService {
     //update the running results with the most recent set of results
     private void mergeResults(Result optimal, List<Result> notOptimal) {
 
-        if (optimal != null) {
-            if (optimalResult == null) {
-                optimalResult = optimal;
-            }
+        if (optimal == null || notOptimal == null) {
+            logger.error("mergeResults | optimal result or non optimal results is null");
+            return;
+        }
+
+        if (optimalResult == null) {
+            optimalResult = optimal;
         } else {
-            logger.error("mergeResults | optimal result is null");
+            optimalResult.setCalculatedDistance(optimalResult.getCalculatedDistance().add(optimal.getCalculatedDistance()));
         }
 
         if (approxResults == null) {
             approxResults = notOptimal;
-            return;
-        }
-
-        optimalResult.setCalculatedDistance(optimalResult.getCalculatedDistance().add(optimal.getCalculatedDistance()));
-
-        //aggregate the results
-        for (Result r : notOptimal) {
-            for (Result ar : approxResults) {
-                if (r.getName().equals(ar.getName())) {
-                    ar.setCalculatedDistance(ar.getCalculatedDistance().add(r.getCalculatedDistance()));
-                    BigDecimal distDelta = r.getCalculatedDistance().subtract(optimal.getCalculatedDistance());
-                    if (distDelta.compareTo(BigDecimal.ZERO) != 0) {
-                        if (ar.getNumIncorrectSolutions() == null) {
-                            ar.setNumIncorrectSolutions(1);
-                        } else {
-                            ar.setNumIncorrectSolutions(ar.getNumIncorrectSolutions() + 1);
+        } else {
+            //aggregate the results
+            for (Result r : notOptimal) {
+                for (Result ar : approxResults) {
+                    if (r.getName().equals(ar.getName())) {
+                        ar.setCalculatedDistance(ar.getCalculatedDistance().add(r.getCalculatedDistance()));
+                        BigDecimal distDelta = r.getCalculatedDistance().subtract(optimal.getCalculatedDistance());
+                        if (distDelta.compareTo(BigDecimal.ZERO) != 0) {
+                            if (ar.getNumIncorrectSolutions() == null) {
+                                ar.setNumIncorrectSolutions(1);
+                            } else {
+                                ar.setNumIncorrectSolutions(ar.getNumIncorrectSolutions() + 1);
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
             }
         }

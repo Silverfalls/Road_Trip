@@ -90,9 +90,8 @@ public class ApproximateComparisonTest {
             logger.debug("testApproximateComparisonServiceWithNullListOfAlgs | start...");
         }
 
-        List<IAlgorithm> algs = null;
         IGraph graph = new ListGraph(5);
-        List<Result> results = acs.executeComparison(graph, algs, 5);
+        List<Result> results = acs.executeComparison(graph, null, 5);
         assertTrue(results == null);
 
         if (logger.isDebugEnabled()) {
@@ -131,8 +130,7 @@ public class ApproximateComparisonTest {
         IAlgorithm bf = new BruteForceAlgorithm();
         algs.add(nn);
         algs.add(bf);
-        IGraph graph = null;
-        List<Result> results = acs.executeComparison(graph, algs, 5);
+        List<Result> results = acs.executeComparison(null, algs, 5);
         assertTrue(results == null);
 
         if (logger.isDebugEnabled()) {

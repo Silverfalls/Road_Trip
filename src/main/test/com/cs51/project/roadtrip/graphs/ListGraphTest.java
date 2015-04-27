@@ -50,11 +50,11 @@ public class ListGraphTest {
     @Test
     public void cloneTest() {
         IGraph newGraph = graph.getClone();
-        assertTrue("Nodes from original graph in clone",
+        assertTrue("Nodes from original graph in getClone",
                 newGraph.getListOfNodes().stream().allMatch(n -> !baseList.contains(n)));
 
         //TODO: oh god this looks ugly
-        assertTrue("Node values of the clone don't match with the original",
+        assertTrue("Node values of the getClone don't match with the original",
                 newGraph.getListOfNodes().stream().allMatch(n ->
                 {
                     boolean inList = false;

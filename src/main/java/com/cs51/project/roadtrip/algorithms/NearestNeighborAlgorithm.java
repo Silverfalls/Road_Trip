@@ -65,9 +65,4 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
         return result;
 
     }
-
-    @Override
-    public void reset() {
-
-    }
 }

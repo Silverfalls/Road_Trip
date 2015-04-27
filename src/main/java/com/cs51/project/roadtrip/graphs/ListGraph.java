@@ -123,7 +123,7 @@ public class ListGraph implements IGraph {
     public IGraph getClone(){
         List<Node> newNodes = new ArrayList<>();
         //we need a copy of all nodes
-        nodes.stream().forEach(n -> newNodes.add(n.clone()));
+        nodes.stream().forEach(n -> newNodes.add(n.getClone()));
 
         return new ListGraph(newNodes);
     }

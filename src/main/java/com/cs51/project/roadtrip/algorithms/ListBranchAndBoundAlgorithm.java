@@ -246,8 +246,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         return nodeToReturn;
     }
 
-    @Override
-    public void reset() {
+    private void reset() {
         runningTime = 0L;
         iterations = 0L;
         shortestGoalBranch = null;

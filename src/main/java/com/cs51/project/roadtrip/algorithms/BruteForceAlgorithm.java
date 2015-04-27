@@ -21,8 +21,6 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
      */
     private static Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
 
-    private Result result = null;
-
     private Node startingNode = null;
 
     private IGraph graph = null;
@@ -76,7 +74,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         List<Node> nodesList = graph.getListOfNodes();
         nodesList.remove(startingNode);
 
-        result = new Result();
+        Result result = new Result();
 
         permute(nodesList, 0);
 
@@ -97,11 +95,6 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
             logger.debug("finished BruteForceAlgorithm");
         }
         return result;
-    }
-
-    @Override
-    public void reset() {
-        result = null;
     }
 
 

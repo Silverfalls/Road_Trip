@@ -92,9 +92,8 @@ public class BasicComparisonServiceTest {
             logger.debug("testBasicComparisonServiceWithNullListOfAlgs | start...");
         }
 
-        List<IAlgorithm> algs = null;
         IGraph graph = new ListGraph(5);
-        List<Result> results = bcs.executeComparison(graph, algs, 5);
+        List<Result> results = bcs.executeComparison(graph, null, 5);
         assertTrue(results == null);
 
         if (logger.isDebugEnabled()) {
@@ -133,8 +132,7 @@ public class BasicComparisonServiceTest {
         IAlgorithm bf = new BruteForceAlgorithm();
         algs.add(nn);
         algs.add(bf);
-        IGraph graph = null;
-        List<Result> results = bcs.executeComparison(graph, algs, 5);
+        List<Result> results = bcs.executeComparison(null, algs, 5);
         assertTrue(results == null);
 
         if (logger.isDebugEnabled()) {

@@ -216,7 +216,4 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         return result;
     }
 
-    @Override
-    public void reset() {
-    }
 }

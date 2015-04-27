@@ -26,7 +26,7 @@ public class Node implements Comparable {
         this(id, xCoord, yCoord, name, false);
     }
 
-    public Node clone (){
+    public Node getClone() {
         Node newNode = new Node (id, xCoord, yCoord, name, isStartingNode);
         newNode.setVisited(visited);
         return newNode;
@@ -36,32 +36,17 @@ public class Node implements Comparable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public int getxCoord() {
         return xCoord;
-    }
-
-    public void setxCoord(int xCoord) {
-        this.xCoord = xCoord;
     }
 
     public int getyCoord() {
         return yCoord;
     }
 
-    public void setyCoord(int yCoord) {
-        this.yCoord = yCoord;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isStartingNode() {
@@ -80,6 +65,7 @@ public class Node implements Comparable {
         this.visited = visited;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public int compareTo(Object o) {
         return this.name.compareTo(((Node) o).getName());

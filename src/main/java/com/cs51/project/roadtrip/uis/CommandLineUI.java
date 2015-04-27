@@ -69,21 +69,29 @@ public class CommandLineUI implements IUserInterface {
 
         //loop through each comparison type and print it as an option
         for (CompType compType : CompType.values()) {
-            System.out.println(compType.getOptionChar() + " : " + compType.getName());
+            printOption(compType.getOptionChar(), compType.getName());
         }
 
         //print static options
-        System.out.println(HELP_OPTION_CHAR + " : Help");
-        System.out.println(QUIT_OPTION_CHAR + " : Quit");
+        printOption(HELP_OPTION_CHAR, "Help");
+        printOption(QUIT_OPTION_CHAR, "Quit");
 
         if (logger.isDebugEnabled()) {
             logger.debug("displayOptions | end...");
         }
     }
 
+    //prints a single option
+    private void printOption(String optionChar, String title) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%-3s", optionChar));
+        sb.append("| ");
+        sb.append(title);
+        System.out.println(sb.toString());
+    }
+
 
     //get user input for main options
-    @SuppressWarnings("getUserInput")
     private void getUserInput() {
         if (logger.isDebugEnabled()) {
             logger.debug("getUserInput | start...");
@@ -118,8 +126,7 @@ public class CommandLineUI implements IUserInterface {
         }
     }
 
-
-    //TODO, needs lots of work
+    //prepare our comparison to be run
     private void setupComparison(CompType compType) {
         if (logger.isDebugEnabled()) {
             logger.debug("setupComparison | start...");
@@ -127,43 +134,51 @@ public class CommandLineUI implements IUserInterface {
 
         //set the node size for the graph and create the graph
         int numNodes = compType.shouldPromptNumNodes() ? promptNumNodes() : RoadTripConstants.DEFAULT_STARTING_NODES;
+
+        //set the number of iterations for the comparison if applicable
         int numIterations = compType.shouldPromptIterations() ? promptIterations() : 1;
         IGraph graph = new ListGraph(numNodes);
 
+        //print the graph distance matrix if the user wants to
         if (shouldPrintDistanceMatrix()) {
             printDistanceMatrix(graph);
         }
 
+        //get the algorithms to execute from the user
         List<AlgType> algTypes = getAlgorithmsToCompareFromUser();
 
-        if (algTypes.isEmpty()) {
-            //log and do something here
-        } else {
+        if (!algTypes.isEmpty()) {
+            //print the status and then run the comparison
             System.out.println("\nCommencing the " + compType.getName() + " on the following algorithm(s):");
             algTypes.stream().forEach(a -> System.out.println(a.getName()));
             if (compType.shouldPromptNumNodes()) {
                 System.out.println("on a graph with " + numNodes + " nodes.");
-                try {
-                    System.out.println("\n" + WAITING_INDICATOR + "\n");
-                    List<Result> results =
-                            compType.getService().executeComparison(graph, convertAlgTypeListToAlgs(algTypes), numIterations);
-                    if (results != null) {
-                        if (numIterations > 1) {
-                            System.out.println("results are averaged over " + numIterations + " runs\n");
-                        }
-                        printResults(results);
-                    } else {
-                        //do something
-                    }
-                } catch (Exception e) {
-                    //do something about it
-                    e.printStackTrace();
-                }
             }
+            runComp(compType, graph, algTypes, numIterations);
+        } else {
+            logger.error("setUpComparison | algType list is empty");
+            System.out.println("whoops.. something went wrong.. we have to have one or more algorithms");
+            return;
         }
 
         if (logger.isDebugEnabled()) {
             logger.debug("setupComparison | end...");
+        }
+    }
+
+    //run the comparison and print the results
+    private void runComp(CompType compType, IGraph graph, List<AlgType> algTypes, int numIterations) {
+        System.out.println("\n" + WAITING_INDICATOR + "\n");
+        List<Result> results =
+                compType.getService().executeComparison(graph, convertAlgTypeListToAlgs(algTypes), numIterations);
+        if (results != null) {
+            if (numIterations > 1) {
+                System.out.println("results are averaged over " + numIterations + " runs\n");
+            }
+            printResults(results);
+        } else {
+            logger.warn("setUpComparison | results are null");
+            System.out.println("the results are null.");
         }
     }
 
@@ -205,7 +220,7 @@ public class CommandLineUI implements IUserInterface {
             System.out.println("- path            - " + (RoadTripUtils.convertListToPath(result.getCalculatedPath())));
             System.out.println("- distance        - " + result.getCalculatedDistance());
             System.out.println("- # incorrect     - " +
-                    ((result.getNumIncorrectSolutions() != null) ? result.getNumIncorrectSolutions() : 0));
+                    ((result.getNumIncorrectSolutions() != null) ? result.getNumIncorrectSolutions() : NOT_APPLICABLE));
             System.out.println("- average dev     - " +
                     ((result.getAverageDeviation() != null) ? result.getAverageDeviation() : NOT_APPLICABLE));
         }
@@ -310,17 +325,17 @@ public class CommandLineUI implements IUserInterface {
 
         List<AlgType> algs = new ArrayList<>();
 
+        //print a prompt
         System.out.println("From the list below, choose the algorithms you would like to compare");
         System.out.println("enter H for help on how to pick and choose algorithms");
-        System.out.println("enter * to choose all of them");
+        System.out.println("enter * to choose all of them\n");
 
-
+        //print the algorithm choices
         for (AlgType algType : AlgType.values()) {
             System.out.println(algType.getOptionChar() + " : " + algType.getName() + " - " + algType.getDesc());
         }
 
         Scanner scanner = new Scanner(System.in);
-
         while (true) {
 
             String command = scanner.next();
@@ -339,6 +354,7 @@ public class CommandLineUI implements IUserInterface {
                     logger.error("getAlgorithmsToCompareFromUser | error reading help file",eio);
                 }
             } else {
+                //split up the input and choose the appropriate algorithms
                 String[] tokens = command.split("(?!^)");
                 for (int i = 0; i < tokens.length; i++) {
                     for (AlgType algType : AlgType.values()) {
@@ -475,9 +491,10 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("showWelcomeScreen | start...");
         }
 
-        System.out.println(DECORATIVE_BORDER + "\n");
+        System.out.println(DECORATIVE_BORDER);
         System.out.println("Welcome to " + RoadTripConstants.PROGRAM_NAME + "\n");
         System.out.println(DECORATIVE_BORDER + "\n");
+        System.out.println("All commands are case insensitive");
 
         if (logger.isDebugEnabled()) {
             logger.debug("showWelcomeScreen | end...");
@@ -490,7 +507,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("showClosingScreen | start...");
         }
 
-        System.out.println(DECORATIVE_BORDER + "\n");
+        System.out.println("\n" + DECORATIVE_BORDER);
         System.out.println("Thank you for using " + RoadTripConstants.PROGRAM_NAME);
         System.out.println("Goodbye...\n");
         System.out.println(DECORATIVE_BORDER + "\n");

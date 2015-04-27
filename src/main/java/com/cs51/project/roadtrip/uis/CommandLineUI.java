@@ -83,11 +83,7 @@ public class CommandLineUI implements IUserInterface {
 
     //prints a single option
     private void printOption(String optionChar, String title) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("%-3s", optionChar));
-        sb.append("| ");
-        sb.append(title);
-        System.out.println(sb.toString());
+        System.out.println(String.format("%-3s", optionChar) + "| " + title);
     }
 
 
@@ -98,26 +94,31 @@ public class CommandLineUI implements IUserInterface {
         }
 
         Scanner scanner = new Scanner(System.in);
+        //noinspection InfiniteLoopStatement
         while (true){
             String command = scanner.next();
             String commandUpper = command.toUpperCase();
 
             boolean validInput = false;
-            if (HELP_OPTION_CHAR.equals(commandUpper)) {
-                validInput = true;
-                showHelp();
-            } else if (QUIT_OPTION_CHAR.equals(commandUpper)) {
-                validInput = true;
-                exitProgram();
-            } else {
-                //check if command is a comparison type option
-                for (CompType compType : CompType.values()) {
-                    if (compType.getOptionChar().toUpperCase().equals(commandUpper)) {
-                        validInput = true;
-                        setupComparison(compType);
-                        break;
+            switch (commandUpper) {
+                case HELP_OPTION_CHAR:
+                    validInput = true;
+                    showHelp();
+                    break;
+                case QUIT_OPTION_CHAR:
+                    validInput = true;
+                    exitProgram();
+                    break;
+                default:
+                    //check if command is a comparison type option
+                    for (CompType compType : CompType.values()) {
+                        if (compType.getOptionChar().toUpperCase().equals(commandUpper)) {
+                            validInput = true;
+                            setupComparison(compType);
+                            break;
+                        }
                     }
-                }
+                    break;
             }
             if (!validInput) {
                 displayInvalidInputWarning(command);
@@ -187,7 +188,7 @@ public class CommandLineUI implements IUserInterface {
 
         System.out.println("Enter the amount of runs you would like the results averaged over");
 
-        int numIterations = 1;
+        int numIterations;
         Scanner scanner = new Scanner(System.in);
         String command;
         while (true) {
@@ -200,7 +201,6 @@ public class CommandLineUI implements IUserInterface {
                 System.out.println("the number of iterations must be at least 1");
             } catch (Exception e) {
                 displayInvalidInputWarning(command);
-                continue;
             }
         }
         return numIterations;
@@ -241,7 +241,7 @@ public class CommandLineUI implements IUserInterface {
             return null;
         }
 
-        List<IAlgorithm> algs = algTypes.stream().map(a -> a.getAlg()).collect(Collectors.toList());
+        List<IAlgorithm> algs = algTypes.stream().map(AlgType::getAlg).collect(Collectors.toList());
 
         if (logger.isDebugEnabled()) {
             logger.debug("printResults | end...");
@@ -292,7 +292,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("shouldPrintDistanceMatrix | start...");
         }
 
-        boolean shouldPrint = false;
+        boolean shouldPrint;
 
         System.out.println("Would you like to print the graph's distance matrix before running the comparison?");
         System.out.println("y/n");
@@ -344,33 +344,36 @@ public class CommandLineUI implements IUserInterface {
             if (WILDCARD.equals(command)) {
                 algs = Arrays.asList(AlgType.values());
                 validInput = true;
-            } else if (HELP_OPTION_CHAR.equals(command.toUpperCase())) {
-                try {
-                    Path path = Paths.get(RoadTripConstants.PATH_TO_ALGORITHM_CHOICE_HELP_FILE);
-                    Files.lines(path).forEach(System.out::println);
-                    validInput = true;
-                } catch (IOException eio) {
-                    System.out.println("Could not read the help file. Please check the logs for more info");
-                    logger.error("getAlgorithmsToCompareFromUser | error reading help file",eio);
-                }
             } else {
-                //split up the input and choose the appropriate algorithms
-                String[] tokens = command.split("(?!^)");
-                for (int i = 0; i < tokens.length; i++) {
-                    for (AlgType algType : AlgType.values()) {
-                        if (algType.getOptionChar().equals(tokens[i].toUpperCase())) {
-                            if (!algs.contains(algType.getAlg())) {
-                                algs.add(algType);
-                            } else {
-                                if (logger.isInfoEnabled()) {
-                                    logger.info("getAlgorithmsToCompareFromUser | list already contains alg: "
-                                        + algType.getName());
+                if (HELP_OPTION_CHAR.equals(command.toUpperCase())) {
+                    try {
+                        Path path = Paths.get(RoadTripConstants.PATH_TO_ALGORITHM_CHOICE_HELP_FILE);
+                        Files.lines(path).forEach(System.out::println);
+                        validInput = true;
+                    } catch (IOException eio) {
+                        System.out.println("Could not read the help file. Please check the logs for more info");
+                        logger.error("getAlgorithmsToCompareFromUser | error reading help file", eio);
+                    }
+                } else {
+                    //split up the input and choose the appropriate algorithms
+                    String[] tokens = command.split("(?!^)");
+                    for (String token : tokens) {
+                        for (AlgType algType : AlgType.values()) {
+                            if (algType.getOptionChar().equals(token.toUpperCase())) {
+                                //noinspection SuspiciousMethodCalls
+                                if (algs.contains(algType.getAlg())) {
+                                    if (logger.isInfoEnabled()) {
+                                        logger.info("getAlgorithmsToCompareFromUser | list already contains alg: "
+                                                + algType.getName());
+                                    }
+                                } else {
+                                    algs.add(algType);
                                 }
                             }
                         }
                     }
+                    validInput = !algs.isEmpty();
                 }
-                validInput = !algs.isEmpty();
             }
 
             if (validInput && !algs.isEmpty()) {

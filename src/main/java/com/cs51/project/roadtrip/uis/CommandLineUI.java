@@ -256,7 +256,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("promptNumNodes | start...");
         }
 
-        System.out.println("Please enter the number of nodes for the graph the algorithms will attempt to solve");
+        System.out.println("Please enter the number of nodes in the graph");
         System.out.println("The max number of nodes " + RoadTripConstants.PROGRAM_NAME +
                 " supports is " + RoadTripConstants.MAX_GRAPH_SIZE);
 
@@ -294,7 +294,7 @@ public class CommandLineUI implements IUserInterface {
 
         boolean shouldPrint;
 
-        System.out.println("Would you like to print the graph's distance matrix before running the comparison?");
+        System.out.println("Would you like to print the graph's distance matrix?");
         System.out.println("y/n");
 
         Scanner scanner = new Scanner(System.in);
@@ -332,7 +332,7 @@ public class CommandLineUI implements IUserInterface {
 
         //print the algorithm choices
         for (AlgType algType : AlgType.values()) {
-            System.out.println(algType.getOptionChar() + " : " + algType.getName() + " - " + algType.getDesc());
+            System.out.println(algType.getOptionChar() + " : " + algType.getName());
         }
 
         Scanner scanner = new Scanner(System.in);

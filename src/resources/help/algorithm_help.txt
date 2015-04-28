@@ -21,7 +21,8 @@ route and picks the lowest cost route.
 
 This is an exact algorithm.
 
-An iteration for this algorithm means that
+An iteration for this algorithm means that the algorithm checked one complete
+path.
 
 
 Nearest Neighbor Algorithm:
@@ -33,7 +34,8 @@ and is complete.
 
 This is a non-exact algorithm.
 
-An iteration for this algorithm means that
+An iteration for this algorithm means that the algorithm added one node to it's
+path.
 
 
 Branch and Bound Algorithm (List Based):
@@ -41,3 +43,5 @@ Branch and Bound Algorithm (List Based):
 
 
 Branch and Bound Algorithm (Tree Based):
+
+An iteration for this algorithm means that the algorithm added a path branch.

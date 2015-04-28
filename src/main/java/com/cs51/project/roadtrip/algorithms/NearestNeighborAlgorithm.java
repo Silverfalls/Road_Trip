@@ -24,6 +24,7 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
     @Override
     public Result execute(IGraph graph) {
         long startTime = System.currentTimeMillis();
+        long iterations = 1;
 
         if (logger.isDebugEnabled()) {
             logger.debug("start to execute NearestNeighbor");
@@ -36,6 +37,7 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
 
         Node next = graph.getClosestUnvisitedNeighbor(startingNode);
         while (next != null){
+            iterations++;
             shortestPath.addLast(next);
             next.setVisited(true);
             next = graph.getClosestUnvisitedNeighbor(next);
@@ -51,6 +53,7 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
         result.setGraphSize(graph.getGraphSize());
         result.setFinished(true);
         result.setName(AlgType.NEAREST_NEIGHBOR.getName());
+        result.setIterations(iterations);
 
         if (logger.isDebugEnabled()) {
             StringBuilder sb = new StringBuilder();

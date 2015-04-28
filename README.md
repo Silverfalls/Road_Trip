@@ -1,6 +1,19 @@
 HOW TO GET EVERYTHING SET UP TO RUN ROAD TRIP:
 
+Ubuntu
+Install Java 8 like described on this site
+http://tecadmin.net/install-oracle-java-8-jdk-8-ubuntu-via-ppa/
 
+if Java is successfully installed open up the terminal and enter the following:
+
+java -jar "path to RoadTrip.jar"
+
+Windows
+Install Java 8 from the official java.com site.
+If the jar filetype is connected to java then you can just double click the
+jar file. Otherwise execute the following in the console:
+
+java -jar "path to RoadTrip.jar"
 
 HOW TO USE ROAD TRIP:
 

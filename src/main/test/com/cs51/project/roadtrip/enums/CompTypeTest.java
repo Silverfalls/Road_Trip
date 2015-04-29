@@ -12,7 +12,7 @@ public class CompTypeTest {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(CompTypeTest.class);
+    private static final Logger logger = Logger.getLogger(CompTypeTest.class);
 
     @Test
     public void testThereAreNoNullFields() {

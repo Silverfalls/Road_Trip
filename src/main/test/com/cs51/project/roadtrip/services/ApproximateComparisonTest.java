@@ -22,9 +22,9 @@ public class ApproximateComparisonTest {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(ApproximateComparisonTest.class);
+    private static final Logger logger = Logger.getLogger(ApproximateComparisonTest.class);
 
-    private static IComparisonService acs = new ApproximateComparisonService();
+    private static final IComparisonService acs = new ApproximateComparisonService();
 
     @Test
     public void testApproximateComparisonServiceWithOneIteration() {

@@ -19,7 +19,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
     /**
      * Logger instance
      */
-    private static Logger logger = Logger.getLogger(ListBranchAndBoundAlgorithm.class);
+    private static final Logger logger = Logger.getLogger(ListBranchAndBoundAlgorithm.class);
 
     private IGraph mGraph;
     private List<Branch> branches;
@@ -104,7 +104,6 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         result.setGraphSize(mGraph.getGraphSize());
         result.setIterations(iterations);
         result.setRunningTime(runningTime);
-        result.setFinished(true);
         result.setCalculatedPath(shortestGoalBranch.getVisitedNodes());
     }
 
@@ -124,8 +123,8 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
 
         private List<Node> visitedNodes;
         private List<Node> unvisitedNodes;
-        private BigDecimal accumulatedDistance;
-        private Node node;
+        private final BigDecimal accumulatedDistance;
+        private final Node node;
 
         //constructor for root branch only
         private Branch(List<Node> visitedNodes, List<Node> unvisitedNodes) {
@@ -204,13 +203,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
     private void pruneBranches() {
 
         if (shortestGoalBranch != null) {
-            List<Branch> newBranches = new ArrayList<>();
-            for (Branch b : branches) {
-                if (b.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1) {
-                    newBranches.add(b);
-                }
-            }
-            branches = newBranches;
+            branches = branches.stream().filter(b -> b.getAccumulatedDistance().compareTo(shortestGoalBranch.getAccumulatedDistance()) == -1).collect(Collectors.toList());
         } else {
             if (logger.isDebugEnabled()) {
                 logger.debug("pruneBranches | goal is not yet set");

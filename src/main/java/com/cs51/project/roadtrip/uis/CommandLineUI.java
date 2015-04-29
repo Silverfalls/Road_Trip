@@ -28,7 +28,7 @@ public class CommandLineUI implements IUserInterface {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(CommandLineUI.class);
+    private static final Logger logger = Logger.getLogger(CommandLineUI.class);
 
     private static final String DECORATIVE_BORDER = "################################\n";
     private static final String HELP_OPTION_CHAR = "H";

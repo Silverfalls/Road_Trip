@@ -8,8 +8,8 @@ import com.cs51.project.roadtrip.interfaces.IAlgorithm;
 import com.cs51.project.roadtrip.interfaces.IComparisonService;
 import com.cs51.project.roadtrip.interfaces.IGraph;
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
 import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -24,9 +24,9 @@ public class BasicComparisonServiceTest {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(BasicComparisonServiceTest.class);
+    private static final Logger logger = Logger.getLogger(BasicComparisonServiceTest.class);
 
-    private static IComparisonService bcs = new BasicComparisonService();
+    private static final IComparisonService bcs = new BasicComparisonService();
 
     @Test
     public void testBasicComparisonServiceWithOneIteration() {

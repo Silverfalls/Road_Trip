@@ -8,6 +8,6 @@ public interface IUserInterface {
     /**
      * Execute the UI implementation
      */
-    public void execute();
+    void execute();
 
 }

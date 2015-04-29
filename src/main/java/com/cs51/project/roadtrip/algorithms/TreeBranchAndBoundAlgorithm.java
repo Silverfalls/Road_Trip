@@ -205,7 +205,6 @@ public class TreeBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
         result.setCalculatedDistance(getDistance(currentOptimal, graph));
         result.setCalculatedPath(currentOptimal);
         result.setGraphSize(graph.getGraphSize());
-        result.setFinished(true);
         result.setIterations(iterations);
         iterations = 0;
 

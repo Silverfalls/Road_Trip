@@ -29,9 +29,6 @@ public class BruteForceAlgorithmTest {
     private static IGraph graph;
     private static IGraph graph2;
 
-    private static List<Node> baseList;
-    private static List<Node> baseList2;
-
     private static Node n0;
     private static Node n1;
     private static Node n2;
@@ -48,7 +45,7 @@ public class BruteForceAlgorithmTest {
         n1 = new Node(1, 50, 89, "N1", false);
         n2 = new Node(2, 99, 77, "N2", false);
         n3 = new Node(3, 43, 4, "N3", false);
-        baseList = new ArrayList<>(4);
+        List<Node> baseList = new ArrayList<>(4);
         baseList.add(n0);
         baseList.add(n1);
         baseList.add(n2);
@@ -60,7 +57,7 @@ public class BruteForceAlgorithmTest {
         n21 = new Node(2, 0, 0, "N2", false);
         n22 = new Node(1, 100, 0, "N1", false);
         n23 = new Node(3, 100, 100, "N3", false);
-        baseList2 = new ArrayList<>(4);
+        List<Node> baseList2 = new ArrayList<>(4);
         baseList2.add(n20);
         baseList2.add(n21);
         baseList2.add(n22);

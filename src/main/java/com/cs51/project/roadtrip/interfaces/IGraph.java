@@ -15,21 +15,21 @@ public interface IGraph {
      * Get a list of all nodes in the graph
      * @return list of nodes
      */
-    public List<Node> getListOfNodes();
+    List<Node> getListOfNodes();
 
     /**
      * Get a node by its ID
      * @param id ID of the node
      * @return the node
      */
-    public Node getNodeById(long id);
+    Node getNodeById(long id);
 
     /**
      * Get a node by its name
      * @param name name of the node
      * @return the node
      */
-    public Node getNodeByName(String name);
+    Node getNodeByName(String name);
 
     /**
      * Get a random neighbor of the node you pass in
@@ -37,7 +37,7 @@ public interface IGraph {
      * @return the random neighbor
      */
     @SuppressWarnings("unused")
-    public Node getRandomNeighbor(Node n1);
+    Node getRandomNeighbor(Node n1);
 
     /**
      * Get a random neighbor of the node you pass in that is unvisited
@@ -45,35 +45,35 @@ public interface IGraph {
      * @return the random neighbor
      */
     @SuppressWarnings("unused")
-    public Node getRandomUnvisitedNeighbor(Node n1);
+    Node getRandomUnvisitedNeighbor(Node n1);
 
     /**
      * Get the closest neighbor from the node you pass in
      * @param n1 the node
      * @return the closest neighbor
      */
-    public Node getClosestNeighbor(Node n1);
+    Node getClosestNeighbor(Node n1);
 
     /**
      * Get the closest neighbor from the node you pass in that is unvisited
      * @param n1 the node
      * @return the closest neighbor
      */
-    public Node getClosestUnvisitedNeighbor(Node n1);
+    Node getClosestUnvisitedNeighbor(Node n1);
 
     /**
      * Get the neighbor that is the furthest away from the node you pass in
      * @param n1 the node
      * @return the furthest neighbor
      */
-    public Node getFurthestNeighbor(Node n1);
+    Node getFurthestNeighbor(Node n1);
 
     /**
      * Get the neighbor that is the furthest away from the node you pass in that is unvisited
      * @param n1 the node
      * @return the furthest unvisited neighbor
      */
-    public Node getFurthestUnvisitedNeighbor(Node n1);
+    Node getFurthestUnvisitedNeighbor(Node n1);
 
     /**
      * Get the distance between two nodes
@@ -81,37 +81,37 @@ public interface IGraph {
      * @param n2 node 2
      * @return distance between node 1 and node 2
      */
-    public BigDecimal getDistance(Node n1, Node n2);
+    BigDecimal getDistance(Node n1, Node n2);
 
     /**
      * get the starting node
      * @return starting node
      */
-    public Node getStartingNode();
+    Node getStartingNode();
 
     /**
      * get the distance matrix of this graph
      * @return the distance matrix
      */
-    public TreeMap<Node, TreeMap<Node, BigDecimal>> getDistanceMatrix();
+    TreeMap<Node, TreeMap<Node, BigDecimal>> getDistanceMatrix();
 
     /**
      * Get all neighbors to a node
      * @param node the node
      * @return all neighbors to the node
      */
-    public List<Node> getAllNeighbors(Node node);
+    List<Node> getAllNeighbors(Node node);
 
     /**
      * Get the size of the graph which means the number of nodes in it
      * @return graph size
      */
-    public int getGraphSize();
+    int getGraphSize();
 
     /**
      * Make a copy of an existing Graph
      * @return the copy of the graph
      */
-    public IGraph getClone();
+    IGraph getClone();
 
 }

@@ -17,7 +17,7 @@ public class ListGraph implements IGraph {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(ListGraph.class);
+    private static final Logger logger = Logger.getLogger(ListGraph.class);
 
     private static final String NODE_NAME_PREFIX = "N";
     private static final int MAX_PLANE_COORD = 100;
@@ -45,7 +45,7 @@ public class ListGraph implements IGraph {
         initGraph(numNodes);
     }
 
-    public void initGraph(int numNodes) {
+    private void initGraph(int numNodes) {
 
         nodes = new ArrayList<>(numNodes);
         random = new Random();
@@ -286,8 +286,8 @@ public class ListGraph implements IGraph {
     }
 
     private class Coordinate {
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
 
         private Coordinate(int x, int y) {
             this.x = x;

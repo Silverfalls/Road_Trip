@@ -19,7 +19,7 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(NearestNeighborAlgorithm.class);
+    private static final Logger logger = Logger.getLogger(NearestNeighborAlgorithm.class);
 
     @Override
     public Result execute(IGraph graph) {
@@ -51,7 +51,6 @@ public class NearestNeighborAlgorithm extends BaseAlgorithm implements IAlgorith
         result.setCalculatedDistance(getDistance(shortestPath, graph));
         result.setCalculatedPath(shortestPath);
         result.setGraphSize(graph.getGraphSize());
-        result.setFinished(true);
         result.setName(AlgType.NEAREST_NEIGHBOR.getName());
         result.setIterations(iterations);
 

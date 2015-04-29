@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 /**
  * Starting point for the Road Trip program
  */
-public class Main {
+class Main {
 
     private static Logger logger = Logger.getLogger(Main.class);
 

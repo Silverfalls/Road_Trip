@@ -18,7 +18,7 @@ public enum AlgType {
     private final String name;
     private final String desc;
     private final String optionChar;
-    private boolean isOptimal;
+    private final boolean isOptimal;
     private final IAlgorithm alg;
 
     AlgType(String name, String desc, String optionChar, boolean isOptimal, IAlgorithm alg) {

@@ -25,10 +25,10 @@ public class ApproximateComparisonService implements IComparisonService {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(ApproximateComparisonService.class);
+    private static final Logger logger = Logger.getLogger(ApproximateComparisonService.class);
 
-    List<Result> approxResults = null;
-    Result optimalResult = null;
+    private List<Result> approxResults = null;
+    private Result optimalResult = null;
 
     /**
      * executes the Compare Accuracy comparison

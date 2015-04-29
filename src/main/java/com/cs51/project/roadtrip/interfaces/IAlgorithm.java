@@ -10,5 +10,5 @@ public interface IAlgorithm {
     /**
      * Executes this specific algorithm on a graph
      */
-    public Result execute(IGraph graph);
+    Result execute(IGraph graph);
 }

@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Runs the selected algorithms on the same graph n times.  If n is > 1, it averages the running
@@ -18,9 +19,9 @@ public class BasicComparisonService implements IComparisonService {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(BasicComparisonService.class);
+    private static final Logger logger = Logger.getLogger(BasicComparisonService.class);
 
-    List<Result> avgResults;
+    private List<Result> avgResults;
 
     public List<Result> executeComparison(IGraph graph, List<IAlgorithm> algs, int numCycles) {
 
@@ -68,9 +69,7 @@ public class BasicComparisonService implements IComparisonService {
         if (avgResults == null) {
             if (current != null) {
                 avgResults = new ArrayList<>();
-                for (Result r : current) {
-                    avgResults.add(r);
-                }
+                avgResults.addAll(current.stream().collect(Collectors.toList()));
             } else {
                 logger.error("addResults | average list and current list are null");
             }
@@ -78,16 +77,14 @@ public class BasicComparisonService implements IComparisonService {
         }
 
         for (Result r : avgResults) {
-            for (Result cr : current) {
-                //merge the results however you want based on the field
-                if (r.getName().equals(cr.getName())) {
-                    r.setCalculatedPath(cr.getCalculatedPath());
-                    r.setGraphSize(cr.getGraphSize());
-                    r.setCalculatedDistance(cr.getCalculatedDistance());
-                    r.setRunningTime(r.getRunningTime() + cr.getRunningTime());
-                    r.setIterations(r.getIterations() + cr.getIterations());
-                }
-            }
+            //merge the results however you want based on the field
+            current.stream().filter(cr -> r.getName().equals(cr.getName())).forEach(cr -> {
+                r.setCalculatedPath(cr.getCalculatedPath());
+                r.setGraphSize(cr.getGraphSize());
+                r.setCalculatedDistance(cr.getCalculatedDistance());
+                r.setRunningTime(r.getRunningTime() + cr.getRunningTime());
+                r.setIterations(r.getIterations() + cr.getIterations());
+            });
         }
     }
 

@@ -13,7 +13,6 @@ public class Result {
     private long iterations;
     private String name;
     private int graphSize;
-    private boolean finished;
     private List<Node> calculatedPath;
     private BigDecimal calculatedDistance;
     private Integer numIncorrectSolutions;
@@ -79,7 +78,4 @@ public class Result {
         this.graphSize = graphSize;
     }
 
-    public void setFinished(boolean finished) {
-        this.finished = finished;
-    }
 }

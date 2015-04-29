@@ -4,10 +4,10 @@ package com.cs51.project.roadtrip.graphs;
  * Node POJO used to hold information about 'cities' in the traveling salesman problem
  */
 public class Node implements Comparable {
-    private long id;
-    private int xCoord;
-    private int yCoord;
-    private String name;
+    private final long id;
+    private final int xCoord;
+    private final int yCoord;
+    private final String name;
     private boolean isStartingNode;
     private boolean visited;
 

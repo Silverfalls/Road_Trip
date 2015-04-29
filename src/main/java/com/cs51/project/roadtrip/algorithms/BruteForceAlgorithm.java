@@ -19,7 +19,7 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
+    private static final Logger logger = Logger.getLogger(BruteForceAlgorithm.class);
 
     private Node startingNode = null;
 
@@ -80,7 +80,6 @@ public class BruteForceAlgorithm extends BaseAlgorithm implements IAlgorithm {
         result.setCalculatedDistance(shortestPathDistance);
         result.setCalculatedPath(shortestPath);
         result.setGraphSize(graph.getGraphSize());
-        result.setFinished(true);
         result.setIterations(iterations);
 
         shortestPathDistance = BigDecimal.ZERO;

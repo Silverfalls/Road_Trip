@@ -12,7 +12,7 @@ public class AlgTypeTest {
     /**
      * Logger Instance
      */
-    private static Logger logger = Logger.getLogger(AlgTypeTest.class);
+    private static final Logger logger = Logger.getLogger(AlgTypeTest.class);
 
     @Test
     public void testThereAreNoNullFields() {

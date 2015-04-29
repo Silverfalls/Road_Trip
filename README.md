@@ -15,6 +15,15 @@ jar file. Otherwise execute the following in the console:
 
 java -jar "path to RoadTrip.jar"
 
+Mac
+Install Java 8 from the official Java.com site.  Here is a link:
+http://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html
+
+Open terminal and execute the following command:
+java -jar "path to RoadTrip.jar"
+
+
+
 HOW TO USE ROAD TRIP:
 
 To run a certain type of comparison, simply enter the corresponding 

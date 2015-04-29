@@ -10,8 +10,7 @@ java -jar "path to RoadTrip.jar"
 
 Windows
 Install Java 8 from the official java.com site.
-If the jar filetype is connected to java then you can just double click the
-jar file. Otherwise execute the following in the console:
+Then you can execute the following in the console:
 
 java -jar "path to RoadTrip.jar"
 
@@ -22,6 +21,11 @@ http://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html
 Open terminal and execute the following command:
 java -jar "path to RoadTrip.jar"
 
+Important:
+For bigger graphs you have to adjust the default java heapspace settings with
+"-Xms???" and "-Xmx???". Xms specifies the initial memory of the programm and
+Xmx the maximum value that the JVM will allocate. Example values could be
+"java -jar "path to RoadTrip.jar" -Xms256m -Xmx2048m".
 
 
 HOW TO USE ROAD TRIP:

@@ -86,35 +86,39 @@ reports how many times each non-exact solution was not the optimal solution
 and on average how far off the optimal solution it was.
 
 
-
 What does each algorithm do?
 
 Brute Force Algorithm:
 
-The Brute Force algorithm is a naive solution to the TSP.  
-It simply calculates every possible route, adds up the cost of the that 
+The Brute Force algorithm is a naive solution to the TSP.
+It simply calculates every possible route, adds up the cost of the that
 route and picks the lowest cost route.
 
 This is an exact algorithm.
 
-An iteration for this algorithm means that
+An iteration for this algorithm means that the algorithm checked one complete
+path.
 
 
 Nearest Neighbor Algorithm:
 
-The Nearest Neighbor algorithm is a greedy algorithm that simply keeps 
-picking the next closest node and marking it as visited.  Once all nodes 
-have been visited, it adds a trip back to the starting node to the tour 
+The Nearest Neighbor algorithm is a greedy algorithm that simply keeps
+picking the next closest node and marking it as visited.  Once all nodes
+have been visited, it adds a trip back to the starting node to the tour
 and is complete.
 
 This is a non-exact algorithm.
 
-An iteration for this algorithm means that
+An iteration for this algorithm means that the algorithm added one node to it's
+path.
 
 
-Branch and Bound Algorithm (List Based):
+Branch and Bound Algorithm (List Based & Tree Based):
 
+The Branch and Bound algorithm keeps extending branches one node at a time until
+it becomes apparent that route can not be the shortest route.  For example, say
+it already has found a route that is total cost of 100.  If any other routes are
+already 100 or greater and not yet finished, there is no way they could be the
+shortest branch and shouldn't be considered further.
 
-
-Branch and Bound Algorithm (Tree Based):
-
+An iteration for this algorithm means that the algorithm added a path branch.

@@ -38,10 +38,12 @@ An iteration for this algorithm means that the algorithm added one node to it's
 path.
 
 
-Branch and Bound Algorithm (List Based):
+Branch and Bound Algorithm (List Based & Tree Based):
 
-
-
-Branch and Bound Algorithm (Tree Based):
+The Branch and Bound algorithm keeps extending branches one node at a time until
+it becomes apparent that route can not be the shortest route.  For example, say
+it already has found a route that is total cost of 100.  If any other routes are
+already 100 or greater and not yet finished, there is no way they could be the
+shortest branch and shouldn't be considered further.
 
 An iteration for this algorithm means that the algorithm added a path branch.

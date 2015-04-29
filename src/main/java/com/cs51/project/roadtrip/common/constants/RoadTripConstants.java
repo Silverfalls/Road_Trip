@@ -7,8 +7,8 @@ public class RoadTripConstants {
 
     //string constants
     public static final String PROGRAM_NAME = "Road Trip";
-    public static final String PATH_TO_GENERAL_HELP_FILE = "src/resources/help/general_help.txt";
-    public static final String PATH_TO_ALGORITHM_CHOICE_HELP_FILE = "src/resources/help/algorithm_help.txt";
+    public static final String PATH_TO_GENERAL_HELP_FILE = "/resources/help/general_help.txt";
+    public static final String PATH_TO_ALGORITHM_CHOICE_HELP_FILE = "/resources/help/algorithm_help.txt";
     public static final String TOUR_PATH_SEPARATOR = " -> ";
 
     //integer constants

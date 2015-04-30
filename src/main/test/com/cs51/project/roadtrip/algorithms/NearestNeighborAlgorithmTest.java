@@ -91,12 +91,12 @@ public class NearestNeighborAlgorithmTest {
 
         //check the result values of the NearestNeighbor
 
-        assertEquals("Wrong number of iterations", 0, result.getIterations());
+        assertEquals("Wrong number of iterations", 4, result.getIterations());
         assertEquals("Wrong calculated path", expectedResult, result.getCalculatedPath());
         assertEquals("Wrong calculated distance", new BigDecimal("256.46"), result.getCalculatedDistance());
         assertEquals("Wrong graph size", 4, result.getGraphSize());
 
-        assertEquals("Wrong number of iterations", 0, result2.getIterations());
+        assertEquals("Wrong number of iterations", 4, result2.getIterations());
         assertEquals("Wrong calculated path", expectedResult2, result2.getCalculatedPath());
         assertEquals("Wrong calculated distance", new BigDecimal("400.00"), result2.getCalculatedDistance());
         assertEquals("Wrong graph size", 4,result2.getGraphSize());

@@ -80,8 +80,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                         pruneBranches();
                     }
                 } else {
-                    logger.warn("execute | for some reason, getClosestNeighborToNode returned null but the branch did" +
-                        " not pass the visitedEverywhere check");
+                    logger.info("execute | not all nodes are visited jet");
                 }
                 branches.remove(branch);
             }
@@ -228,7 +227,7 @@ public class ListBranchAndBoundAlgorithm extends BaseAlgorithm implements IAlgor
                     nodeToReturn = n;
                     continue;
                 }
-                if (d.compareTo(distance) ==  -1) {
+                if (d.compareTo(distance) == -1) {
                     distance = d;
                     nodeToReturn = n;
                 }

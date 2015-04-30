@@ -92,15 +92,15 @@ public class ListBranchAndBoundAlgorithmTest {
 
         //check the result values of the TreeBranchAndBound
 
-        assertEquals(26, result.getIterations());
-        assertEquals(expectedResult, result.getCalculatedPath());
-        assertEquals(new BigDecimal("256.46"), result.getCalculatedDistance());
-        assertEquals(4, result.getGraphSize());
+        assertEquals("Wrong number of iterations", 26, result.getIterations());
+        assertEquals("Wrong calculated path", expectedResult, result.getCalculatedPath());
+        assertEquals("Wrong calculated distance", new BigDecimal("256.46"), result.getCalculatedDistance());
+        assertEquals("Wrong graph size", 4, result.getGraphSize());
 
-        assertEquals(27, result2.getIterations());
-        assertEquals(expectedResult2, result2.getCalculatedPath());
-        assertEquals(new BigDecimal("400.00"), result2.getCalculatedDistance());
-        assertEquals(4,result2.getGraphSize());
+        assertEquals("Wrong number of iterations", 27, result2.getIterations());
+        assertEquals("Wrong calculated path", expectedResult2, result2.getCalculatedPath());
+        assertEquals("Wrong calculated distance", new BigDecimal("400.00"), result2.getCalculatedDistance());
+        assertEquals("Wrong graph size", 4,result2.getGraphSize());
     }
 
 }

@@ -12,11 +12,10 @@ import com.cs51.project.roadtrip.interfaces.IGraph;
 import com.cs51.project.roadtrip.interfaces.IUserInterface;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -325,35 +324,21 @@ public class CommandLineUI implements IUserInterface {
 
         List<AlgType> algs = new ArrayList<>();
 
-        //print a prompt
-        System.out.println("From the list below, choose the algorithms you would like to compare");
-        System.out.println("enter H for help on how to pick and choose algorithms");
-        System.out.println("enter * to choose all of them\n");
-
-        //print the algorithm choices
-        for (AlgType algType : AlgType.values()) {
-            System.out.println(algType.getOptionChar() + " : " + algType.getName());
-        }
-
         Scanner scanner = new Scanner(System.in);
         while (true) {
 
+            printAlgOptions();
+
             String command = scanner.next();
-            boolean validInput = false;
+            boolean validInput;
 
             if (WILDCARD.equals(command)) {
                 algs = Arrays.asList(AlgType.values());
                 validInput = true;
             } else {
                 if (HELP_OPTION_CHAR.equals(command.toUpperCase())) {
-                    try {
-                        Path path = Paths.get(RoadTripConstants.PATH_TO_ALGORITHM_CHOICE_HELP_FILE);
-                        Files.lines(path).forEach(System.out::println);
-                        validInput = true;
-                    } catch (IOException eio) {
-                        System.out.println("Could not read the help file. Please check the logs for more info");
-                        logger.error("getAlgorithmsToCompareFromUser | error reading help file", eio);
-                    }
+                    printFromFile(RoadTripConstants.PATH_TO_ALGORITHM_CHOICE_HELP_FILE);
+                    validInput = true;
                 } else {
                     //split up the input and choose the appropriate algorithms
                     String[] tokens = command.split("(?!^)");
@@ -388,6 +373,19 @@ public class CommandLineUI implements IUserInterface {
         }
 
         return algs;
+    }
+
+    //print the available algorithms
+    private void printAlgOptions() {
+        //print a prompt
+        System.out.println("\nFrom the list below, choose the algorithms you would like to compare");
+        System.out.println("enter H for help on how to pick and choose algorithms");
+        System.out.println("enter * to choose all of them\n");
+
+        //print the algorithm choices
+        for (AlgType algType : AlgType.values()) {
+            System.out.println(algType.getOptionChar() + " : " + algType.getName());
+        }
     }
 
     //prints the node distance matrix to stdout
@@ -452,13 +450,7 @@ public class CommandLineUI implements IUserInterface {
             logger.debug("showHelp | start...");
         }
 
-        try {
-            Path path = Paths.get(RoadTripConstants.PATH_TO_GENERAL_HELP_FILE);
-            Files.lines(path).forEach(System.out::println);
-        } catch (IOException eio) {
-            System.out.println("Could not read the help file. Please check the logs for more info");
-            logger.error("showHelp | error reading help file",eio);
-        }
+        printFromFile(RoadTripConstants.PATH_TO_GENERAL_HELP_FILE);
 
         if (logger.isDebugEnabled()) {
             logger.debug("showHelp | end...");
@@ -475,6 +467,21 @@ public class CommandLineUI implements IUserInterface {
 
         if (logger.isDebugEnabled()) {
             logger.debug("displayInvalidInputWarning | end...");
+        }
+    }
+
+    //print the lines of a file to the console
+    private void printFromFile(String path) {
+        String line;
+        InputStream in = getClass().getResourceAsStream(path);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        try {
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (Exception e) {
+            System.out.println("Could not read the file. Please check the logs for more info");
+            logger.error("printFromFile | error reading line from file : " + path, e);
         }
     }
 

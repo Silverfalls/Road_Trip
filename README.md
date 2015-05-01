@@ -6,26 +6,26 @@ http://tecadmin.net/install-oracle-java-8-jdk-8-ubuntu-via-ppa/
 
 if Java is successfully installed open up the terminal and enter the following:
 
-java -jar /path/to/RoadTrip.jar
+java -jar /path/to/Road_Trip.jar
 
 Windows
 Install Java 8 from the official java.com site.
 Then you can execute the following in the console:
 
-java -jar /path/to/RoadTrip.jar
+java -jar /path/to/Road_Trip.jar
 
 Mac
 Install Java 8 from the official Java.com site.  Here is a link:
 http://docs.oracle.com/javase/8/docs/technotes/guides/install/mac_jdk.html
 
 Open terminal and execute the following command:
-java -jar /path/to/RoadTrip.jar
+java -jar /path/to/Road_Trip.jar
 
 Important:
 For bigger graphs you have to adjust the default java heapspace settings with
 "-Xms???" and "-Xmx???". Xms specifies the initial memory of the programm and
 Xmx the maximum value that the JVM will allocate. Example values could be
-"java -jar /path/to/RoadTrip.jar -Xms256m -Xmx2048m".
+"java -jar /path/to/Road_Trip.jar -Xms256m -Xmx2048m".
 
 
 HOW TO USE ROAD TRIP:
